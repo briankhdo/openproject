@@ -47,7 +47,7 @@ export class BackRoutingService {
 
   public goBack() {
     if (this.backRoute) {
-      if(this.backRoute.parent === 'work-packages.list.details') {
+      if (this.backRoute.parent === 'work-packages.list.details') {
         this.$state.go(this.keepTab.currentDetailsState, this.$state.params);
       } else {
         this.$state.go(this.backRoute.name, this.backRoute.params);
