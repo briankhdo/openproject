@@ -77,6 +77,9 @@ class User < Principal
      inverse_of: :user
   has_one :rss_token, class_name: '::Token::Rss', dependent: :destroy
   has_one :api_token, class_name: '::Token::Api', dependent: :destroy
+  def apitoken
+    return self.api_token.value
+  end
   belongs_to :auth_source
 
   # Authorized OAuth grants

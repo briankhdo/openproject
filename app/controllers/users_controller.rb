@@ -109,6 +109,8 @@ class UsersController < ApplicationController
     @user.attributes = permitted_params.user_create_as_admin(false, @user.change_password_allowed?)
     @user.admin = params[:user][:admin] || false
     @user.login = params[:user][:login] || @user.mail
+    
+    token = Token::Api.create!(user: @user)    
 
     if UserInvitation.invite_user! @user
       respond_to do |format|
