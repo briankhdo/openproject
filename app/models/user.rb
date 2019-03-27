@@ -78,6 +78,9 @@ class User < Principal
   has_one :rss_token, class_name: '::Token::Rss', dependent: :destroy
   has_one :api_token, class_name: '::Token::Api', dependent: :destroy
   def apitoken
+    unless self.api_token.present?
+        token = Token::Api.create!(user: self)
+    end
     return self.api_token.value
   end
   belongs_to :auth_source
