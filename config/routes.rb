@@ -29,6 +29,13 @@
 
 OpenProject::Application.routes.draw do
   root to: 'homescreen#index', as: 'home'
+
+  scope '/api/v3', module: 'appota_api' do
+    post '/projects', to: 'projects#create'
+    put '/projects/:id', to: 'projects#update'
+    delete '/projects/:id', to: 'projects#destroy'
+  end
+
   rails_relative_url_root = OpenProject::Configuration['rails_relative_url_root'] || ''
 
   # Redirect deprecated issue links to new work packages uris
