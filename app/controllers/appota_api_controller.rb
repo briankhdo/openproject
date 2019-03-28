@@ -1,4 +1,4 @@
-class AppotaApiController < ActionController::Base\
+class AppotaApiController < ActionController::Base
   before_action :verify_api_token
 
   def verify_api_token
