@@ -1,5 +1,4 @@
-class AppotaApiController < ApplicationController
-  skip_before_action :verify_authenticity_token
+class AppotaApiController < ActionController::Base\
   before_action :verify_api_token
 
   def verify_api_token
