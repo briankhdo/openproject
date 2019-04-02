@@ -16,7 +16,10 @@ class AppotaApiController < ActionController::Base
         end
       end
     end
-    render status: 403, json: {}
+    render status: 403, json: {
+      _type: "Error",
+      "message": "Unauthorized"
+    }
     return false
   end
 end

@@ -5,7 +5,7 @@ class AppotaApi::ProjectsController < AppotaApiController
   end
 
   def update
-    allowed_params = [:name, :description, :identifier]
+    allowed_params = [:name, :description, :identifier, :status]
     project_id = params[:id]
     project = Project.where(id: project_id).first
     if project.present?
@@ -35,7 +35,7 @@ class AppotaApi::ProjectsController < AppotaApiController
   end
 
   def parse_params
-    allowed_params = [:id, :name, :description, :is_public, :parent_id, :identifier]
+    allowed_params = [:id, :name, :description, :is_public, :parent_id, :identifier, :status]
     request_params = params.permit!.to_h.deep_symbolize_keys
     return request_params.select { |k, v| allowed_params.include? k }
   end
