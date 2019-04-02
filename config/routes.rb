@@ -30,7 +30,7 @@
 OpenProject::Application.routes.draw do
   root to: 'homescreen#index', as: 'home'
 
-  scope '/api/v3', module: 'appota_api' do
+  scope '/appop/api/v1', module: 'appota_api' do
     post '/projects', to: 'projects#create', as: :appota_create_project
     put '/projects/:id', to: 'projects#update', as: :appota_update_project
     delete '/projects/:id', to: 'projects#destroy', as: :appota_delete_project
