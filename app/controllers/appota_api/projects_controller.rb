@@ -7,7 +7,7 @@ class AppotaApi::ProjectsController < AppotaApiController
   def update
     allowed_params = [:name, :description, :identifier, :status]
     project_id = params[:id]
-    project = Project.where(id: project_id).first
+    project = Project.where("id = ? OR identifier = ?", project_id).first
     if project.present?
       update_params = parse_params.select { |k, v| allowed_params.include? k }
       project.update(update_params)
@@ -22,7 +22,7 @@ class AppotaApi::ProjectsController < AppotaApiController
 
   def destroy
     project_id = params[:id]
-    project = Project.where(id: project_id).first
+    project = Project.where("id = ? OR identifier = ?", project_id).first
     if project.present?
       project.destroy
       render json: render_project(project)
