@@ -7,30 +7,38 @@ class AppotaApi::ProjectsController < AppotaApiController
 
   def update
     allowed_params = [:name, :description, :identifier, :is_public, :parent_id, :status]
-    project_id = params[:id]
-    project = Project.where("id = ? OR identifier = ?", project_id).first
-    if project.present?
+    @project_id = params[:id]
+    if @project_id.to_i.to_s != @project_id
+      @project = Project.where(identifier: @project_id).first
+    else
+      @project = Project.where(id: @project_id).first
+    end
+    if @project.present?
       update_params = parse_params.select { |k, v| allowed_params.include? k }
-      project.update(update_params)
-      render json: render_project(project)
+      @project.update(update_params)
+      render json: render_project(@project)
     else
       render status: 404, json: {
         _type: "Error",
-        message: "Project ID: #{project_id} was not found"
+        message: "Project ID: #{@project_id} was not found"
       }
     end
   end
 
   def destroy
-    project_id = params[:id]
-    project = Project.where("id = ? OR identifier = ?", project_id).first
-    if project.present?
-      project.archive
-      render json: render_project(project)
+    @project_id = params[:id]
+    if @project_id.to_i.to_s != @project_id
+      @project = Project.where(identifier: @project_id).first
+    else
+      @project = Project.where(id: @project_id).first
+    end
+    if @project.present?
+      @project.archive
+      render json: render_project(@project)
     else
       render status: 404, json: {
         _type: "Error",
-        message: "Project ID: #{project_id} was not found"
+        message: "Project ID: #{@project_id} was not found"
       }
     end
   end

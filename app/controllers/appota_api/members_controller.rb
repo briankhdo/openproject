@@ -71,7 +71,7 @@ class AppotaApi::MembersController < AppotaApiController
 private
   def set_project_and_member
     @project_id = params[:project_id]
-    if @project_id.to_i != @project_id
+    if @project_id.to_i.to_s != @project_id
       @project = Project.where(identifier: @project_id).first
     else
       @project = Project.where(id: @project_id).first
