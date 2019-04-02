@@ -6,7 +6,7 @@ class AppotaApi::ProjectsController < AppotaApiController
   end
 
   def update
-    allowed_params = [:name, :description, :identifier, :status]
+    allowed_params = [:name, :description, :identifier, :is_public, :parent_id, :status]
     project_id = params[:id]
     project = Project.where("id = ? OR identifier = ?", project_id).first
     if project.present?
@@ -50,7 +50,7 @@ class AppotaApi::ProjectsController < AppotaApiController
     else
       project_json = {}
       project_json[:_type] = "Project"
-      project_json = project_json.merge(project.as_json(only: [:id, :identifier, :name, :description, :created_at, :updated_at]))
+      project_json = project_json.merge(project.as_json(only: [:id, :identifier, :name, :description, :status, :created_on, :updated_on]))
       return project_json
     end
   end

@@ -33,7 +33,7 @@ OpenProject::Application.routes.draw do
   scope '/appop/api/v1', module: 'appota_api' do
     post '/projects', to: 'projects#create', as: :appota_create_project
     put '/projects/:id', to: 'projects#update', as: :appota_update_project
-    delete '/projects/:id', to: 'projects#destroy', as: :appota_delete_project
+    post '/projects/:id/archive', to: 'projects#destroy', as: :appota_archive_project
 
     get '/projects/:project_id/members', to: 'members#index', as: :appota_list_members
     post '/projects/:project_id/members', to: 'members#create', as: :appota_create_member
