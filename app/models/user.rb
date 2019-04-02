@@ -151,6 +151,12 @@ class User < Principal
 
   scope :newest, -> { not_builtin.order(created_on: :desc) }
 
+  after_create :generate_api_token
+
+  def generate_api_token
+    Token::Api.create!(user: self)
+  end
+
   def self.unique_attribute
     :login
   end
