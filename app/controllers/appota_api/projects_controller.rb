@@ -24,7 +24,7 @@ class AppotaApi::ProjectsController < AppotaApiController
     project_id = params[:id]
     project = Project.where("id = ? OR identifier = ?", project_id).first
     if project.present?
-      project.destroy
+      project.archive
       render json: render_project(project)
     else
       render status: 404, json: {
