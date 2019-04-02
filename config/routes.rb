@@ -39,6 +39,8 @@ OpenProject::Application.routes.draw do
     post '/projects/:project_id/members', to: 'members#create', as: :appota_create_member
     put '/projects/:project_id/members', to: 'members#update', as: :appota_update_member
     delete '/projects/:project_id/members/:user_id', to: 'members#destroy', as: :appota_delete_member
+
+    post '/work_packages/:work_package_id/costlog', to: 'costlog#create', as: :appota_costlog
   end
 
   rails_relative_url_root = OpenProject::Configuration['rails_relative_url_root'] || ''

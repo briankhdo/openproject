@@ -1,6 +1,7 @@
 class AppotaApi::ProjectsController < AppotaApiController
   def create
     new_project = Project.create(parse_params)
+    new_project.enabled_module_names += ["reporting_module", "costs_module"]
     render json: render_project(new_project)
   end
 
