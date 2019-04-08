@@ -142,6 +142,11 @@ module API
                  render_nil: true,
                  getter: ->(*) { pref.hide_mail ? nil : mail }
 
+        property :apitoken,
+                 exec_context: :decorator,
+                 getter: ->(*) { represented.apitoken },
+                 render_nil: false
+
         property :avatar,
                  exec_context: :decorator,
                  getter: ->(*) { avatar_url(represented) },

@@ -157,6 +157,13 @@ class User < Principal
     Token::Api.create!(user: self)
   end
 
+  def apitoken
+    if self.api_token.present?
+      return self.api_token.value
+    end
+    return nil
+  end
+
   def self.unique_attribute
     :login
   end
