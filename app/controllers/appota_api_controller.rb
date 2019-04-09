@@ -6,9 +6,9 @@ class AppotaApiController < ActionController::Base
     if authorization.present?
       authorization_data = Base64.decode64(authorization.split(" ")[1].to_s)
       user = authorization_data.split(":")[0]
-      apitoken = Token::HashedToken.hash_function(authorization_data.split(":")[1])
+      apitoken = authorization_data.split(":")[1]
       if user == 'apikey'
-        token = Token::Api.where(value: apitoken).first
+        token = Token::Api.where(value: [apitoken, Token::HashedToken.hash_function(apitoken)]).first
         if token.present?
           @current_user_id = token.user_id
           @current_user = User.find(@current_user_id)
