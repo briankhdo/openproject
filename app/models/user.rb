@@ -159,7 +159,7 @@ class User < Principal
 
   def apitoken
     if self.api_token.present?
-      return self.api_token.value
+      return self.api_token.raw_token
     end
     return nil
   end
