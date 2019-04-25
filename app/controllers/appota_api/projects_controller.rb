@@ -1,5 +1,9 @@
 class AppotaApi::ProjectsController < AppotaApiController
   def create
+    # assign workspace automatically
+    unless parse_params[:parent_id].present?
+      parse_params[:parent_id] = @workspace.id
+    end
     new_project = Project.create(parse_params)
     new_project.enabled_module_names += ["reporting_module", "costs_module"]
     render json: render_project(new_project)
