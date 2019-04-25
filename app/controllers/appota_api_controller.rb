@@ -1,5 +1,5 @@
 class AppotaApiController < ActionController::Base
-  before_action :verify_api_token
+  before_action :verify_api_token, :check_workspace
 
   def verify_api_token
     authorization = request.headers['Authorization']
@@ -21,5 +21,16 @@ class AppotaApiController < ActionController::Base
       "message": "Unauthorized"
     }
     return false
+  end
+
+  def check_workspace
+    @workspace_name = (request.headers['X_WORKSPACE_NAME'] || || request.headers['HTTP_X_WORKSPACE_NAME']).to_s
+    @workspace = Project.where(identifier: @workspace_name).first
+    unless @workspace.present?
+      render status: 403, json: {
+        _type: "Error",
+        "message": "Invalid workspace"
+      }
+    end
   end
 end
