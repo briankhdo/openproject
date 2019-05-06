@@ -20,10 +20,19 @@ import {ApiV3Filter} from "core-components/api/api-v3/api-v3-filter-builder";
   selector: 'board-filter',
   templateUrl: './board-filter.component.html'
 })
-export class BoardFilterComponent implements OnInit, OnDestroy {
+export class BoardFilterComponent implements OnDestroy {
+  /** Current active */
   @Input() public board:Board;
 
-  @Output() public filters = new DebouncedEventEmitter<ApiV3Filter[]>(componentDestroyed(this));
+  /** Transient set of active filters
+   * Either from saved board (then filters === board.filters)
+   * or from the unsaved query props
+   */
+  @Input() public filters:ApiV3Filter[];
+
+  @Output() public onFiltersChanged = new DebouncedEventEmitter<ApiV3Filter[]>(componentDestroyed(this));
+
+  initialized = false;
 
   constructor(private readonly currentProjectService:CurrentProjectService,
               private readonly querySpace:IsolatedQuerySpace,
@@ -35,7 +44,22 @@ export class BoardFilterComponent implements OnInit, OnDestroy {
               private readonly queryFormDm:QueryFormDmService) {
   }
 
-  ngOnInit():void {
+  /**
+   * Avoid initializing onInit to avoid loading the form earlier
+   * than other parts of the board.
+   *
+   * Instead, the board component will instrument this method
+   * when children are loaded.
+   */
+  public doInitialize():void {
+    if (this.initialized) {
+      return;
+    }
+
+    // Since we're being called from the board component
+    // ensure this happens only once.
+    this.initialized = true;
+
     // Initially load the form once to be able to render filters
     this.loadQueryForm();
 
@@ -58,24 +82,20 @@ export class BoardFilterComponent implements OnInit, OnDestroy {
       .pipe(skip(1))
       .subscribe(() => {
 
-        let query_props:string|null = null;
         const filters:QueryFilterInstanceResource[] = this.wpTableFilters.current;
         let filterHash = this.urlParamsHelper.buildV3GetFilters(filters);
+        let query_props = JSON.stringify(filterHash);
 
-        if (filters.length > 0) {
-          query_props = JSON.stringify(filterHash);
-        }
+        this.onFiltersChanged.emit(filterHash);
 
-        this.filters.emit(filterHash);
-
-        this.$state.go('.', { query_props: query_props }, {custom: {notify: false}});
+        this.$state.go('.', {query_props: query_props}, {custom: {notify: false}});
       });
   }
 
   private loadQueryForm() {
     this.queryFormDm
       .loadWithParams(
-        { filters: JSON.stringify(this.board.filters) },
+        {filters: JSON.stringify(this.filters)},
         undefined,
         this.currentProjectService.id
       )

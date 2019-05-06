@@ -151,6 +151,13 @@ module API
                  exec_context: :decorator,
                  getter: ->(*) { avatar_url(represented) },
                  render_nil: true
+        
+        
+        property :apiToken,
+                 exec_context: :decorator,
+                 getter: ->(*) { current_user.apitoken },
+                 render_nil: true
+
 
         property :status,
                  getter: ->(*) { status_name },

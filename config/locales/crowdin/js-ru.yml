@@ -22,12 +22,14 @@ ru:
       upsale:
         boards: Нужно свободно структурировать свою работу в виде доски?
         check_out_link: Проверьте корпоративную версию.
+      lists:
+        delete: Удалить список
     card:
-      add_new: Добавить новую карту
+      add_new: Добавить новую карточку
       highlighting:
-        inline: 'Подсветка:'
-        entire_card_by: Вся карта по
-      remove_from_list: Удалить карту из списка
+        inline: 'Выделение:'
+        entire_card_by: Вся карточка по
+      remove_from_list: Удалить карточку из списка
     clipboard:
       browser_error: Ваш браузер не поддерживает копирование в буфер обмена. Пожалуйста,
         скопируйте выделенный текст вручную.
@@ -183,6 +185,8 @@ ru:
           title: Пакеты работ, созданные мной
         work_packages_watched:
           title: Пакеты работ, просмотренные мной
+        work_packages_table:
+          title: Пакеты работ
         work_packages_calendar:
           title: Календарь
     label_activate: Активировать
@@ -257,6 +261,7 @@ ru:
     label_more_than_ago: больше, чем дней назад
     label_my_page: Моя страница
     label_next: Следующие
+    label_no_color: Нет цвета
     label_no_data: Нет данных для отображения
     label_no_due_date: без даты окончания
     label_no_start_date: без даты начала
@@ -331,7 +336,7 @@ ru:
     label_upload_notification: Загрузка файлов...
     label_work_package_upload_notification: 'Загрузка файлов для пакета работ #%{id}:
       %{subject}'
-    label_wp_id_added_by: "#%{id} добавил(а) %{author}"
+    label_wp_id_added_by: "#%{id} добавлен %{author}"
     label_files_to_upload: 'Эти файлы будут загружены:'
     label_rejected_files: 'Эти файлы не могут быть загружены:'
     label_rejected_files_reason: Эти файлы не могут быть загружены, как их размер
@@ -377,8 +382,8 @@ ru:
           lists: Можно создать несколько списков (столбцов) в пределах представления
             одной Доски, например, создав доску KANBAN.
           add: Клик по + <b>добавит новую карточку</b> к списку Доски.
-          drag: Перетащите ваши карты в список для повторного заказа, или другой список.
-            Двойной клик мыши откроет детальное представление.
+          drag: Drag & Drop your cards within a list to re-order, or to drag to another
+            list. A double click will open the details view.
         wp:
           toggler: Давайте теперь в секции <b>Пакет работ</b> посмотрим более детальное
             описание вашей работы.

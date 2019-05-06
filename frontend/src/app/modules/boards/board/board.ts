@@ -47,7 +47,7 @@ export class Board {
   }
 
   public get highlightingMode():CardHighlightingMode {
-    return (this.grid.options.highlightingMode || 'none') as CardHighlightingMode;
+    return (this.grid.options.highlightingMode || 'inline') as CardHighlightingMode;
   }
 
   public set name(name:string) {
@@ -55,6 +55,7 @@ export class Board {
   }
 
   public addQuery(widget:GridWidgetResource) {
+    widget.isNew = true;
     this.grid.widgets.push(widget);
   }
 
@@ -76,5 +77,11 @@ export class Board {
 
   public set filters(filters:ApiV3Filter[]) {
     this.grid.options.filters = filters;
+  }
+
+  public sortWidgets() {
+    this.grid.widgets = this.grid.widgets.sort((a, b) => {
+      return a.startColumn - b.startColumn;
+    });
   }
 }

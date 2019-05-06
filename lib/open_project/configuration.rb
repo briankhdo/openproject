@@ -37,7 +37,8 @@ module OpenProject
 
     # Configuration default values
     @defaults = {
-      'attachments_storage' => 'file',
+      'edition'                 => 'standard',
+      'attachments_storage'      => 'file',
       'attachments_storage_path' => nil,
       'attachments_grace_period' => 180,
       'autologin_cookie_name'   => 'autologin',
@@ -138,7 +139,17 @@ module OpenProject
       # Display update / security badge, enabled by default
       'security_badge_displayed' => true,
       'installation_type' => "manual",
-      'security_badge_url' => "https://releases.openproject.com/v1/check.svg"
+      'security_badge_url' => "https://releases.openproject.com/v1/check.svg",
+
+      # Check for missing migrations in internal errors
+      'migration_check_on_exceptions' => true,
+      
+      # Show pending migrations as warning bar
+      'show_pending_migrations_warning' => true,
+
+      # Render warning bars (pending migrations, deprecation, unsupported browsers)
+      # Set to false to globally disable this for all users!
+      'show_warning_bars' => true
     }
 
     @config = nil
