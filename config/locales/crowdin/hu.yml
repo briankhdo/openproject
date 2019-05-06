@@ -55,9 +55,25 @@ hu:
     index:
       no_results_content_title: Jelenleg nincs autentikációs mód.
       no_results_content_text: Új autentikációs mód létrehozása
-  boards:
+  ldap_auth_sources:
+    connection_encryption: Connection encryption
+    tls_mode:
+      plain: Nincs
+      simple_tls: simple_tls
+      start_tls: start_tls
+      plain_description: Plain unencrypted connection, no TLS negotiation.
+      simple_tls_description: Implicit TLS encryption, but no certificate validation.
+        Use with caution and implicit trust of the LDAP connection.
+      start_tls_description: Explicit TLS encryption with full validation. Use for
+        LDAP over TLS/SSL.
+      section_more_info_link_html: 'This section concerns the connection security
+        of this LDAP authentication source. For more information, visit <a href="%{link}">the
+        Net::LDAP documentation</a>.
+
+'
+  forums:
     show:
-      no_results_title_text: Jelenleg nincs hozzászólás a fórumon.
+      no_results_title_text: There are currently no posts for the forum.
   colors:
     index:
       no_results_title_text: Jelenleg nincsenek színek.
@@ -137,9 +153,9 @@ hu:
     settings:
       activities:
         no_results_title_text: Jelenleg nincs elérhető esemény.
-      boards:
-        no_results_title_text: Jelenleg nincs fórum a projekthez.
-        no_results_content_text: Új fórum létrehozása
+      forums:
+        no_results_title_text: There are currently no forums for the project.
+        no_results_content_text: Create a new forum
       categories:
         no_results_title_text: Jelenleg nincsenek munkacsomag kategóriák.
         no_results_content_text: Hozzon létre egy új munkacsomag kategóriát
@@ -181,10 +197,10 @@ hu:
       no_results_content_text: Állapot jelentés hozzáadása
   statuses:
     edit:
-      status_readonly_html: "Válaszd ki ezt az opciót a Feladatcsoport csak olvashatóvá
-        tételéhez.\nNo attributes can be changed with the exception of the status.
-        \n<br/> \n<strong>Note</strong>: Örökölt értékek (pl. a gyermektől, vagy kapcsolatoktól)
-        meg fognak maradni.\n"
+      status_readonly_html: |
+        Jelölje be ezt az opciót, ha ezt az állapotot tartalmazó munkacsomagokat csak olvashatóvá kívánja jelölni. Az állapot kivételével semmilyen attribútum nem módosítható.
+        <br/>
+        <strong>Megjegyzés</strong>: az örökölt értékek (például a gyermekobjektum vagy a kapcsolatok) továbbra is érvényesek.
       status_color_text: |
         Ide kattintva rendelhet vagy változtathatja meg a színét az állapotnak.
         Az állapot gomb látható és kiemelhető a feladatcsoport táblázatban.
@@ -201,15 +217,13 @@ hu:
       projects: Projektek
       enabled_projects: Engedélyezett projektek
       add_group: Tulajdonságcsoport
-      add_table: Add table of related work packages
-      edit_query: Edit table
-      query_group_placeholder: Give the table a name
+      add_table: Táblázat hozzáadása a kapcsolódó munkacsomagokhoz
+      edit_query: Táblázat szerkesztése
+      query_group_placeholder: Adja meg a tábla nevét
       reset: Alapbeállítások visszaállítása
-      type_color_text: 'Kattintson az adott típus színének hozzárendeléséhez vagy
-        megváltoztatásához. A kiválasztott szín különbözteti meg a feladatcsoportokat
-        a Gantt-diagramokban.
-
-'
+      type_color_text: |
+        Click to assign or change the color of this type. The selected color distinguishes work packages
+        in Gantt charts. It is therefore recommended to use a strong color.
   versions:
     overview:
       no_results_title_text: Jelenleg nincsenek ehhez a verzióhoz hozzárendelt feladatcsoportok.
@@ -363,13 +377,18 @@ hu:
         subscriber: Előfizető
         encoded_token: Vállalati támogatás kulcs
         active_user_count_restriction: Maximális aktív felhasználók
+      grids/grid:
+        page: Page
+        row_count: Number of rows
+        column_count: Number of columns
+        widgets: Widgets
       relation:
         delay: Késés
         from: Feladatcsoport
         to: Kapcsolódó feladatcsoport
       status:
         is_closed: Lezárt feladatcsoport
-        is_readonly: Feladatcsoport csak olvasható
+        is_readonly: Munkacsomag csak olvasható
       journal:
         notes: Jegyzet
       member:
@@ -461,11 +480,6 @@ hu:
         client_credentials_user_id: Client Credentials User ID
         scopes: Scopes
         confidential: Confidential
-      grids/grid:
-        page: Page
-        row_count: Number of rows
-        column_count: Number of columns
-        widgets: Widgets
     errors:
       messages:
         accepted: el kell fogadni.
@@ -535,6 +549,10 @@ hu:
               not_match_configured: doesn't match available scopes.
         enterprise_token:
           unreadable: nem olvasható. Biztos vagy benne, hogy ez támogatási token?
+        grids/grid:
+          overlaps: overlap.
+          outside: is outside of the grid.
+          end_before_start: end value needs to be larger than the start value.
         parse_schema_filter_params_service:
           attributes:
             base:
@@ -638,10 +656,6 @@ hu:
         member:
           principal_blank: Kérem, válasszon legalább egy felhasználót vagy csoportot.
           role_blank: kérem, válasszon legalább egy szerepkört.
-        grids/grid:
-          overlaps: overlap.
-          outside: is outside of the grid.
-          end_before_start: end value needs to be larger than the start value.
       template:
         body: 'Kérjük, ellenőrizze az alábbi mezőket:'
         header:
@@ -650,7 +664,7 @@ hu:
     models:
       attachment: Fájl
       attribute_help_text: Attribútum-súgószöveg
-      board: Fórum
+      forum: Fórum
       comment: Vélemény
       custom_action: Egyéni művelet
       custom_field: Választható mező
@@ -1039,7 +1053,9 @@ hu:
   error_can_not_remove_role: Ez a szerepkör használatban van, nem lehet törölni
   error_can_not_reopen_work_package_on_closed_version: A feladatcsoport lezárt verzió,
     nem lehet újra nyitni
+  error_can_not_find_all_resources: Could not find all related resources to this request.
   error_check_user_and_role: Légy szíves válassz felhasználót és szerepkört
+  error_code: Error %{code}
   error_cookie_missing: Hiányzó OpenProject cookie. Ellenőrizze, hogy böngészőjében
     a cookie-k használata engedélyezve van, mert anélkül ez az alkalmazás nem tud
     megfelelően működni.
@@ -1065,6 +1081,10 @@ hu:
   error_work_package_not_found_in_project: A feladatcsoport nem található, vagy nem
     tartozik ehhez a projekthez
   error_must_be_project_member: projekt tagnak kell lennie
+  error_migrations_are_pending: Your OpenProject installation has pending database
+    migrations. You have likely missed running the migrations on your last upgrade.
+    Please check the upgrade guide to properly upgrade your installation.
+  error_migrations_visit_upgrade_guides: Please visit our upgrade guide documentation
   error_no_default_work_package_status: Nincs alapértelmezett feladatcsoport állapot
     meghatározva. Kérjük, ellenőrizze a konfigurációt ("Adminisztráció - feladatcsoport
     állapotok").
@@ -1151,13 +1171,13 @@ hu:
           verzióval jelentősen hozzájárulsz a nyílt forráskódú közösség erőfeszítéseihez.
     links:
       upgrade_enterprise_edition: Frissítés a Vállalati Verzióra
+      postgres_migration: Migrating your installation to PostgreSQL
       user_guides: Felhasználói útmutató
       faq: GY. I. K.
       glossary: Szószedet
       shortcuts: Parancsikonok
-      forums: Fórumok
       blog: OpenProject blog
-      boards: Közösségi fórum
+      forums: Közösségi fórum
       newsletter: Biztonsági figyelmeztetések / hírlevél
   links:
     configuration_guide: Konfigurációs útmutató
@@ -1224,8 +1244,8 @@ hu:
   label_authentication: Hitelesítés
   label_available_project_work_package_categories: Rendelkezésre álló munkacsomag
     kategóriák
-  label_available_project_work_package_types: Available work package types
-  label_available_project_boards: Rendelkezésre álló táblák
+  label_available_project_work_package_types: Rendelkezésre álló munkacsomag típusok
+  label_available_project_forums: Available forums
   label_available_project_versions: Rendelkezésre álló verziók
   label_available_project_repositories: Rendelkezésre álló tárolók
   label_api_documentation: API dokumentáció
@@ -1233,15 +1253,16 @@ hu:
   label_blocked_by: blokkolta
   label_blocks: blokkolja
   label_blog: Blog
-  label_board_locked: Zárolva
-  label_board_new: Új fórum
-  label_board_plural: Fórumok
-  label_board_sticky: Kiemelt
+  label_forums_locked: Zárolva
+  label_forum_new: Új fórum
+  label_forum_plural: Fórumok
+  label_forum_sticky: Kiemelt
   label_boolean: Logikai
   label_branch: Branch
   label_browse: böngész
   label_bulk_edit_selected_work_packages: A kiválasztott feladatcsoportok tömeges
     szerkesztése
+  label_bundled: "(Bundled)"
   label_calendar: Naptár
   label_calendar_show: Kalendárium mutatása
   label_category: Kategória
@@ -1341,6 +1362,7 @@ hu:
   label_equals: van
   label_everywhere: bárhol
   label_example: Példa
+  label_import: Import
   label_export_to: 'Is elérhető:'
   label_expanded_click_to_collapse: Kinyitva. Kattintson az összecsukáshoz
   label_f_hour: "%{value} óra"
@@ -1378,6 +1400,7 @@ hu:
   label_hierarchy_leaf: Hierarchia szint
   label_home: Home
   label_subject_or_id: Subject or ID
+  label_impressum: Legal notice
   label_in: in
   label_in_less_than: kevesebb, mint
   label_in_more_than: több mint
@@ -1503,6 +1526,7 @@ hu:
   label_planning: Tervezés
   label_please_login: Kérjük, jelentkezzen be
   label_plugins: Modulok
+  label_modules_and_plugins: Modules and Plugins
   label_precedes: megelőzi
   label_preferences: Tulajdonságok
   label_preview: Előnézet
@@ -1510,6 +1534,7 @@ hu:
   label_previous_week: Előző héten
   label_principal_invite_via_email: " vagy új felhasználót hívhat meg e-mailben"
   label_principal_search: Meglévő felhasználók vagy csoportok hozzáadása
+  label_privacy_policy: Data privacy and security policy
   label_product_version: Termékverzió
   label_professional_support: Szakmai támogatás
   label_profile: Profil
@@ -1625,6 +1650,7 @@ hu:
   label_updated_time: Ezelőtt frissített %{value}
   label_updated_time_at: "%{author} %{age}"
   label_updated_time_by: Frissítve %{author} %{age} ezelőtt
+  label_upgrade_guides: Upgrade guides
   label_used_by: Által használt
   label_used_by_types: Használt típusok szerint
   label_used_in_projects: Használt projektek szerint
@@ -1836,6 +1862,8 @@ hu:
   notice_account_update_failed: A felhasználói beállítások nem menthetők. Kérem, vessen
     egy pillantást a fiók oldalra.
   notice_account_updated: A hozzáférési adatok sikeresen frissítve.
+  notice_account_other_session_expired: All other sessions tied to your account have
+    been invalidated.
   notice_account_wrong_password: Hibás jelszó
   notice_account_registered_and_logged_in: Üdvözöljük a fiókja aktiválva van. Most
     bejelentkezhet.
@@ -1964,7 +1992,7 @@ hu:
   permission_export_wiki_pages: Wiki oldalak exportálása
   permission_list_attachments: Mellékletek listája
   permission_log_time: Eltöltött idő rögzítése
-  permission_manage_boards: Fórum kezelése
+  permission_manage_forums: Fórum kezelése
   permission_manage_categories: feladatcsoport kategóriák kezelése
   permission_manage_work_package_relations: feladatcsoport kapcsolatok kezelése
   permission_manage_members: Tagok kezelése
@@ -2011,7 +2039,7 @@ hu:
     archive:
       are_you_sure: Biztosan szeretnéd arhiválni a projektet '%{name}'?
   project_module_activity: Tevékenység
-  project_module_boards: Fórumok
+  project_module_forums: Fórumok
   project_module_calendar: Naptár
   project_module_work_package_tracking: A munkacsomag nyomon követése
   project_module_news: Hírek
@@ -2231,10 +2259,6 @@ hu:
     minden lekéréshez
   setting_login_required: Hitelesítés szükséges
   setting_mail_from: Értesítő e-mailek feladója
-  setting_mail_handler_api_enabled: Bejövő e-mail szolgáltatás engedélyezése
-  setting_mail_handler_api_description: Az e-mail web kezelő lehetővé teszi, hogy
-    az OpenProject különböző utasításokat tartalmazó e-maileket fogadjon és végrehajtson
-    (úgy mint feladatcsoport készítés, frissítés).
   setting_mail_handler_api_key: API-kulcs
   setting_mail_handler_body_delimiters: E-mailek csonkolása e sorok után
   setting_mail_handler_body_delimiter_regex: E-mailek csonkítása a megegyező kifejezéssel
@@ -2250,7 +2274,7 @@ hu:
   setting_per_page_options: Objektum per oldal opció
   setting_plain_text_mail: Egyszerű szöveges e-mail (nem HTML)
   setting_protocol: Protokol
-  setting_security_badge_displayed: Display security badge
+  setting_security_badge_displayed: Biztonsági állapot kijelzés
   setting_registration_footer: Regisztráció lábléc
   setting_repositories_automatic_managed_vendor: Automatikus tároló típus
   setting_repositories_encodings: Tárolók kódolásai
@@ -2494,7 +2518,6 @@ hu:
       color: Szín
       colors: Színek
     associations: Szükséges összetevők
-    board_could_not_be_saved: A tábla nem menthető
     button_delete_all: Összes törlése
     change: A tervezés módosítása
     children: Gyermek elemek
@@ -2756,6 +2779,13 @@ hu:
 '
   menu_item: Menüpont
   menu_item_setting: Látható
+  mysql_deprecation:
+    notice: 'Future versions of OpenProject will likely drop or reduce support for
+      MySQL and MariaDB databases. Your installation is still running on MySQL and
+      we suggest you migrate your installation to PostgreSQL. This process is easy
+      when following our migration guides:
+
+'
   wiki_menu_item_for: Wikipage "%{title}" menüeleme
   wiki_menu_item_setting: Látható
   wiki_menu_item_new_main_item_explanation: 'Csak a fő wiki menüelemet törölted. Most
@@ -2931,21 +2961,3 @@ hu:
     revoke_my_application_confirmation: Do you really want to remove this application?
       This will revoke %{token_count} active for it.
     my_registered_applications: Registered OAuth applications
-  ldap_auth_sources:
-    connection_encryption: Connection encryption
-    tls_mode:
-      plain: Nincs
-      simple_tls: simple_tls
-      start_tls: start_tls
-      plain_description: Plain unencrypted connection, no TLS negotiation.
-      simple_tls_description: Implicit TLS encryption, but no certificate validation.
-        Use with caution and implicit trust of the LDAP connection.
-      start_tls_description: Explicit TLS encryption with full validation. Use for
-        LDAP over TLS/SSL.
-      section_more_info_link_html: 'This section concerns the connection security
-        of this LDAP authentication source. For more information, visit <a href="%{link}">the
-        Net::LDAP documentation</a>.
-
-'
-  notice_account_other_session_expired: All other sessions tied to your account have
-    been invalidated.

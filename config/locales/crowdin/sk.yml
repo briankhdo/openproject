@@ -56,9 +56,25 @@ sk:
     index:
       no_results_content_title: Momentálne nie sú žiadne metódy overovania identity.
       no_results_content_text: Vytvoriť novú metódu overovania identity
-  boards:
+  ldap_auth_sources:
+    connection_encryption: Šifrovanie pripojenia
+    tls_mode:
+      plain: žiadne
+      simple_tls: simple_tls
+      start_tls: start_tls
+      plain_description: Obyčajné nešifrované pripojenie, nepožadované TLS pripojenie.
+      simple_tls_description: Implicitné šifrovanie TLS, ale žiadne overenie certifikátu.
+        Používať s opatrnosťou a implicitne dôverné LDAP pripojenie.
+      start_tls_description: Explicitné šifrovanie TLS s úplným overením. Použitie
+        LDAP cez TLS/SSL.
+      section_more_info_link_html: 'Táto časť sa týka bezpečnosti pripojenia tohto
+        zdroja autentifikácie LDAP. Ďalšie informácie nájdete na stránke<a href="%{link}">the
+        Net::LDAP documentation</a>.
+
+'
+  forums:
     show:
-      no_results_title_text: Panel v súčasnosti nemá žiadne príspevky.
+      no_results_title_text: There are currently no posts for the forum.
   colors:
     index:
       no_results_title_text: Momentálne nie sú k dispozícií žiadne farby.
@@ -139,9 +155,9 @@ sk:
     settings:
       activities:
         no_results_title_text: Momentálne neexistujú žiadne aktivity.
-      boards:
-        no_results_title_text: Projekt v súčasnosti nemá žiadne diskusné panely.
-        no_results_content_text: Vytvoriť nový panel
+      forums:
+        no_results_title_text: There are currently no forums for the project.
+        no_results_content_text: Create a new forum
       categories:
         no_results_title_text: Momentálne nie sú žiadne kategórie pracovného balíka.
         no_results_content_text: Vytvoriť novú kategóriu pracovného balíka
@@ -208,10 +224,9 @@ sk:
       edit_query: Upraviť tabuľku
       query_group_placeholder: Zadajte názov tabuľky
       reset: Obnoviť predvolené
-      type_color_text: 'Kliknutím priradíte alebo zmeníte farbu tohto typu. Zvolená
-        farba rozlišuje pracovné balíčky v Ganttových grafoch.
-
-'
+      type_color_text: |
+        Click to assign or change the color of this type. The selected color distinguishes work packages
+        in Gantt charts. It is therefore recommended to use a strong color.
   versions:
     overview:
       no_results_title_text: Momentálne nie sú priradené žiadne pracovné balíky k
@@ -373,6 +388,11 @@ sk:
         subscriber: Odberateľ
         encoded_token: Enterprise support token
         active_user_count_restriction: Maximálny počet aktívnych užívateľov
+      grids/grid:
+        page: Stránka
+        row_count: Počet riadkov
+        column_count: Počet stĺpcov
+        widgets: Miniaplikácie
       relation:
         delay: Oneskorenie
         from: Pracovný balíček
@@ -471,11 +491,6 @@ sk:
         client_credentials_user_id: ID poverenia klienta
         scopes: Rozsahy
         confidential: Dôverné
-      grids/grid:
-        page: Page
-        row_count: Number of rows
-        column_count: Number of columns
-        widgets: Widgets
     errors:
       messages:
         accepted: musí byť akceptovaný.
@@ -519,7 +534,7 @@ sk:
         too_long: je príliš dlhý (maximum je %{count} znakov).
         too_short: je príliš krátky (minimum je %{count} znakov).
         unchangeable: nie je možné zmeniť.
-        unremovable: cannot be removed.
+        unremovable: nie je možné zmazať.
         wrong_length: má chybnú dĺžku (správne má byť %{count} znakov).
       models:
         custom_field:
@@ -546,6 +561,10 @@ sk:
         enterprise_token:
           unreadable: nedá sa čítať. Ste si istý, že máte správny Token podpory Enterprise
             Edition?
+        grids/grid:
+          overlaps: prekrývajú.
+          outside: je mimo mriežku.
+          end_before_start: koncová hodnota musí byť väčšia ako počiatočná hodnota.
         parse_schema_filter_params_service:
           attributes:
             base:
@@ -658,10 +677,6 @@ sk:
         member:
           principal_blank: Vyberte aspoň jedného používateľa alebo skupinu.
           role_blank: Vyberte aspoň jednu rolu.
-        grids/grid:
-          overlaps: overlap.
-          outside: is outside of the grid.
-          end_before_start: end value needs to be larger than the start value.
       template:
         body: 'Skontrolujte nasledujúce polia:'
         header:
@@ -672,7 +687,7 @@ sk:
     models:
       attachment: Súbor
       attribute_help_text: Text nápovedy atribútu
-      board: Diskusia
+      forum: Diskusia
       comment: Komentár
       custom_action: Vlastná akcia
       custom_field: Vlastné pole
@@ -1087,7 +1102,9 @@ sk:
   error_can_not_remove_role: Táto rola sa používa a nedá sa odstrániť.
   error_can_not_reopen_work_package_on_closed_version: Pracovný balíček, ktorý je
     priradený na uzatvorenú verziu sa nedá znovu-otvoriť
+  error_can_not_find_all_resources: Could not find all related resources to this request.
   error_check_user_and_role: Zvoľte si, prosím, používateľ a rolu.
+  error_code: Error %{code}
   error_cookie_missing: Chýbajú súbory cookie pre OpenProject. Skontrolujte, či sú
     povolené súbory cookie, nakoľko bez nich táto aplikácia nebude správne fungovať.
   error_custom_option_not_found: Nastavenie neexistuje.
@@ -1112,6 +1129,10 @@ sk:
   error_work_package_not_found_in_project: Pracovný balíček nebol nájdený alebo nepatrí
     k tomuto projektu
   error_must_be_project_member: musíte byť členom projektu
+  error_migrations_are_pending: Your OpenProject installation has pending database
+    migrations. You have likely missed running the migrations on your last upgrade.
+    Please check the upgrade guide to properly upgrade your installation.
+  error_migrations_visit_upgrade_guides: Please visit our upgrade guide documentation
   error_no_default_work_package_status: Žiadny predvolený stav pracovného balíka nieje
     definovaný. Prosím skontrolujte konfiguráciu (ísť do "Správa-> pracovného balíka
     stavy").
@@ -1198,13 +1219,13 @@ sk:
           Edition významne prispievate k otvorenej komunite OpenProjectu.
     links:
       upgrade_enterprise_edition: Upgrade na Enterprise Edition
+      postgres_migration: Migrating your installation to PostgreSQL
       user_guides: Používateľské príručky
       faq: Často kladené otázky
       glossary: Slovníček pojmov
       shortcuts: Skratky
-      forums: Diskusie
       blog: OpenProject blog
-      boards: Komunitné fórum
+      forums: Komunitné fórum
       newsletter: Bezpečnostné upozornenia / Newsletter
   links:
     configuration_guide: Sprievodca konfiguráciou
@@ -1271,7 +1292,7 @@ sk:
   label_authentication: Autentifikácia
   label_available_project_work_package_categories: Dostupné kategórie pracovných balíčkov
   label_available_project_work_package_types: Dostupné kategórie pracovných balíčkov
-  label_available_project_boards: Dostupné panely
+  label_available_project_forums: Available forums
   label_available_project_versions: Dostupné verzie
   label_available_project_repositories: Dosupné úložíská
   label_api_documentation: Dokumentácia API
@@ -1279,14 +1300,15 @@ sk:
   label_blocked_by: zablokované používateľom
   label_blocks: bloky
   label_blog: Blog
-  label_board_locked: Uzamknuté
-  label_board_new: Nová diskusia
-  label_board_plural: Diskusie
-  label_board_sticky: Dôležité (vždy vyššie)
+  label_forums_locked: Uzamknuté
+  label_forum_new: Nová diskusia
+  label_forum_plural: Diskusie
+  label_forum_sticky: Dôležité (vždy vyššie)
   label_boolean: Booleovská hodnota (pavda/nepravda)
   label_branch: Vetva
   label_browse: Prechádzať
   label_bulk_edit_selected_work_packages: Hromadne upraviť vybrané pracovné balíčky
+  label_bundled: "(Bundled)"
   label_calendar: Kalendár
   label_calendar_show: Zobraziť kalendár
   label_category: Kategória
@@ -1385,6 +1407,7 @@ sk:
   label_equals: je
   label_everywhere: všade
   label_example: Príklad
+  label_import: Import
   label_export_to: 'K dispozícii tiež ako:'
   label_expanded_click_to_collapse: Rozbalené. Kliknutí zbalíte
   label_f_hour: "%{value} hodina"
@@ -1422,6 +1445,7 @@ sk:
   label_hierarchy_leaf: Úroveň hierarchie
   label_home: Úvod
   label_subject_or_id: Predmet alebo ID
+  label_impressum: Legal notice
   label_in: v
   label_in_less_than: v menej ako
   label_in_more_than: vo viac ako
@@ -1547,6 +1571,7 @@ sk:
   label_planning: Plánovanie
   label_please_login: Prosím prihláste sa
   label_plugins: Doplnky
+  label_modules_and_plugins: Moduly a Pluginy
   label_precedes: predchádza
   label_preferences: Predvoľby
   label_preview: Náhľad
@@ -1555,6 +1580,7 @@ sk:
   label_principal_invite_via_email: " alebo pozvať nových užívateľov prostredníctvom
     e-mailu"
   label_principal_search: Pridanie existujúcich užívateľov alebo skupín
+  label_privacy_policy: Ochrana osobných údajov a bezpečnostná politika
   label_product_version: Verzia produktu
   label_professional_support: Profesionálna podpora
   label_profile: Profil
@@ -1670,6 +1696,7 @@ sk:
   label_updated_time: Aktualizované pred %{value}
   label_updated_time_at: "%{author} %{age}"
   label_updated_time_by: Aktualizované používateľom %{author} pred %{age}
+  label_upgrade_guides: Upgrade guides
   label_used_by: Používané
   label_used_by_types: Používa sa podľa typov
   label_used_in_projects: Použité v projektoch
@@ -1890,6 +1917,8 @@ sk:
   notice_account_update_failed: Nastavenie konta sa nepodarilo uložiť. Prosím, skontrolujte
     si stránku účtu.
   notice_account_updated: Účet bol úspešne aktualizovaný.
+  notice_account_other_session_expired: Všetky ostatné relácie viazané na váš účet
+    boli zrušené.
   notice_account_wrong_password: Nesprávne heslo
   notice_account_registered_and_logged_in: Vitajte, váš účet bol aktivovaný. Teraz
     ste prihlásení.
@@ -2022,7 +2051,7 @@ sk:
   permission_export_wiki_pages: Export wiki stránok
   permission_list_attachments: Zoznam príloh
   permission_log_time: Protokolovať strávený čas
-  permission_manage_boards: Spravovať diskusie
+  permission_manage_forums: Spravovať diskusie
   permission_manage_categories: Spravovať kategórie pracovného balíčku
   permission_manage_work_package_relations: Spravovať vzťahy pracovných balíčkov
   permission_manage_members: Spravovať členov
@@ -2070,7 +2099,7 @@ sk:
     archive:
       are_you_sure: Naozaj chcete archivovať projekt "%{name}"?
   project_module_activity: Činnosť
-  project_module_boards: Diskusie
+  project_module_forums: Diskusie
   project_module_calendar: Kalendár
   project_module_work_package_tracking: Sledovanie Pracovného balíka
   project_module_news: Novinky
@@ -2291,10 +2320,6 @@ sk:
     adresu pre všetky požiadavky
   setting_login_required: Vyžaduje sa overenie
   setting_mail_from: Odosielať emaily z adresy
-  setting_mail_handler_api_enabled: Povoliť webovú službu prichádzajúcich e-mailov
-  setting_mail_handler_api_description: Webová služba elektronickej pošty umožňuje
-    aplikácii OpenProject prijímať a reagovať na e-maily so špeciálnymi pokynmi (napríklad
-    na vytváranie a aktualizáciu pracovných balíčkov).
   setting_mail_handler_api_key: API kľúč
   setting_mail_handler_body_delimiters: Skráťte emaily po jednom z týchto riadkov
   setting_mail_handler_body_delimiter_regex: Skrátiť e-maily zodpovedajúce tomuto
@@ -2554,7 +2579,6 @@ sk:
       color: Farba
       colors: Farby
     associations: Závislosti
-    board_could_not_be_saved: Panel sa nepodarilo uložiť
     button_delete_all: Odstrániť všetky
     change: Zmena v plánovaní
     children: Podriadené prvky
@@ -2814,6 +2838,13 @@ sk:
 '
   menu_item: Položka menu
   menu_item_setting: Viditeľnosť
+  mysql_deprecation:
+    notice: 'Future versions of OpenProject will likely drop or reduce support for
+      MySQL and MariaDB databases. Your installation is still running on MySQL and
+      we suggest you migrate your installation to PostgreSQL. This process is easy
+      when following our migration guides:
+
+'
   wiki_menu_item_for: Položka menu pre wiki "%{title}"
   wiki_menu_item_setting: Viditeľnosť
   wiki_menu_item_new_main_item_explanation: 'Zmažete iba hlavnú položku menu wiki.
@@ -2997,21 +3028,3 @@ sk:
     revoke_my_application_confirmation: Naozaj chcete odstrániť túto aplikáciu? Týmto
       sa zrušia aktívne tokeny %{token_count}.
     my_registered_applications: Registrované aplikácie OAuth
-  ldap_auth_sources:
-    connection_encryption: Connection encryption
-    tls_mode:
-      plain: žiadne
-      simple_tls: simple_tls
-      start_tls: start_tls
-      plain_description: Plain unencrypted connection, no TLS negotiation.
-      simple_tls_description: Implicit TLS encryption, but no certificate validation.
-        Use with caution and implicit trust of the LDAP connection.
-      start_tls_description: Explicit TLS encryption with full validation. Use for
-        LDAP over TLS/SSL.
-      section_more_info_link_html: 'This section concerns the connection security
-        of this LDAP authentication source. For more information, visit <a href="%{link}">the
-        Net::LDAP documentation</a>.
-
-'
-  notice_account_other_session_expired: All other sessions tied to your account have
-    been invalidated.

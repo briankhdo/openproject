@@ -79,6 +79,8 @@ import {BrowserDetector} from "core-app/modules/common/browser/browser-detector.
 import {EditableToolbarTitleComponent} from "core-app/modules/common/editable-toolbar-title/editable-toolbar-title.component";
 import {UserAvatarComponent} from "core-components/user/user-avatar/user-avatar.component";
 import {GonService} from "core-app/modules/common/gon/gon.service";
+import {BackRoutingService} from "core-app/modules/common/back-routing/back-routing.service";
+import {EnterpriseBannerComponent} from "core-components/enterprise-banner/enterprise-banner.component";
 
 export function bootstrapModule(injector:Injector) {
   return () => {
@@ -115,6 +117,7 @@ export function bootstrapModule(injector:Injector) {
     PortalModule,
     DragDropModule,
     OpenprojectAccessibilityModule,
+    NgSelectModule,
 
     OpDatePickerComponent,
     OpDateTimeComponent,
@@ -153,9 +156,6 @@ export function bootstrapModule(injector:Injector) {
 
     NoResultsComponent,
 
-    // Autocompleter Component
-    NgSelectModule,
-
     UserAutocompleterComponent,
 
     ScrollableTabsComponent,
@@ -164,6 +164,9 @@ export function bootstrapModule(injector:Injector) {
 
     // User Avatar
     UserAvatarComponent,
+
+    // Enterprise Edition
+    EnterpriseBannerComponent,
   ],
   declarations: [
     OpDatePickerComponent,
@@ -217,6 +220,9 @@ export function bootstrapModule(injector:Injector) {
 
     // User Avatar
     UserAvatarComponent,
+
+    // Enterprise Edition
+    EnterpriseBannerComponent,
   ],
   entryComponents: [
     OpDateTimeComponent,
@@ -250,6 +256,7 @@ export function bootstrapModule(injector:Injector) {
     TimezoneService,
     BrowserDetector,
     GonService,
+    BackRoutingService,
   ]
 })
 export class OpenprojectCommonModule { }

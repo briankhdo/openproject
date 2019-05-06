@@ -44,6 +44,10 @@ module Pages
       visit path(tab)
     end
 
+    def switch_to_tab(tab:)
+      find('.tabrow li a', text: tab.upcase).click
+    end
+
     def expect_tab(tab)
       expect(page).to have_selector('.tabrow li.selected', text: tab.to_s.upcase)
     end
@@ -260,11 +264,11 @@ module Pages
     def click_create_wp_button(type)
       find('.add-work-package:not([disabled])', text: 'Create').click
 
-      find('#types-context-menu .menu-item', text: type, wait: 10).click
+      find('#types-context-menu .menu-item', text: type.name.upcase, wait: 10).click
     end
 
     def select_type(type)
-      find(@type_field_selector + ' option', text: type).select_option
+      find(@type_field_selector + ' option', text: type.name.upcase).select_option
     end
 
     def subject_field

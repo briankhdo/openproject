@@ -9,10 +9,11 @@ module OpenProject::OpenIDConnect
 
     register 'openproject-openid_connect',
              author_url: 'http://finn.de',
-             requires_openproject: '>= 3.1.0pre1',
+             bundled: true,
              settings: { 'default' => { 'providers' => {} } }
 
     assets %w(
+      openid_connect/auth_provider-azure.png
       openid_connect/auth_provider-google.png
       openid_connect/auth_provider-heroku.png
     )
@@ -45,7 +46,7 @@ module OpenProject::OpenIDConnect
 
       strategy :openid_connect do
         # update base redirect URI in case settings changed
-        Providers.configure base_redirect_uri: "#{Setting.protocol}://#{Setting.host_name}"
+        Providers.configure base_redirect_uri: "#{Setting.protocol}://#{Setting.host_name}#{OpenProject::Configuration['rails_relative_url_root']}"
         Providers.load(configuration).map(&:to_h)
       end
     end

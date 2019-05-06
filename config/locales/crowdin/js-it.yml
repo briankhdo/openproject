@@ -19,11 +19,25 @@ it:
     close_popup_title: Chiudi popup
     close_filter_title: Chiudi il filtro
     close_form_title: Chiudi il modulo
+    boards:
+      upsale:
+        boards: Hai bisogno di strutturare in modo libero il tuo lavoro con delle
+          viste a schede?
+        check_out_link: Scopri Enterprise Edition.
+      lists:
+        delete: Elimina elenco
+    card:
+      add_new: Aggiungi una nuova carta
+      highlighting:
+        inline: 'Evidenzia in linea:'
+        entire_card_by: Tutta la carta per
+      remove_from_list: Rimuovi la carta dall'elenco
     clipboard:
       browser_error: Il tuo browser non supporta la copia negli appunti. Copia il
         testo selezionato manualmente.
       copied_successful: Copia negli appunti completata con successo!
     button_add_watcher: Aggiungi osservatore
+    button_back: Indietro
     button_back_to_list_view: Torna alla visualizzazione in lista
     button_cancel: Cancella
     button_close: Chiuso
@@ -152,6 +166,32 @@ it:
     general_text_yes: si
     general_text_No: 'No'
     general_text_Yes: Si
+    grid:
+      add_modal:
+        choose_widget: Scegli widget
+      widgets:
+        documents:
+          title: Documenti
+          no_results: Nessun documento ancora.
+        news:
+          title: Notizie
+          at: a
+          no_results: Niente di nuovo da segnalare.
+        time_entries_current_user:
+          title: Tempo trascorso (ultimi 7 giorni)
+          no_results: Nessuna voce sul tempo per gli ultimi 7 giorni.
+        work_packages_accountable:
+          title: Macro-attività di cui sono responsabile del risultato
+        work_packages_assigned:
+          title: Pacchetti di lavoro assegnati a me
+        work_packages_created:
+          title: Pacchetti di lavoro creati da me
+        work_packages_watched:
+          title: Pacchetti di lavoro visti da me
+        work_packages_table:
+          title: Macro-attività (work package)
+        work_packages_calendar:
+          title: Calendario
     label_activate: Attiva
     label_activity_no: Voce attività numero %{activityNo}
     label_activity_with_comment_no: Voce attività numero %{activityNo}. Ha un commento
@@ -173,9 +213,9 @@ it:
     label_ascending: Crescente
     label_author: 'Autore: %{user}'
     label_between: tra
-    label_board: Board
+    label_board: Tabellone
     label_board_locked: Chiuso
-    label_board_plural: Boards
+    label_board_plural: Tabelloni
     label_board_sticky: In evidenza
     label_create_work_package: Crea una nuova macro-attività (work package)
     label_created_by: Creato da
@@ -224,6 +264,7 @@ it:
     label_more_than_ago: più di qualche giorno fa
     label_my_page: La mia pagina
     label_next: Prossimo
+    label_no_color: Nessun colore
     label_no_data: Nessun dato da visualizzare
     label_no_due_date: nessuna data di fine
     label_no_start_date: nessuna data di inizio
@@ -298,7 +339,7 @@ it:
     label_upload_notification: Caricamento dei file...
     label_work_package_upload_notification: 'Caricamento dei file per la macro-attività
       #%{id}: %{subject} in corso'
-    label_wp_id_added_by: "#%{id} added by %{author}"
+    label_wp_id_added_by: "#%{id} aggiunto da%{author}"
     label_files_to_upload: 'Verranno caricati questi files:'
     label_rejected_files: 'Questi file non possono essere caricati:'
     label_rejected_files_reason: Questi file non possono essere caricati perchè la
@@ -315,49 +356,59 @@ it:
         next: Prossimo
         got_it: Capito
       steps:
-        welcome: Fai un tour introduttivo di tre minuti per apprendere le <b>funzioni
-          importanti</b>. <br> Consigliamo di completare i passaggi fino alla fine.
-          Puoi riavviare il tour in qualsiasi momento.
+        help_menu: Nel menu <b>Aiuto</b> troverai una guids utente e risorse di aiuto
+          aggiuntive. <br> Goditi il tuo lsvoto con OpenProject!
+        members: Invita nuovi <b>Membri</b> per entrare al tuo progetto.
         project_selection: Si prega di selezionare uno dei progetti con gli utili
           dati demo per iniziare. <br> Il <b>Progetto Demo</b> si adatta meglio per
           la gestione dei progetti classici, mentre il <b>Progetto Scrum</b> è migliore
           per la gestione dei progetti Agile.
         sidebar_arrow: Con la freccia puoi navigare indietro al <b>Menu Principale</b>
           del progetto.
-        members: Invita nuovi <b>Membri</b> per entrare al tuo progetto.
+        welcome: Fai un tour introduttivo di tre minuti per apprendere le <b>funzioni
+          importanti</b>. <br> Consigliamo di completare i passaggi fino alla fine.
+          Puoi riavviare il tour in qualsiasi momento.
         wiki: Nella <b>Wiki</b> puoi documentare e condividere la conoscenza con il
           tuo team.
-        backlogs_overview: Gestisci il tuo lavoro nella visualizzazione <b>Backlogs</b>.
-          <br> A destra hai il Product Backlog o un Bug Backlog, a sinistra avrai
-          i rispettivi sprint. Qui puoi creare <b>epiche, storie utente, e bug</b>,
-          dare la priorità tramite drag'n'drop e aggiungerli a uno sprint.
-        backlogs_task_board_arrow: Per vedere la tua <b>Scheda Mansioni</b>, apri
-          il menu a cascata Sprint...
-        backlogs_task_board_select: "... e seleziona l'entrata <b>Tabella Mansioni</b>."
-        backlogs_task_board: La <b>Tabella Mansioni</b> visualizza il progresso per
-          questo sprint. Aggiungi nuove mansioni o impedimenti con l'icona + vicino
-          ad una storia utente. Tramite trascinamento e rilascio puoi aggiornare lo
-          stato.
-        wp_toggler: Ora dai un'occhiata alla sezione <b>Pacchetto Lavoro</b>, che
-          ti da una più dettagliata vista del tuo lavoro.
-        wp_list: Questo è l'elenco <b>Pacchetto Lavoro</b> con l'importante lavoro
-          nel tuo progetto, come mansioni, funziono, pietre miliari, bug ed altro.
-          <br> Puoi creare o modificare un pacchetto lavoro direttamente in questo
-          elenco. Per vedere i suoi dettagli puoi cliccare due volte di fila.
-        wp_full_view: All'interno dei <b>Dettagli del pacchetto di lavoro</b> trovi
-          tutte le informazioni pertinenti, come descrizione, stato e priorità, attività,
-          dipendenze o commenti.
-        wp_back_button: Con la freccia puoi navigare indietro nell'elenco pacchetto
-          lavoro.
-        wp_create_button: Il pulsante <b>Crea</b> aggiungerà un nuovo pacchetto lavoro
-          al tuo progetto.
-        wp_timeline_button: Puoi attivare la <b>Classifica Gantt</b> per creare una
-          linea del tempo per il tuo progetto.
-        wp_timeline: Qui puoi modificare il tuo piano progetto. Crea nuove fasi, pietre
-          miliari ed aggiungere dipendenze. Tutti i membri del team possono vedere
-          ed aggiornare nsre l'ultimo piano ogni volta.
-        help_menu: Nel menu <b>Aiuto</b> troverai una guids utente e risorse di aiuto
-          aggiuntive. <br> Goditi il tuo lsvoto con OpenProject!
+        backlogs:
+          overview: Gestisci il tuo lavoro nella visualizzazione <b>Backlogs</b>.
+            <br> A destra hai il Product Backlog o un Bug Backlog, a sinistra avrai
+            i rispettivi sprint. Qui puoi creare <b>epiche, storie utente, e bug</b>,
+            dare la priorità tramite drag'n'drop e aggiungerli a uno sprint.
+          task_board_arrow: Per vedere la tua <b>Scheda Mansioni</b>, apri il menu
+            a cascata Sprint...
+          task_board_select: "... e seleziona l'entrata <b>Tabella Mansioni</b>."
+          task_board: La <b>Tabella Mansioni</b> visualizza il progresso per questo
+            sprint. Aggiungi nuove mansioni o impedimenti con l'icona + vicino ad
+            una storia utente. Tramite trascinamento e rilascio puoi aggiornare lo
+            stato.
+        boards:
+          overview: Gestisci il tuo lavoro usando le viste <b>Tabellone</b> intuitive.
+          lists: Puoi creare più elenchi (colonne) all'interno di una sola vista Tabellone,
+            ad esempio per creare un tabellone KANBAN.
+          add: Clicca su + <b>per aggiungere una nuova carta</b> alla lista all'interno
+            di un Tabellone.
+          drag: Trascina e rilascia le carte in un elenco per riordinarle o trascinarle
+            in un'altra lista. Il doppio clic aprirà la vista sui dettagli.
+        wp:
+          toggler: Ora dai un'occhiata alla sezione <b>Pacchetto Lavoro</b>, che ti
+            da una più dettagliata vista del tuo lavoro.
+          list: Questo è l'elenco <b>Pacchetto Lavoro</b> con l'importante lavoro
+            nel tuo progetto, come mansioni, funziono, pietre miliari, bug ed altro.
+            <br> Puoi creare o modificare un pacchetto lavoro direttamente in questo
+            elenco. Per vedere i suoi dettagli puoi cliccare due volte di fila.
+          full_view: All'interno dei <b>Dettagli del pacchetto di lavoro</b> trovi
+            tutte le informazioni pertinenti, come descrizione, stato e priorità,
+            attività, dipendenze o commenti.
+          back_button: Con la freccia puoi navigare indietro nell'elenco pacchetto
+            lavoro.
+          create_button: Il pulsante <b>Crea</b> aggiungerà un nuovo pacchetto lavoro
+            al tuo progetto.
+          timeline_button: Puoi attivare la <b>Classifica Gantt</b> per creare una
+            linea del tempo per il tuo progetto.
+          timeline: Qui puoi modificare il tuo piano progetto. Crea nuove fasi, pietre
+            miliari ed aggiungere dipendenze. Tutti i membri del team possono vedere
+            ed aggiornare nsre l'ultimo piano ogni volta.
     password_confirmation:
       field_description: È necessario inserire la password dell'account per confermare
         la modifica.
@@ -497,6 +548,7 @@ it:
     text_query_destroy_confirmation: Sei sicuro di voler eliminare la vista selezionata?
     text_attachment_destroy_confirmation: Sei sicuro di che voler eliminare l'allegato?
     timelines:
+      quarter_label: Q%{quarter_number}
       gantt_chart: Diagramma di Gantt
       labels:
         title: Configurazione etichetta
@@ -566,7 +618,6 @@ it:
           zoom automatico non è disponibile.
 
 '
-      quarter_label: Q%{quarter_number}
     tl_toolbar:
       zooms: Livello di zoom
       outlines: Livello della gerarchia
@@ -824,7 +875,7 @@ it:
           elencate verranno eliminati in modo ricorsivo.
         deletes_children: Tutte le macro-attività ed i relativi discendenti verranno
           eliminati ricorsivamente.
-    notice_no_results_to_display: No visible results to display.
+    notice_no_results_to_display: Nessun risultato visibile da mostrare.
     notice_successful_create: Creato con successo.
     notice_successful_delete: Cancellato con successo.
     notice_successful_update: Aggiornato con successo.
@@ -878,27 +929,3 @@ it:
         all_projects: tutti i progetti
         project_and_subprojects: e tutti i sottoprogetti
         search_for: Cerca per
-    grid:
-      add_modal:
-        choose_widget: Choose widget
-      widgets:
-        documents:
-          title: Documents
-          no_results: No documents yet.
-        news:
-          title: Notizie
-          at: at
-          no_results: Niente di nuovo da segnalare.
-        time_entries_current_user:
-          title: Spent time (last 7 days)
-          no_results: No time entries for the last 7 days.
-        work_packages_accountable:
-          title: Macro-attività di cui sono responsabile del risultato
-        work_packages_assigned:
-          title: Pacchetti di lavoro assegnati a me
-        work_packages_created:
-          title: Work packages created by me
-        work_packages_watched:
-          title: Work packages watched by me
-        work_packages_calendar:
-          title: Calendario

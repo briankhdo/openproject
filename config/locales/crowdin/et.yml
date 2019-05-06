@@ -57,9 +57,25 @@ et:
     index:
       no_results_content_title: There are currently no authentication modes.
       no_results_content_text: Create a new authentication mode
-  boards:
+  ldap_auth_sources:
+    connection_encryption: Connection encryption
+    tls_mode:
+      plain: pole
+      simple_tls: simple_tls
+      start_tls: start_tls
+      plain_description: Plain unencrypted connection, no TLS negotiation.
+      simple_tls_description: Implicit TLS encryption, but no certificate validation.
+        Use with caution and implicit trust of the LDAP connection.
+      start_tls_description: Explicit TLS encryption with full validation. Use for
+        LDAP over TLS/SSL.
+      section_more_info_link_html: 'This section concerns the connection security
+        of this LDAP authentication source. For more information, visit <a href="%{link}">the
+        Net::LDAP documentation</a>.
+
+'
+  forums:
     show:
-      no_results_title_text: There are currently no posts for the board.
+      no_results_title_text: There are currently no posts for the forum.
   colors:
     index:
       no_results_title_text: There are currently no colors.
@@ -139,9 +155,9 @@ et:
     settings:
       activities:
         no_results_title_text: There are currently no activities available.
-      boards:
-        no_results_title_text: There are currently no boards for the project.
-        no_results_content_text: Create a new board
+      forums:
+        no_results_title_text: There are currently no forums for the project.
+        no_results_content_text: Create a new forum
       categories:
         no_results_title_text: There are currently no work package categories.
         no_results_content_text: Create a new work package category
@@ -211,7 +227,7 @@ et:
       reset: Reset to defaults
       type_color_text: |
         Click to assign or change the color of this type. The selected color distinguishes work packages
-        in Gantt charts.
+        in Gantt charts. It is therefore recommended to use a strong color.
   versions:
     overview:
       no_results_title_text: There are currently no work packages assigned to this
@@ -365,6 +381,11 @@ et:
         subscriber: Subscriber
         encoded_token: Enterprise support token
         active_user_count_restriction: Maximum active users
+      grids/grid:
+        page: Page
+        row_count: Number of rows
+        column_count: Number of columns
+        widgets: Widgets
       relation:
         delay: Viivitus
         from: Teema
@@ -463,11 +484,6 @@ et:
         client_credentials_user_id: Client Credentials User ID
         scopes: Scopes
         confidential: Confidential
-      grids/grid:
-        page: Page
-        row_count: Number of rows
-        column_count: Number of columns
-        widgets: Widgets
     errors:
       messages:
         accepted: must be accepted.
@@ -537,6 +553,10 @@ et:
               not_match_configured: doesn't match available scopes.
         enterprise_token:
           unreadable: can't be read. Are you sure it is a support token?
+        grids/grid:
+          overlaps: overlap.
+          outside: is outside of the grid.
+          end_before_start: end value needs to be larger than the start value.
         parse_schema_filter_params_service:
           attributes:
             base:
@@ -637,10 +657,6 @@ et:
         member:
           principal_blank: Vali vähemalt üks kasutaja või grupp.
           role_blank: Vali vähemalt üks roll.
-        grids/grid:
-          overlaps: overlap.
-          outside: is outside of the grid.
-          end_before_start: end value needs to be larger than the start value.
       template:
         body: 'Kontrolli järgnevad väljad:'
         header:
@@ -649,7 +665,7 @@ et:
     models:
       attachment: Fail
       attribute_help_text: Attribute help text
-      board: Foorum
+      forum: Foorum
       comment: Kommentaar
       custom_action: Custom action
       custom_field: Lisaväli
@@ -1034,7 +1050,9 @@ et:
   error_can_not_remove_role: See roll on kasutuses ja seda ei saa kustutada.
   error_can_not_reopen_work_package_on_closed_version: Suletud versiooni juurde kuulunud
     teemat ei saa taasavada
+  error_can_not_find_all_resources: Could not find all related resources to this request.
   error_check_user_and_role: Palun vali kasutaja ja roll.
+  error_code: Error %{code}
   error_cookie_missing: The OpenProject cookie is missing. Please ensure that cookies
     are enabled, as this application will not properly function without.
   error_custom_option_not_found: Option does not exist.
@@ -1058,6 +1076,10 @@ et:
   error_work_package_not_found_in_project: Teemat ei leitud või see ei kuulu siia
     projekti
   error_must_be_project_member: peab olema projekti liige
+  error_migrations_are_pending: Your OpenProject installation has pending database
+    migrations. You have likely missed running the migrations on your last upgrade.
+    Please check the upgrade guide to properly upgrade your installation.
+  error_migrations_visit_upgrade_guides: Please visit our upgrade guide documentation
   error_no_default_work_package_status: Teema algolek on määramata. Palun vaata seadistused
     üle ("Seadistused -> Teemade olekud").
   error_no_type_in_project: Ühtegi tüüpi ei ole seotud selle projektiga. Palun kontrolli
@@ -1145,13 +1167,13 @@ et:
           you substantially contribute to this Open-Source community effort.
     links:
       upgrade_enterprise_edition: Upgrade to Enterprise Edition
+      postgres_migration: Migrating your installation to PostgreSQL
       user_guides: User guides
       faq: KKK
       glossary: Sõnastik
       shortcuts: Otseteed
-      forums: Foorumid
       blog: OpenProject blog
-      boards: Community forum
+      forums: Community forum
       newsletter: Security alerts / Newsletter
   links:
     configuration_guide: Configuration guide
@@ -1218,7 +1240,7 @@ et:
   label_authentication: Autentimine
   label_available_project_work_package_categories: Available work package categories
   label_available_project_work_package_types: Available work package types
-  label_available_project_boards: Available boards
+  label_available_project_forums: Available forums
   label_available_project_versions: Available versions
   label_available_project_repositories: Available repositories
   label_api_documentation: API documentation
@@ -1226,14 +1248,15 @@ et:
   label_blocked_by: blokeeritud
   label_blocks: blokeerib
   label_blog: Blogi
-  label_board_locked: Lukus
-  label_board_new: Uus foorum
-  label_board_plural: Foorumid
-  label_board_sticky: Külgejääv
+  label_forums_locked: Lukus
+  label_forum_new: Uus foorum
+  label_forum_plural: Foorumid
+  label_forum_sticky: Külgejääv
   label_boolean: Tõeväärtus
   label_branch: Haru
   label_browse: Sirvi
   label_bulk_edit_selected_work_packages: Muuda valitud teemasid korraga
+  label_bundled: "(Bundled)"
   label_calendar: Kalender
   label_calendar_show: Kuva kalender
   label_category: Kategooria
@@ -1333,6 +1356,7 @@ et:
   label_equals: võrdub
   label_everywhere: everywhere
   label_example: Näide
+  label_import: Import
   label_export_to: 'Saadaval ka:'
   label_expanded_click_to_collapse: Expanded. Click to collapse
   label_f_hour: "%{value} tund"
@@ -1370,6 +1394,7 @@ et:
   label_hierarchy_leaf: Hierarchy leaf
   label_home: Avaleht
   label_subject_or_id: Subject or ID
+  label_impressum: Legal notice
   label_in: sisaldub hulgas
   label_in_less_than: on väiksem kui
   label_in_more_than: on suurem kui
@@ -1495,6 +1520,7 @@ et:
   label_planning: Planeerimine
   label_please_login: Palun logi sisse
   label_plugins: Pluginad
+  label_modules_and_plugins: Modules and Plugins
   label_precedes: eelneb
   label_preferences: Eelistused
   label_preview: Eelvaade
@@ -1502,6 +1528,7 @@ et:
   label_previous_week: Eelmine nädal
   label_principal_invite_via_email: " or invite new users via email"
   label_principal_search: Add existing users or groups
+  label_privacy_policy: Data privacy and security policy
   label_product_version: Product version
   label_professional_support: Professionaalne kasutajatugi
   label_profile: Profiil
@@ -1616,6 +1643,7 @@ et:
   label_updated_time: Uuendatud %{value} tagasi
   label_updated_time_at: "%{author} %{age}"
   label_updated_time_by: Uuendatud %{author} poolt %{age} tagasi
+  label_upgrade_guides: Upgrade guides
   label_used_by: Kasutab
   label_used_by_types: Used by types
   label_used_in_projects: Used in projects
@@ -1817,6 +1845,8 @@ et:
   notice_account_update_failed: Account setting could not be saved. Please have a
     look at your account page.
   notice_account_updated: Konto on õnnelikult uuendatud.
+  notice_account_other_session_expired: All other sessions tied to your account have
+    been invalidated.
   notice_account_wrong_password: Vale parool
   notice_account_registered_and_logged_in: Tere, teie konto on aktiveeritud. Teid
     logitakse nüüd sisse.
@@ -1940,7 +1970,7 @@ et:
   permission_export_wiki_pages: Eksportida vikilehti
   permission_list_attachments: Kuvada manuseid
   permission_log_time: Logida ajakulu
-  permission_manage_boards: Hallata foorumeid
+  permission_manage_forums: Hallata foorumeid
   permission_manage_categories: Kategooriaid hallata
   permission_manage_work_package_relations: Teemade seoseid hallata
   permission_manage_members: Halda liikmeid
@@ -1988,7 +2018,7 @@ et:
     archive:
       are_you_sure: Are you sure you want to archive the project '%{name}'?
   project_module_activity: Tegevus
-  project_module_boards: Foorumid
+  project_module_forums: Foorumid
   project_module_calendar: Kalender
   project_module_work_package_tracking: Teema jälgimine
   project_module_news: Uudised
@@ -2210,10 +2240,6 @@ et:
   setting_log_requesting_user: Logi iga taotluse kasutajanimi, nimi ja epost
   setting_login_required: Autentimine kohustuslik
   setting_mail_from: Saatja e-posti aadress
-  setting_mail_handler_api_enabled: Enable incoming email web service
-  setting_mail_handler_api_description: The email web handler enables OpenProject
-    to receive emails containing specific commands as an instrumentation mechanism
-    (e.g., to create and update work packages).
   setting_mail_handler_api_key: Veebiteenuse API võti
   setting_mail_handler_body_delimiters: Kärbi e-kirja lõpp peale sellist rida
   setting_mail_handler_body_delimiter_regex: Truncate emails matching this regex
@@ -2469,7 +2495,6 @@ et:
       color: Värv
       colors: Värvid
     associations: Projekti sõltuvused
-    board_could_not_be_saved: "(?) ei saa salvestada"
     button_delete_all: Kustuta kõik
     change: Muudatus planeerimises
     children: Alamelemendid
@@ -2718,6 +2743,13 @@ et:
 '
   menu_item: Menüüvalik
   menu_item_setting: Nähtavus
+  mysql_deprecation:
+    notice: 'Future versions of OpenProject will likely drop or reduce support for
+      MySQL and MariaDB databases. Your installation is still running on MySQL and
+      we suggest you migrate your installation to PostgreSQL. This process is easy
+      when following our migration guides:
+
+'
   wiki_menu_item_for: Menüüvalik vikilehele "%{title}"
   wiki_menu_item_setting: Nähtavus
   wiki_menu_item_new_main_item_explanation: 'Sa oled kustutamas ainsat viki põhilehele
@@ -2895,21 +2927,3 @@ et:
     revoke_my_application_confirmation: Do you really want to remove this application?
       This will revoke %{token_count} active for it.
     my_registered_applications: Registered OAuth applications
-  ldap_auth_sources:
-    connection_encryption: Connection encryption
-    tls_mode:
-      plain: pole
-      simple_tls: simple_tls
-      start_tls: start_tls
-      plain_description: Plain unencrypted connection, no TLS negotiation.
-      simple_tls_description: Implicit TLS encryption, but no certificate validation.
-        Use with caution and implicit trust of the LDAP connection.
-      start_tls_description: Explicit TLS encryption with full validation. Use for
-        LDAP over TLS/SSL.
-      section_more_info_link_html: 'This section concerns the connection security
-        of this LDAP authentication source. For more information, visit <a href="%{link}">the
-        Net::LDAP documentation</a>.
-
-'
-  notice_account_other_session_expired: All other sessions tied to your account have
-    been invalidated.

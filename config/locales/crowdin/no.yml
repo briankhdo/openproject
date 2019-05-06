@@ -57,9 +57,25 @@
     index:
       no_results_content_title: There are currently no authentication modes.
       no_results_content_text: Create a new authentication mode
-  boards:
+  ldap_auth_sources:
+    connection_encryption: Connection encryption
+    tls_mode:
+      plain: ingen
+      simple_tls: simple_tls
+      start_tls: start_tls
+      plain_description: Plain unencrypted connection, no TLS negotiation.
+      simple_tls_description: Implicit TLS encryption, but no certificate validation.
+        Use with caution and implicit trust of the LDAP connection.
+      start_tls_description: Explicit TLS encryption with full validation. Use for
+        LDAP over TLS/SSL.
+      section_more_info_link_html: 'This section concerns the connection security
+        of this LDAP authentication source. For more information, visit <a href="%{link}">the
+        Net::LDAP documentation</a>.
+
+'
+  forums:
     show:
-      no_results_title_text: There are currently no posts for the board.
+      no_results_title_text: There are currently no posts for the forum.
   colors:
     index:
       no_results_title_text: There are currently no colors.
@@ -139,9 +155,9 @@
     settings:
       activities:
         no_results_title_text: There are currently no activities available.
-      boards:
-        no_results_title_text: There are currently no boards for the project.
-        no_results_content_text: Create a new board
+      forums:
+        no_results_title_text: There are currently no forums for the project.
+        no_results_content_text: Create a new forum
       categories:
         no_results_title_text: There are currently no work package categories.
         no_results_content_text: Create a new work package category
@@ -211,7 +227,7 @@
       reset: Reset to defaults
       type_color_text: |
         Click to assign or change the color of this type. The selected color distinguishes work packages
-        in Gantt charts.
+        in Gantt charts. It is therefore recommended to use a strong color.
   versions:
     overview:
       no_results_title_text: There are currently no work packages assigned to this
@@ -366,6 +382,11 @@
         subscriber: Abonnent
         encoded_token: Enterprise support token
         active_user_count_restriction: Maximum active users
+      grids/grid:
+        page: Page
+        row_count: Number of rows
+        column_count: Number of columns
+        widgets: Widgets
       relation:
         delay: Forsinkelse
         from: Arbeidspakke
@@ -464,11 +485,6 @@
         client_credentials_user_id: Client Credentials User ID
         scopes: Scopes
         confidential: Confidential
-      grids/grid:
-        page: Page
-        row_count: Number of rows
-        column_count: Number of columns
-        widgets: Widgets
     errors:
       messages:
         accepted: must be accepted.
@@ -537,6 +553,10 @@
               not_match_configured: doesn't match available scopes.
         enterprise_token:
           unreadable: can't be read. Are you sure it is a support token?
+        grids/grid:
+          overlaps: overlap.
+          outside: is outside of the grid.
+          end_before_start: end value needs to be larger than the start value.
         parse_schema_filter_params_service:
           attributes:
             base:
@@ -638,10 +658,6 @@
         member:
           principal_blank: Velg minst én bruker eller gruppe.
           role_blank: Velg minst én rolle.
-        grids/grid:
-          overlaps: overlap.
-          outside: is outside of the grid.
-          end_before_start: end value needs to be larger than the start value.
       template:
         body: 'Kontroller følgende felter:'
         header:
@@ -650,7 +666,7 @@
     models:
       attachment: Fil
       attribute_help_text: Attribute help text
-      board: Forum
+      forum: Forum
       comment: Kommentar
       custom_action: Custom action
       custom_field: Egendefinert felt
@@ -1035,7 +1051,9 @@
   error_can_not_remove_role: Denne rollen er i bruk og kan ikke slettes.
   error_can_not_reopen_work_package_on_closed_version: En arbeidspakke tilknyttet
     en lukket versjon kan ikke gjenåpnes
+  error_can_not_find_all_resources: Could not find all related resources to this request.
   error_check_user_and_role: Velg en bruker og en rolle.
+  error_code: Error %{code}
   error_cookie_missing: Cookie OpenProject mangler. Kontroller at informasjonskapsler
     er aktivert, dette programmet fungerer ikke riktig uten.
   error_custom_option_not_found: Option does not exist.
@@ -1060,6 +1078,10 @@
   error_work_package_not_found_in_project: Arbeidspakken ble ikke funnet eller tilhører
     ikke dette prosjektet
   error_must_be_project_member: må være prosjektmedlem
+  error_migrations_are_pending: Your OpenProject installation has pending database
+    migrations. You have likely missed running the migrations on your last upgrade.
+    Please check the upgrade guide to properly upgrade your installation.
+  error_migrations_visit_upgrade_guides: Please visit our upgrade guide documentation
   error_no_default_work_package_status: Standard status for arbeidspakke er ikke definert.
     Vennligst kontrollèr innstillingene (Gå til "Administrasjon -> Status for arbeidspakker").
   error_no_type_in_project: Prosjektet mangler en tilknyttet type. Vennligst kontrollèr
@@ -1145,13 +1167,13 @@
           you substantially contribute to this Open-Source community effort.
     links:
       upgrade_enterprise_edition: Oppgrader til bedriftsversjonen
+      postgres_migration: Migrating your installation to PostgreSQL
       user_guides: Brukerveiledning
       faq: FAQ
       glossary: Ordliste
       shortcuts: Snarveier
-      forums: Forum
       blog: OpenProject blogg
-      boards: Brukerforum
+      forums: Brukerforum
       newsletter: Security alerts / Newsletter
   links:
     configuration_guide: Configuration guide
@@ -1218,7 +1240,7 @@
   label_authentication: Autentisering
   label_available_project_work_package_categories: Available work package categories
   label_available_project_work_package_types: Available work package types
-  label_available_project_boards: Available boards
+  label_available_project_forums: Available forums
   label_available_project_versions: Available versions
   label_available_project_repositories: Available repositories
   label_api_documentation: API documentation
@@ -1226,14 +1248,15 @@
   label_blocked_by: blokkert av
   label_blocks: blokkeringer
   label_blog: Blogg
-  label_board_locked: Låst
-  label_board_new: Nytt forum
-  label_board_plural: Forum
-  label_board_sticky: Sticky
+  label_forums_locked: Låst
+  label_forum_new: Nytt forum
+  label_forum_plural: Forum
+  label_forum_sticky: Sticky
   label_boolean: Boolsk
   label_branch: Gren
   label_browse: Bla gjennom
   label_bulk_edit_selected_work_packages: Masseredigering av valgte arbeidspakker
+  label_bundled: "(Bundled)"
   label_calendar: Kalender
   label_calendar_show: Vis kalender
   label_category: Kategori
@@ -1332,6 +1355,7 @@
   label_equals: er
   label_everywhere: everywhere
   label_example: Eksempel
+  label_import: Import
   label_export_to: 'Også tilgjengelig i:'
   label_expanded_click_to_collapse: Expanded. Click to collapse
   label_f_hour: "%{value} time"
@@ -1369,6 +1393,7 @@
   label_hierarchy_leaf: Hierarchy leaf
   label_home: Hjem
   label_subject_or_id: Subject or ID
+  label_impressum: Legal notice
   label_in: i
   label_in_less_than: i mindre enn
   label_in_more_than: i mer enn
@@ -1494,6 +1519,7 @@
   label_planning: Planlegging
   label_please_login: Vennligst logg på
   label_plugins: Programtillegg
+  label_modules_and_plugins: Modules and Plugins
   label_precedes: kommer før
   label_preferences: Innstillinger
   label_preview: Forhåndsvis
@@ -1501,6 +1527,7 @@
   label_previous_week: Forrige uke
   label_principal_invite_via_email: " or invite new users via email"
   label_principal_search: Add existing users or groups
+  label_privacy_policy: Data privacy and security policy
   label_product_version: Produktversjon
   label_professional_support: Professional support
   label_profile: Profil
@@ -1615,6 +1642,7 @@
   label_updated_time: Oppdatert for %{value} siden
   label_updated_time_at: "%{author} %{age}"
   label_updated_time_by: Oppdatert av %{author} for %{age} siden
+  label_upgrade_guides: Upgrade guides
   label_used_by: Brukt av
   label_used_by_types: Used by types
   label_used_in_projects: Used in projects
@@ -1819,6 +1847,8 @@
   notice_account_update_failed: Account setting could not be saved. Please have a
     look at your account page.
   notice_account_updated: Kontoen ble oppdatert.
+  notice_account_other_session_expired: All other sessions tied to your account have
+    been invalidated.
   notice_account_wrong_password: Feil passord
   notice_account_registered_and_logged_in: Velkommen! Din konto ble aktivert. Du er
     nå innlogget.
@@ -1944,7 +1974,7 @@
   permission_export_wiki_pages: Eksportèr wiki-sider
   permission_list_attachments: List vedlegg
   permission_log_time: Logg tidsbruk
-  permission_manage_boards: Administrere forum
+  permission_manage_forums: Administrere forum
   permission_manage_categories: Administrere kategorier for arbeidspakker
   permission_manage_work_package_relations: Administrere relasjoner for arbeidspakker
   permission_manage_members: Administrere medlemmer
@@ -1991,7 +2021,7 @@
     archive:
       are_you_sure: Are you sure you want to archive the project '%{name}'?
   project_module_activity: Aktivitet
-  project_module_boards: Forum
+  project_module_forums: Forum
   project_module_calendar: Kalender
   project_module_work_package_tracking: Sporing av arbeidspakke
   project_module_news: Nyheter
@@ -2213,10 +2243,6 @@
   setting_log_requesting_user: Logg brukernavn, navn og e-postadresse for alle forespørsler
   setting_login_required: Autentisering er påkrevd
   setting_mail_from: Utgående e-postadresse
-  setting_mail_handler_api_enabled: Aktiver web-tjeneste for innkommende e-post
-  setting_mail_handler_api_description: Epost web-tjenesten sørger for at OpenProject
-    kan motta eposter som inneholder spesefikte kommandoer som en instruksjonsmekanisme
-    (f.eks opprette og oppdatere arbeidspakker).
   setting_mail_handler_api_key: API-nøkkel
   setting_mail_handler_body_delimiters: Avkort e-post etter en av disse linjene
   setting_mail_handler_body_delimiter_regex: Avkort e-post som samsvarer med denne
@@ -2473,7 +2499,6 @@
       color: Farge
       colors: Farger
     associations: Avhengigheter
-    board_could_not_be_saved: Forum kunne ikke lagres
     button_delete_all: Slett alle
     change: Endre i planlegging
     children: Underelementer
@@ -2727,6 +2752,13 @@
 '
   menu_item: Menyelement
   menu_item_setting: Synlighet
+  mysql_deprecation:
+    notice: 'Future versions of OpenProject will likely drop or reduce support for
+      MySQL and MariaDB databases. Your installation is still running on MySQL and
+      we suggest you migrate your installation to PostgreSQL. This process is easy
+      when following our migration guides:
+
+'
   wiki_menu_item_for: Menyelement for wiki-siden "%{title}"
   wiki_menu_item_setting: Synlighet
   wiki_menu_item_new_main_item_explanation: 'Du er i ferd med å slette det eneste
@@ -2905,21 +2937,3 @@
     revoke_my_application_confirmation: Do you really want to remove this application?
       This will revoke %{token_count} active for it.
     my_registered_applications: Registered OAuth applications
-  ldap_auth_sources:
-    connection_encryption: Connection encryption
-    tls_mode:
-      plain: ingen
-      simple_tls: simple_tls
-      start_tls: start_tls
-      plain_description: Plain unencrypted connection, no TLS negotiation.
-      simple_tls_description: Implicit TLS encryption, but no certificate validation.
-        Use with caution and implicit trust of the LDAP connection.
-      start_tls_description: Explicit TLS encryption with full validation. Use for
-        LDAP over TLS/SSL.
-      section_more_info_link_html: 'This section concerns the connection security
-        of this LDAP authentication source. For more information, visit <a href="%{link}">the
-        Net::LDAP documentation</a>.
-
-'
-  notice_account_other_session_expired: All other sessions tied to your account have
-    been invalidated.

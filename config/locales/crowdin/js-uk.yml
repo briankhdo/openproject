@@ -18,11 +18,24 @@ uk:
     close_popup_title: Закрити вспливаюче вікно
     close_filter_title: Закрити фільтр
     close_form_title: Закрити форму
+    boards:
+      upsale:
+        boards: Need to freely structure your work in a board view?
+        check_out_link: Check out the Enterprise Edition.
+      lists:
+        delete: Delete list
+    card:
+      add_new: Add new card
+      highlighting:
+        inline: 'Highlight inline:'
+        entire_card_by: Entire card by
+      remove_from_list: Remove card from list
     clipboard:
       browser_error: Ваш браузер не підтримує копіювання до буфера обміну. Потрібно
         скопіювати виділений текст вручну.
       copied_successful: Успішно скопійовано до буфера обміну!
     button_add_watcher: Add watcher
+    button_back: Back
     button_back_to_list_view: Повернутися до списку
     button_cancel: Cancel
     button_close: Close
@@ -38,7 +51,7 @@ uk:
     button_duplicate: Duplicate
     button_edit: Edit
     button_filter: Filter
-    button_advanced_filter: Advanced filter
+    button_advanced_filter: Розширений фільтр
     button_list_view: Подання списком
     button_show_view: Повноекранний режим
     button_log_time: Log time
@@ -148,17 +161,43 @@ uk:
     general_text_yes: 'yes'
     general_text_No: 'No'
     general_text_Yes: 'Yes'
+    grid:
+      add_modal:
+        choose_widget: Оберіть віджет
+      widgets:
+        documents:
+          title: Документи
+          no_results: Ще немає документів.
+        news:
+          title: News
+          at: на
+          no_results: Nothing new to report.
+        time_entries_current_user:
+          title: Витрачений час (останні 7 днів)
+          no_results: Немає записів часу за останні 7 днів.
+        work_packages_accountable:
+          title: Work packages I am accountable for
+        work_packages_assigned:
+          title: Work packages assigned to me
+        work_packages_created:
+          title: Пакети робіт створені мною
+        work_packages_watched:
+          title: Пакети робіт переглянуті мною
+        work_packages_table:
+          title: Work packages
+        work_packages_calendar:
+          title: Calendar
     label_activate: Activate
     label_activity_no: Запис активності номер %{activityNo}
     label_activity_with_comment_no: Запис активності номер %{activityNo}. Має коментар
       користувача.
-    label_add_column_after: Add column after
-    label_add_column_before: Add column before
+    label_add_column_after: Додати стовпець після
+    label_add_column_before: Додати стовпець перед
     label_add_columns: Add columns
     label_add_comment: Додати коментар
     label_add_comment_title: Comment and type @ to notify other people
-    label_add_row_after: Add row after
-    label_add_row_before: Add row before
+    label_add_row_after: Додати рядок після
+    label_add_row_before: Додати рядок перед
     label_add_selected_columns: Add selected columns
     label_added_by: додав(-ла)
     label_added_time_by: Додав(-ла) %{author} %{age}
@@ -220,6 +259,7 @@ uk:
     label_more_than_ago: more than days ago
     label_my_page: My page
     label_next: Next
+    label_no_color: No color
     label_no_data: No data to display
     label_no_due_date: немає дати завершення
     label_no_start_date: немає дати початку
@@ -237,9 +277,9 @@ uk:
     label_visibility_settings: Visibility settings
     label_quote_comment: Цитувати цей коментар
     label_reset: Reset
-    label_remove_column: Remove column
+    label_remove_column: Видалити стовпець
     label_remove_columns: Remove selected columns
-    label_remove_row: Remove row
+    label_remove_row: Видалити рядок
     label_save_as: Зберегти як
     label_select_watcher: Виберіть спостерігача...
     label_selected_filter_list: Вибрані фільтри
@@ -261,7 +301,7 @@ uk:
     label_activity_show_only_comments: Show activities with comments only
     label_activity_show_all: Show all activities
     label_total_progress: "%{percent}% загального прогресу"
-    label_total_amount: 'Total: %{amount}'
+    label_total_amount: 'Всього: %{amount}'
     label_updated_on: оновлено
     label_warning: Warning
     label_work_package: Work package
@@ -311,46 +351,54 @@ uk:
         next: Next
         got_it: Got it
       steps:
-        welcome: Здійсніть трихвилинний ознайомчий огляд для вивчення <b>найважливішого
-          функціоналу</b>. <br> Ми рекомендуємо пройти всі кроки до завершення огляду.
-          Ви можете повернутися до цього огляду повторно в будь-який час.
+        help_menu: In the <b>Help</b> menu you will find a user guide and additional
+          help resources. <br> Enjoy your work with OpenProject!
+        members: Invite new <b>Members</b> to join your project.
         project_selection: Please select one of the projects with useful demo data
           to get started. <br> The <b>Demo project</b> suits best for classical project
           management, while the <b>Scrum project</b> is better for Agile project management.
         sidebar_arrow: With the arrow you can navigate back to the project's <b>Main
           menu</b>.
-        members: Invite new <b>Members</b> to join your project.
+        welcome: Здійсніть трихвилинний ознайомчий огляд для вивчення <b>найважливішого
+          функціоналу</b>. <br> Ми рекомендуємо пройти всі кроки до завершення огляду.
+          Ви можете повернутися до цього огляду повторно в будь-який час.
         wiki: Within the <b>Wiki</b> you can document and share knowledge together
           with your team.
-        backlogs_overview: Manage your work in the <b>Backlogs</b> view. <br> On the
-          right you have the Product Backlog or a Bug Backlog, on the left you will
-          have the respective sprints. Here you can create <b>epics, user stories,
-          and bugs</b>, prioritize via drag'n'drop and add them to a sprint.
-        backlogs_task_board_arrow: To see your <b>Task board</b>, open the Sprint
-          drop-down...
-        backlogs_task_board_select: "... and select the <b>Task board</b> entry."
-        backlogs_task_board: The <b>Task board</b> visualizes the progress for this
-          sprint. Add new tasks or impediments with the + icon next to a user story.
-          Via drag'n'drop you can update the status.
-        wp_toggler: Now let's have a look at the <b>Work package</b> section, which
-          gives you a more detailed view of your work.
-        wp_list: This is the <b>Work package</b> list with the important work within
-          your project, such as tasks, features, milestones, bugs, and more. <br>
-          You can create or edit a work package directly within this list. To see
-          its details you can double click on a row.
-        wp_full_view: Within the <b>Work package details</b> you find all relevant
-          information, such as description, status and priority, activities, dependencies
-          or comments.
-        wp_back_button: With the arrow you can navigate back to the work package list.
-        wp_create_button: The <b>Create</b> button will add a new work package to
-          your project.
-        wp_timeline_button: You can activate the <b>Gantt chart</b> to create a timeline
-          for your project.
-        wp_timeline: Here you can edit your project plan. Create new phases, milestones,
-          and add dependencies. All team members can see and update the latest plan
-          at any time.
-        help_menu: In the <b>Help</b> menu you will find a user guide and additional
-          help resources. <br> Enjoy your work with OpenProject!
+        backlogs:
+          overview: Manage your work in the <b>Backlogs</b> view. <br> On the right
+            you have the Product Backlog or a Bug Backlog, on the left you will have
+            the respective sprints. Here you can create <b>epics, user stories, and
+            bugs</b>, prioritize via drag'n'drop and add them to a sprint.
+          task_board_arrow: To see your <b>Task board</b>, open the Sprint drop-down...
+          task_board_select: "... and select the <b>Task board</b> entry."
+          task_board: The <b>Task board</b> visualizes the progress for this sprint.
+            Add new tasks or impediments with the + icon next to a user story. Via
+            drag'n'drop you can update the status.
+        boards:
+          overview: Manage your work within an intuitive <b>Boards</b> view.
+          lists: You can create multiple lists (columns) within one Board view, e.g.
+            to create a KANBAN board.
+          add: Click the + will <b>add a new card</b> to the list within a Board.
+          drag: Drag & Drop your cards within a list to re-order, or to drag to another
+            list. A double click will open the details view.
+        wp:
+          toggler: Now let's have a look at the <b>Work package</b> section, which
+            gives you a more detailed view of your work.
+          list: This is the <b>Work package</b> list with the important work within
+            your project, such as tasks, features, milestones, bugs, and more. <br>
+            You can create or edit a work package directly within this list. To see
+            its details you can double click on a row.
+          full_view: Within the <b>Work package details</b> you find all relevant
+            information, such as description, status and priority, activities, dependencies
+            or comments.
+          back_button: With the arrow you can navigate back to the work package list.
+          create_button: The <b>Create</b> button will add a new work package to your
+            project.
+          timeline_button: You can activate the <b>Gantt chart</b> to create a timeline
+            for your project.
+          timeline: Here you can edit your project plan. Create new phases, milestones,
+            and add dependencies. All team members can see and update the latest plan
+            at any time.
     password_confirmation:
       field_description: Вам необхідно ввести пароль облікового запису, щоб підтвердити
         цю зміну.
@@ -494,6 +542,7 @@ uk:
       view?
     text_attachment_destroy_confirmation: Ви впевнені, що бажаєте видалити вкладення?
     timelines:
+      quarter_label: Q%{quarter_number}
       gantt_chart: Gantt chart
       labels:
         title: Label configuration
@@ -560,7 +609,6 @@ uk:
           is not available.
 
 '
-      quarter_label: Q%{quarter_number}
     tl_toolbar:
       zooms: Рівень масштабування
       outlines: Рівень ієрархії
@@ -611,7 +659,7 @@ uk:
       label_enable_multi_select: Дозволити мультивибір
       label_disable_multi_select: Не дозволяти мультивибір
       label_filter_add: Add filter
-      label_filter_by_text: Filter by text
+      label_filter_by_text: Фільтрування за текстом
       label_options: Options
       label_column_multiselect: 'Поле комбінованого випадаючого списку: виділіть за
         допомогою клавіш зі стрілками, підтвердьте вибір з Enter, видаліть з Backspace'
@@ -624,7 +672,7 @@ uk:
       message_work_package_read_only: Work package is locked in this status. No attribute
         other than status can be altered.
       no_value: Значення відсутнє
-      placeholder_filter_by_text: Subject, description, comments, ...
+      placeholder_filter_by_text: Тема, опис, коментарі, ...
       inline_create:
         title: Клацніть тут, щоб додати до цього списку новий пакет робіт
       create:
@@ -841,7 +889,7 @@ uk:
         messages_on_field: 'Це поле невірне: %{messages}'
     error_could_not_resolve_version_name: Не вдалося визначити версію
     error_could_not_resolve_user_name: Не вдалося визначити ім'я користувача
-    error_attachment_upload: 'File failed to upload: %{error}'
+    error_attachment_upload: 'Не вдалося завантажити файл: %{error}'
     error_attachment_upload_permission: You don't have the permission to upload files
       on this resource.
     units:
@@ -865,36 +913,12 @@ uk:
       button_activate: Activate zen mode
       button_deactivate: Deactivate zen mode
     global_search:
-      all_projects: In all projects
+      all_projects: У всіх проектах
       search: Search
-      close_search: Close search
-      current_project: In this project
-      current_project_and_all_descendants: In this project + subprojects
+      close_search: Закрити пошук
+      current_project: У цьому проекті
+      current_project_and_all_descendants: У цьому проекті + підпроекти
       title:
-        all_projects: all projects
-        project_and_subprojects: and all subprojects
-        search_for: Search for
-    grid:
-      add_modal:
-        choose_widget: Choose widget
-      widgets:
-        documents:
-          title: Documents
-          no_results: No documents yet.
-        news:
-          title: News
-          at: at
-          no_results: Nothing new to report.
-        time_entries_current_user:
-          title: Spent time (last 7 days)
-          no_results: No time entries for the last 7 days.
-        work_packages_accountable:
-          title: Work packages I am accountable for
-        work_packages_assigned:
-          title: Work packages assigned to me
-        work_packages_created:
-          title: Work packages created by me
-        work_packages_watched:
-          title: Work packages watched by me
-        work_packages_calendar:
-          title: Calendar
+        all_projects: всі проекти
+        project_and_subprojects: і всі підпроекти
+        search_for: Пошук по

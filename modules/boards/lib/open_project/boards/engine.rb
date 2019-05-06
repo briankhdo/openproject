@@ -24,6 +24,7 @@ module OpenProject::Boards
 
     register 'openproject-boards',
              author_url: 'https://community.openproject.com',
+             bundled: true,
              settings: {},
              name: 'OpenProject Boards' do
 
@@ -38,7 +39,7 @@ module OpenProject::Boards
            caption: :'boards.label_boards',
            after: :work_packages,
            param: :project_id,
-           icon: 'icon2 icon-backlogs'
+           icon: 'icon2 icon-boards'
 
       menu :project_menu,
            :board_menu,
@@ -48,6 +49,12 @@ module OpenProject::Boards
            partial: 'boards/boards/menu_board',
            last: true,
            caption: :'boards.label_boards'
+    end
+
+    patch_with_namespace :BasicData, :SettingSeeder
+
+    initializer 'boards.precompile_assets' do
+      Rails.application.config.assets.precompile += %w(boards/board_header_mobile.css)
     end
 
     config.to_prepare do

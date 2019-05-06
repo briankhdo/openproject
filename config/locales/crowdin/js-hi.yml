@@ -18,11 +18,24 @@ hi:
     close_popup_title: पॉपअप बंद करें
     close_filter_title: Close filter
     close_form_title: Close form
+    boards:
+      upsale:
+        boards: Need to freely structure your work in a board view?
+        check_out_link: Check out the Enterprise Edition.
+      lists:
+        delete: Delete list
+    card:
+      add_new: Add new card
+      highlighting:
+        inline: 'Highlight inline:'
+        entire_card_by: Entire card by
+      remove_from_list: Remove card from list
     clipboard:
       browser_error: Your browser doesn't support copying to clipboard. Please copy
         the selected text manually.
       copied_successful: Sucessfully copied to clipboard!
     button_add_watcher: द्रष्टा जोड़ें
+    button_back: वापस जाएँ
     button_back_to_list_view: Back to list view
     button_cancel: निरस्त करें
     button_close: बंद करें
@@ -147,6 +160,32 @@ hi:
     general_text_yes: 'yes'
     general_text_No: 'No'
     general_text_Yes: 'Yes'
+    grid:
+      add_modal:
+        choose_widget: Choose widget
+      widgets:
+        documents:
+          title: Documents
+          no_results: No documents yet.
+        news:
+          title: नया
+          at: at
+          no_results: Nothing new to report.
+        time_entries_current_user:
+          title: Spent time (last 7 days)
+          no_results: No time entries for the last 7 days.
+        work_packages_accountable:
+          title: कार्य पैकेज जिनके लिए मैं उत्तरदायी हूं
+        work_packages_assigned:
+          title: मेरे लिए असाइन किए गए कार्य पैकेज
+        work_packages_created:
+          title: Work packages created by me
+        work_packages_watched:
+          title: Work packages watched by me
+        work_packages_table:
+          title: कार्य पैकेज
+        work_packages_calendar:
+          title: कैलेंडर
     label_activate: Activate
     label_activity_no: Activity entry number %{activityNo}
     label_activity_with_comment_no: Activity entry number %{activityNo}. Has a user
@@ -219,6 +258,7 @@ hi:
     label_more_than_ago: more than days ago
     label_my_page: My page
     label_next: Next
+    label_no_color: कोई रंग नहीं
     label_no_data: प्रदर्शित करने के लिए कोई डेटा नहीं
     label_no_due_date: कोई समाप्ति दिनांक नहीं
     label_no_start_date: कोई प्रारंभ दिनांक नहीं
@@ -311,45 +351,53 @@ hi:
         next: Next
         got_it: समझ गया
       steps:
-        welcome: Take a three minutes introduction tour to learn the most <b>important
-          features</b>. <br> We recommend completing the steps until the end. You
-          can restart the tour any time.
+        help_menu: In the <b>Help</b> menu you will find a user guide and additional
+          help resources. <br> Enjoy your work with OpenProject!
+        members: अपने प्रोजेक्ट में शामिल होने के लिए नए सदस्यों को आमंत्रित करें
+          ।
         project_selection: प्रारंभ करने के लिए कृपया डेमो डेटा सहित २ परियोजनाओं में
           से किसी एक का चयन करें ।
         sidebar_arrow: तीर के साथ आप वापस परियोजना के मुख्य मेनु में जा सकते हैं ।
-        members: अपने प्रोजेक्ट में शामिल होने के लिए नए सदस्यों को आमंत्रित करें
-          ।
+        welcome: Take a three minutes introduction tour to learn the most <b>important
+          features</b>. <br> We recommend completing the steps until the end. You
+          can restart the tour any time.
         wiki: Within the <b>Wiki</b> you can document and share knowledge together
           with your team.
-        backlogs_overview: Manage your work in the <b>Backlogs</b> view. <br> On the
-          right you have the Product Backlog or a Bug Backlog, on the left you will
-          have the respective sprints. Here you can create <b>epics, user stories,
-          and bugs</b>, prioritize via drag'n'drop and add them to a sprint.
-        backlogs_task_board_arrow: To see your <b>Task board</b>, open the Sprint
-          drop-down...
-        backlogs_task_board_select: "... and select the <b>Task board</b> entry."
-        backlogs_task_board: The <b>Task board</b> visualizes the progress for this
-          sprint. Add new tasks or impediments with the + icon next to a user story.
-          Via drag'n'drop you can update the status.
-        wp_toggler: Now let's have a look at the <b>Work package</b> section, which
-          gives you a more detailed view of your work.
-        wp_list: This is the <b>Work package</b> list with the important work within
-          your project, such as tasks, features, milestones, bugs, and more. <br>
-          You can create or edit a work package directly within this list. To see
-          its details you can double click on a row.
-        wp_full_view: Within the <b>Work package details</b> you find all relevant
-          information, such as description, status and priority, activities, dependencies
-          or comments.
-        wp_back_button: With the arrow you can navigate back to the work package list.
-        wp_create_button: The <b>Create</b> button will add a new work package to
-          your project.
-        wp_timeline_button: You can activate the <b>Gantt chart</b> to create a timeline
-          for your project.
-        wp_timeline: यहां आप अपनी परियोजना की योजना को संपादित कर सकते हैं । नए चरण,
-          माइलस्टोन बनाएं और निर्भरताएं जोड़ें । टीम के सभी सदस्य किसी भी समय नवीनतम
-          योजना को देख और अद्यतित कर सकते हैं ।
-        help_menu: In the <b>Help</b> menu you will find a user guide and additional
-          help resources. <br> Enjoy your work with OpenProject!
+        backlogs:
+          overview: Manage your work in the <b>Backlogs</b> view. <br> On the right
+            you have the Product Backlog or a Bug Backlog, on the left you will have
+            the respective sprints. Here you can create <b>epics, user stories, and
+            bugs</b>, prioritize via drag'n'drop and add them to a sprint.
+          task_board_arrow: To see your <b>Task board</b>, open the Sprint drop-down...
+          task_board_select: "... and select the <b>Task board</b> entry."
+          task_board: The <b>Task board</b> visualizes the progress for this sprint.
+            Add new tasks or impediments with the + icon next to a user story. Via
+            drag'n'drop you can update the status.
+        boards:
+          overview: Manage your work within an intuitive <b>Boards</b> view.
+          lists: You can create multiple lists (columns) within one Board view, e.g.
+            to create a KANBAN board.
+          add: Click the + will <b>add a new card</b> to the list within a Board.
+          drag: Drag & Drop your cards within a list to re-order, or to drag to another
+            list. A double click will open the details view.
+        wp:
+          toggler: Now let's have a look at the <b>Work package</b> section, which
+            gives you a more detailed view of your work.
+          list: This is the <b>Work package</b> list with the important work within
+            your project, such as tasks, features, milestones, bugs, and more. <br>
+            You can create or edit a work package directly within this list. To see
+            its details you can double click on a row.
+          full_view: Within the <b>Work package details</b> you find all relevant
+            information, such as description, status and priority, activities, dependencies
+            or comments.
+          back_button: With the arrow you can navigate back to the work package list.
+          create_button: The <b>Create</b> button will add a new work package to your
+            project.
+          timeline_button: You can activate the <b>Gantt chart</b> to create a timeline
+            for your project.
+          timeline: यहां आप अपनी परियोजना की योजना को संपादित कर सकते हैं । नए चरण,
+            माइलस्टोन बनाएं और निर्भरताएं जोड़ें । टीम के सभी सदस्य किसी भी समय नवीनतम
+            योजना को देख और अद्यतित कर सकते हैं ।
     password_confirmation:
       field_description: You need to enter your account password to confirm this change.
       title: Confirm your password to continue
@@ -488,6 +536,7 @@ hi:
       view?
     text_attachment_destroy_confirmation: Are you sure you want to delete the attachment?
     timelines:
+      quarter_label: Q%{quarter_number}
       gantt_chart: गैंट चार्ट
       labels:
         title: Label configuration
@@ -554,7 +603,6 @@ hi:
           is not available.
 
 '
-      quarter_label: Q%{quarter_number}
     tl_toolbar:
       zooms: Zoom level
       outlines: Hierarchy level
@@ -863,27 +911,3 @@ hi:
         all_projects: all projects
         project_and_subprojects: and all subprojects
         search_for: Search for
-    grid:
-      add_modal:
-        choose_widget: Choose widget
-      widgets:
-        documents:
-          title: Documents
-          no_results: No documents yet.
-        news:
-          title: नया
-          at: at
-          no_results: Nothing new to report.
-        time_entries_current_user:
-          title: Spent time (last 7 days)
-          no_results: No time entries for the last 7 days.
-        work_packages_accountable:
-          title: कार्य पैकेज जिनके लिए मैं उत्तरदायी हूं
-        work_packages_assigned:
-          title: मेरे लिए असाइन किए गए कार्य पैकेज
-        work_packages_created:
-          title: Work packages created by me
-        work_packages_watched:
-          title: Work packages watched by me
-        work_packages_calendar:
-          title: कैलेंडर

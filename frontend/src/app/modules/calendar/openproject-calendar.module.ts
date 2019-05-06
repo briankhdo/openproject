@@ -42,7 +42,11 @@ export const CALENDAR_ROUTES:Ng2StateDeclaration[] = [
     name: 'work-packages.calendar',
     url: '/calendar',
     component: WorkPackagesCalendarEntryComponent,
-    reloadOnSearch: false
+    reloadOnSearch: false,
+    data: {
+      bodyClasses: 'router--work-packages-calendar',
+      parent: 'work-packages'
+    }
   }
 ];
 

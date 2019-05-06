@@ -28,7 +28,7 @@ Yes, but you will lose the ability to enable Git/SVN repository integration. Not
 
 ### Can I use MySQL instead of PostgreSQL?
 
-Yes, but we are no suggesting to use PostgreSQL to ensure long-term compatibility with OpenProject. Some features such as full-text search are only available on PostgreSQL, and we may decide to reduce or drop MySQL support at some point in the future.
+Yes, but we are recommending to use PostgreSQL to ensure long-term compatibility with OpenProject. Some features such as full-text search are only available on PostgreSQL, and we may decide to reduce or drop MySQL support at some point in the future.
 
 You will need to setup the database by yourself, and then set the DATABASE_URL environment variable.
 This can be done with the command `openproject config:set DATABASE_URL="mysql://{user}:{password}@{hostname}:{port}/{database-name}"`.
@@ -38,6 +38,8 @@ This can be done with the command `openproject config:set DATABASE_URL="mysql://
 ### How can I migrate my existing MySQL database to PostgreSQL ?
 
 Older installations of OpenProject have installed a MySQL. With [pgloader](https://pgloader.io), it is trivially easy to convert a dump between MySQL and PostgreSQL installation. You simply run `pgloader <mysql database url> <postgres database url>`. You can find out the DATABASE_URL by using `openproject config:get DATABASE_URL`.
+
+[We have prepared a guide](https://www.openproject.org/operations/upgrading/migrating-packaged-openproject-database-postgresql/) on how to migrate to a PostgreSQL database if you previously used MySQL. 
 
 ### My favorite linux distribution is not listed. What can I do?
 

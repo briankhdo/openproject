@@ -45,6 +45,7 @@ import {IWorkPackageEditingServiceToken} from '../../wp-edit-form/work-package-e
 import {DynamicCssService} from '../../../modules/common/dynamic-css/dynamic-css.service';
 import {HookService} from 'core-app/modules/plugins/hook-service';
 import {randomString} from "core-app/helpers/random-string";
+import {BrowserDetector} from "core-app/modules/common/browser/browser-detector.service";
 
 export interface FieldDescriptor {
   name:string;
@@ -127,7 +128,8 @@ export class WorkPackageSingleViewComponent implements OnInit, OnDestroy {
               protected wpCacheService:WorkPackageCacheService,
               protected hook:HookService,
               protected injector:Injector,
-              readonly elementRef:ElementRef) {
+              readonly elementRef:ElementRef,
+              readonly browserDetector:BrowserDetector) {
   }
 
   public ngOnInit() {
@@ -148,7 +150,7 @@ export class WorkPackageSingleViewComponent implements OnInit, OnDestroy {
       .pipe(
         takeUntil(componentDestroyed(this)),
         distinctUntilChanged<ResourceContextChange>((a, b) => _.isEqual(a, b)),
-        map(() => this.wpEditing.temporaryEditResource(this.workPackage.id).value!)
+        map(() => this.wpEditing.temporaryEditResource(this.workPackage.id!).value!)
       )
       .subscribe((resource:WorkPackageResource) => {
         // Prepare the fields that are required always
@@ -158,7 +160,7 @@ export class WorkPackageSingleViewComponent implements OnInit, OnDestroy {
           this.projectContext = {matches: false, href: null};
         } else {
           this.projectContext = {
-            href: this.PathHelper.projectWorkPackagePath(resource.project.idFromLink, this.workPackage.id),
+            href: this.PathHelper.projectWorkPackagePath(resource.project.idFromLink, this.workPackage.id!),
             matches: resource.project.href === this.currentProject.apiv3Path
           };
         }
@@ -173,7 +175,7 @@ export class WorkPackageSingleViewComponent implements OnInit, OnDestroy {
 
     // Update the resource context on every update to the temporary resource.
     // This allows detecting a changed type value in a new work package.
-    this.wpEditing.temporaryEditResource(this.workPackage.id)
+    this.wpEditing.temporaryEditResource(this.workPackage.id!)
       .values$()
       .pipe(
         takeUntil(componentDestroyed(this))
@@ -241,6 +243,13 @@ export class WorkPackageSingleViewComponent implements OnInit, OnDestroy {
     let projectPath = this.PathHelper.projectPath(id);
     let project = `<a href="${projectPath}">${this.workPackage.project.name}<a>`;
     return this.I18n.t('js.project.work_package_belongs_to', {projectname: project});
+  }
+
+  /*
+   * Show two column layout for new WP per default, but disable in MS Edge (#29941)
+   */
+  public get enableTwoColumnLayout() {
+    return this.workPackage.isNew && !this.browserDetector.isEdge;
   }
 
   /**

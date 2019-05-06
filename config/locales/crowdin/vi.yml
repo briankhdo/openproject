@@ -57,9 +57,25 @@ vi:
     index:
       no_results_content_title: Không có hiện tại không có chế độ xác thực.
       no_results_content_text: Tạo một chế độ xác thực mới
-  boards:
+  ldap_auth_sources:
+    connection_encryption: Connection encryption
+    tls_mode:
+      plain: không
+      simple_tls: simple_tls
+      start_tls: start_tls
+      plain_description: Plain unencrypted connection, no TLS negotiation.
+      simple_tls_description: Implicit TLS encryption, but no certificate validation.
+        Use with caution and implicit trust of the LDAP connection.
+      start_tls_description: Explicit TLS encryption with full validation. Use for
+        LDAP over TLS/SSL.
+      section_more_info_link_html: 'This section concerns the connection security
+        of this LDAP authentication source. For more information, visit <a href="%{link}">the
+        Net::LDAP documentation</a>.
+
+'
+  forums:
     show:
-      no_results_title_text: Hiện có không có bài viết ở bảng điều khiển.
+      no_results_title_text: There are currently no posts for the forum.
   colors:
     index:
       no_results_title_text: Hiện có không có màu sắc.
@@ -139,9 +155,9 @@ vi:
     settings:
       activities:
         no_results_title_text: Không có hoạt động nào hiện tại.
-      boards:
-        no_results_title_text: Không có hiện tại không có bảng điều khiển cho dự án.
-        no_results_content_text: Tạo ra một bảng mới
+      forums:
+        no_results_title_text: There are currently no forums for the project.
+        no_results_content_text: Create a new forum
       categories:
         no_results_title_text: Hiện có không có nhóm gói công việc.
         no_results_content_text: Tạo ra một loại gói công việc mới
@@ -211,7 +227,7 @@ vi:
       reset: Reset to defaults
       type_color_text: |
         Click to assign or change the color of this type. The selected color distinguishes work packages
-        in Gantt charts.
+        in Gantt charts. It is therefore recommended to use a strong color.
   versions:
     overview:
       no_results_title_text: There are currently no work packages assigned to this
@@ -366,6 +382,11 @@ vi:
         subscriber: Subscriber
         encoded_token: Enterprise support token
         active_user_count_restriction: Số người dùng hoạt động tối đa
+      grids/grid:
+        page: Page
+        row_count: Number of rows
+        column_count: Number of columns
+        widgets: Widgets
       relation:
         delay: Trì hoãn
         from: Work Package
@@ -464,11 +485,6 @@ vi:
         client_credentials_user_id: Client Credentials User ID
         scopes: Scopes
         confidential: Confidential
-      grids/grid:
-        page: Page
-        row_count: Number of rows
-        column_count: Number of columns
-        widgets: Widgets
     errors:
       messages:
         accepted: must be accepted.
@@ -539,6 +555,10 @@ vi:
               not_match_configured: doesn't match available scopes.
         enterprise_token:
           unreadable: can't be read. Are you sure it is a support token?
+        grids/grid:
+          overlaps: overlap.
+          outside: is outside of the grid.
+          end_before_start: end value needs to be larger than the start value.
         parse_schema_filter_params_service:
           attributes:
             base:
@@ -641,10 +661,6 @@ vi:
         member:
           principal_blank: Vui lòng chọn ít nhất một người dùng hoặc nhóm.
           role_blank: Vui lòng chọn ít nhất một vai trò.
-        grids/grid:
-          overlaps: overlap.
-          outside: is outside of the grid.
-          end_before_start: end value needs to be larger than the start value.
       template:
         body: 'Vui lòng kiểm tra các mục sau đây:'
         header:
@@ -653,7 +669,7 @@ vi:
     models:
       attachment: Tệp
       attribute_help_text: Thuộc tính văn bản trợ giúp
-      board: Diễn đàn
+      forum: Diễn đàn
       comment: Nhận xét
       custom_action: Tác vụ tùy chỉnh
       custom_field: Tùy chỉnh mục
@@ -1038,7 +1054,9 @@ vi:
   error_can_not_remove_role: Vai trò này đang được sử dụng và không thể bị xóa.
   error_can_not_reopen_work_package_on_closed_version: Không thể mở lại cho một work
     package đã được gán cho một phiên bản đã đóng
+  error_can_not_find_all_resources: Could not find all related resources to this request.
   error_check_user_and_role: Hãy chọn người dùng và một vai trò.
+  error_code: Error %{code}
   error_cookie_missing: The OpenProject cookie is missing. Please ensure that cookies
     are enabled, as this application will not properly function without.
   error_custom_option_not_found: Option does not exist.
@@ -1063,6 +1081,10 @@ vi:
   error_work_package_not_found_in_project: Work package không được tìm thấy hoặc không
     thuộc về dự án này
   error_must_be_project_member: phải là thành viên dự án
+  error_migrations_are_pending: Your OpenProject installation has pending database
+    migrations. You have likely missed running the migrations on your last upgrade.
+    Please check the upgrade guide to properly upgrade your installation.
+  error_migrations_visit_upgrade_guides: Please visit our upgrade guide documentation
   error_no_default_work_package_status: Không có tình trạng mặc định được định nghĩa
     cho work package. Vui lòng kiểm tra cấu hình của bạn (đi đến "Quản lý-> các trạng
     thái của work package").
@@ -1149,13 +1171,13 @@ vi:
           you substantially contribute to this Open-Source community effort.
     links:
       upgrade_enterprise_edition: Upgrade to Enterprise Edition
+      postgres_migration: Migrating your installation to PostgreSQL
       user_guides: User guides
       faq: FAQ
       glossary: Glossary
       shortcuts: Shortcuts
-      forums: Diễn đàn
       blog: OpenProject blog
-      boards: Diễn đàn cộng đồng
+      forums: Diễn đàn cộng đồng
       newsletter: Security alerts / Newsletter
   links:
     configuration_guide: Configuration guide
@@ -1222,7 +1244,7 @@ vi:
   label_authentication: Xác thực
   label_available_project_work_package_categories: Available work package categories
   label_available_project_work_package_types: Available work package types
-  label_available_project_boards: Available boards
+  label_available_project_forums: Available forums
   label_available_project_versions: Available versions
   label_available_project_repositories: Available repositories
   label_api_documentation: API documentation
@@ -1230,14 +1252,15 @@ vi:
   label_blocked_by: bị chặn bởi
   label_blocks: các khối
   label_blog: Blog
-  label_board_locked: Đã khóa
-  label_board_new: Diễn đàn mới
-  label_board_plural: Diễn đàn
-  label_board_sticky: Chú ý
+  label_forums_locked: Đã khóa
+  label_forum_new: Diễn đàn mới
+  label_forum_plural: Diễn đàn
+  label_forum_sticky: Chú ý
   label_boolean: Boolean
   label_branch: Nhánh
   label_browse: Browse
   label_bulk_edit_selected_work_packages: Chỉnh sửa các work package đã chọn
+  label_bundled: "(Bundled)"
   label_calendar: Lịch
   label_calendar_show: Hiển thị Lịch
   label_category: Thể loại
@@ -1336,6 +1359,7 @@ vi:
   label_equals: is
   label_everywhere: everywhere
   label_example: Ví dụ
+  label_import: Import
   label_export_to: 'Cũng có sẵn tại:'
   label_expanded_click_to_collapse: Mở rộng. Bấm vào để thu gọn
   label_f_hour: "%{value} giờ"
@@ -1373,6 +1397,7 @@ vi:
   label_hierarchy_leaf: Hệ thống phân cấp lá
   label_home: Home
   label_subject_or_id: Subject or ID
+  label_impressum: Legal notice
   label_in: trong
   label_in_less_than: ít hơn
   label_in_more_than: nhiều hơn
@@ -1498,6 +1523,7 @@ vi:
   label_planning: Lập kế hoạch
   label_please_login: Vui lòng đăng nhập
   label_plugins: Plugins
+  label_modules_and_plugins: Modules and Plugins
   label_precedes: trước
   label_preferences: Tùy chỉnh
   label_preview: Xem trước
@@ -1505,6 +1531,7 @@ vi:
   label_previous_week: Tuần trước
   label_principal_invite_via_email: " or invite new users via email"
   label_principal_search: Add existing users or groups
+  label_privacy_policy: Data privacy and security policy
   label_product_version: Phiên bản sản phẩm
   label_professional_support: Professional support
   label_profile: Hồ sơ
@@ -1620,6 +1647,7 @@ vi:
   label_updated_time: Cập nhật cách đây %{value}
   label_updated_time_at: "%{author} %{age}"
   label_updated_time_by: Cập nhật bởi %{author} cách đây %{age}
+  label_upgrade_guides: Upgrade guides
   label_used_by: Được dùng bởi
   label_used_by_types: Used by types
   label_used_in_projects: Used in projects
@@ -1824,6 +1852,8 @@ vi:
   notice_account_update_failed: Không thể lưu thiết đặt tài khoản. Xin vui lòng kiểm
     tra trong trang tài khoản của bạn.
   notice_account_updated: Account was successfully updated.
+  notice_account_other_session_expired: All other sessions tied to your account have
+    been invalidated.
   notice_account_wrong_password: Wrong password
   notice_account_registered_and_logged_in: Welcome, your account has been activated.
     You are logged in now.
@@ -1952,7 +1982,7 @@ vi:
   permission_export_wiki_pages: Export wiki pages
   permission_list_attachments: List attachments
   permission_log_time: Log spent time
-  permission_manage_boards: Manage forums
+  permission_manage_forums: Manage forums
   permission_manage_categories: Manage work package categories
   permission_manage_work_package_relations: Manage work package relations
   permission_manage_members: Manage members
@@ -1999,7 +2029,7 @@ vi:
     archive:
       are_you_sure: Bạn có chắc bạn muốn lưu trữ các dự án '%{name}'?
   project_module_activity: Hoạt động
-  project_module_boards: Diễn đàn
+  project_module_forums: Diễn đàn
   project_module_calendar: Lịch
   project_module_work_package_tracking: Theo dõi work package
   project_module_news: Tin tức
@@ -2221,10 +2251,6 @@ vi:
   setting_log_requesting_user: Log user login, name, and mail address for all requests
   setting_login_required: Authentication required
   setting_mail_from: Emission email address
-  setting_mail_handler_api_enabled: Enable incoming email web service
-  setting_mail_handler_api_description: The email web handler enables OpenProject
-    to receive emails containing specific commands as an instrumentation mechanism
-    (e.g., to create and update work packages).
   setting_mail_handler_api_key: API key
   setting_mail_handler_body_delimiters: Truncate emails after one of these lines
   setting_mail_handler_body_delimiter_regex: Xén các email phù hợp với biểu thức này
@@ -2480,7 +2506,6 @@ vi:
       color: Màu sắc
       colors: Colors
     associations: Dependencies
-    board_could_not_be_saved: Board could not be saved
     button_delete_all: Delete all
     change: Change in planning
     children: Child elements
@@ -2736,6 +2761,13 @@ vi:
 '
   menu_item: Menu item
   menu_item_setting: Visibility
+  mysql_deprecation:
+    notice: 'Future versions of OpenProject will likely drop or reduce support for
+      MySQL and MariaDB databases. Your installation is still running on MySQL and
+      we suggest you migrate your installation to PostgreSQL. This process is easy
+      when following our migration guides:
+
+'
   wiki_menu_item_for: Menu item for wikipage "%{title}"
   wiki_menu_item_setting: Visibility
   wiki_menu_item_new_main_item_explanation: 'You are deleting the only main wiki menu
@@ -2913,21 +2945,3 @@ vi:
     revoke_my_application_confirmation: Do you really want to remove this application?
       This will revoke %{token_count} active for it.
     my_registered_applications: Registered OAuth applications
-  ldap_auth_sources:
-    connection_encryption: Connection encryption
-    tls_mode:
-      plain: không
-      simple_tls: simple_tls
-      start_tls: start_tls
-      plain_description: Plain unencrypted connection, no TLS negotiation.
-      simple_tls_description: Implicit TLS encryption, but no certificate validation.
-        Use with caution and implicit trust of the LDAP connection.
-      start_tls_description: Explicit TLS encryption with full validation. Use for
-        LDAP over TLS/SSL.
-      section_more_info_link_html: 'This section concerns the connection security
-        of this LDAP authentication source. For more information, visit <a href="%{link}">the
-        Net::LDAP documentation</a>.
-
-'
-  notice_account_other_session_expired: All other sessions tied to your account have
-    been invalidated.

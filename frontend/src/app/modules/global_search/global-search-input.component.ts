@@ -50,6 +50,7 @@ import {NgSelectComponent} from "@ng-select/ng-select";
 import {debounceTime, distinctUntilChanged} from "rxjs/operators";
 import {untilComponentDestroyed} from "ng2-rx-componentdestroyed";
 import {Subject} from "rxjs";
+import {Highlighting} from "core-components/wp-fast-table/builders/highlighting/highlighting.functions";
 
 export const globalSearchSelector = 'global-search-input';
 
@@ -204,12 +205,16 @@ export class GlobalSearchInputComponent implements OnInit, OnDestroy {
     }
   }
 
+  public statusHighlighting(statusId:string) {
+    return Highlighting.inlineClass('status', statusId);
+  }
+
   // get work packages result list and append it to suggestions
   private getSearchResult(term:string) {
     this.autocompleteWorkPackages(term).then((values) => {
       this.results = this.suggestions.concat(values.map((wp:any) => {
         return {
-          id: wp.id,
+          id: wp.id!,
           subject: wp.subject,
           status: wp.status.name,
           statusId: wp.status.idFromLink,

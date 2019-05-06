@@ -26,13 +26,14 @@
 // See doc/COPYRIGHT.rdoc for more details.
 // ++
 
-import {StateService, Transition, TransitionService, UIRouter, UrlService} from '@uirouter/core';
+import {StateDeclaration, StateService, Transition, TransitionService, UIRouter, UrlService} from '@uirouter/core';
 import {INotification, NotificationsService} from "core-app/modules/common/notifications/notifications.service";
 import {CurrentProjectService} from "core-components/projects/current-project.service";
 import {Injector} from "@angular/core";
 import {FirstRouteService} from "core-app/modules/router/first-route-service";
 import {StatesModule} from "@uirouter/angular";
 import {appBaseSelector, ApplicationBaseComponent} from "core-app/modules/router/base/application-base.component";
+import {BackRoutingService} from "core-app/modules/common/back-routing/back-routing.service";
 
 export const OPENPROJECT_ROUTES = [
   {
@@ -98,6 +99,7 @@ export function initializeUiRouterListeners(injector:Injector) {
     const notificationsService:NotificationsService = injector.get(NotificationsService);
     const currentProject:CurrentProjectService = injector.get(CurrentProjectService);
     const firstRoute:FirstRouteService = injector.get(FirstRouteService);
+    const backRoutingService:BackRoutingService = injector.get(BackRoutingService);
 
     // Check whether we are running within our complete app, or only within some other bootstrapped
     // component
@@ -106,18 +108,16 @@ export function initializeUiRouterListeners(injector:Injector) {
     // Apply classes from bodyClasses in each state definition
     // This was defined as onEnter, onExit functions in each state before
     // but since AOT doesn't allow anonymous functions, we can't re-use them now.
-    $transitions.onEnter({}, function(transition:Transition) {
-      const toState = transition.to();
-
-      // Add body class when leaving this state
-      bodyClass(_.get(toState, 'data.bodyClasses'), 'add');
+    // The transition will only return the target state on `transition.to()`,
+    // however the second parameter has the currently (e.g., parent) entering state chain.
+    $transitions.onEnter({}, function(transition:Transition, state:StateDeclaration) {
+      // Add body class when entering this state
+      bodyClass(_.get(state, 'data.bodyClasses'), 'add');
     });
 
-    $transitions.onExit({}, function(transition:Transition) {
-      const fromState = transition.from();
-
+    $transitions.onExit({}, function(transition:Transition, state:StateDeclaration) {
       // Remove body class when leaving this state
-      bodyClass(_.get(fromState, 'data.bodyClasses'), 'remove');
+      bodyClass(_.get(state, 'data.bodyClasses'), 'remove');
     });
 
     $transitions.onStart({}, function(transition:Transition) {
@@ -132,6 +132,9 @@ export function initializeUiRouterListeners(injector:Injector) {
         paramsCopy.start_onboarding_tour = undefined;
         return $state.target(transition.to(), paramsCopy);
       }
+
+      // Set backRoute to know where we came from
+      backRoutingService.sync(transition);
 
       // Reset profiler, if we're actually profiling
       const profiler:any = (window as any).MiniProfiler;

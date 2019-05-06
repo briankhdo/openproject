@@ -57,9 +57,25 @@ ro:
     index:
       no_results_content_title: În acest moment nu există moduri de autentificare.
       no_results_content_text: Creare mod de autentificare nou
-  boards:
+  ldap_auth_sources:
+    connection_encryption: Connection encryption
+    tls_mode:
+      plain: niciunul
+      simple_tls: simple_tls
+      start_tls: start_tls
+      plain_description: Plain unencrypted connection, no TLS negotiation.
+      simple_tls_description: Implicit TLS encryption, but no certificate validation.
+        Use with caution and implicit trust of the LDAP connection.
+      start_tls_description: Explicit TLS encryption with full validation. Use for
+        LDAP over TLS/SSL.
+      section_more_info_link_html: 'This section concerns the connection security
+        of this LDAP authentication source. For more information, visit <a href="%{link}">the
+        Net::LDAP documentation</a>.
+
+'
+  forums:
     show:
-      no_results_title_text: În acest moment nu există mesaje pentru acest forum.
+      no_results_title_text: There are currently no posts for the forum.
   colors:
     index:
       no_results_title_text: În acest moment nu există culori.
@@ -142,9 +158,9 @@ ro:
     settings:
       activities:
         no_results_title_text: În acest moment nu există activități disponibile.
-      boards:
-        no_results_title_text: În acest moment nu există forumuri pentru acest proiect.
-        no_results_content_text: Creare forum nou
+      forums:
+        no_results_title_text: There are currently no forums for the project.
+        no_results_content_text: Create a new forum
       categories:
         no_results_title_text: În acest moment nu există categorii de pachete de lucru.
         no_results_content_text: Creare categorie de pachete de lucru nouă
@@ -215,7 +231,7 @@ ro:
       reset: Reset to defaults
       type_color_text: |
         Click to assign or change the color of this type. The selected color distinguishes work packages
-        in Gantt charts.
+        in Gantt charts. It is therefore recommended to use a strong color.
   versions:
     overview:
       no_results_title_text: În acest moment nu există pachete de lucru alocate acestei
@@ -376,6 +392,11 @@ ro:
         subscriber: Subscriber
         encoded_token: Enterprise support token
         active_user_count_restriction: Număr maxim de utilizatori activi
+      grids/grid:
+        page: Page
+        row_count: Number of rows
+        column_count: Number of columns
+        widgets: Widgets
       relation:
         delay: Întârziere
         from: Pachet de lucru
@@ -474,11 +495,6 @@ ro:
         client_credentials_user_id: Client Credentials User ID
         scopes: Scopes
         confidential: Confidential
-      grids/grid:
-        page: Page
-        row_count: Number of rows
-        column_count: Number of columns
-        widgets: Widgets
     errors:
       messages:
         accepted: trebuie acceptat.
@@ -548,6 +564,10 @@ ro:
               not_match_configured: doesn't match available scopes.
         enterprise_token:
           unreadable: can't be read. Are you sure it is a support token?
+        grids/grid:
+          overlaps: overlap.
+          outside: is outside of the grid.
+          end_before_start: end value needs to be larger than the start value.
         parse_schema_filter_params_service:
           attributes:
             base:
@@ -650,10 +670,6 @@ ro:
         member:
           principal_blank: Trebuie să alegeţi cel puţin un utilizator sau grup.
           role_blank: Trebuie să alegeţi cel puţin un rol.
-        grids/grid:
-          overlaps: overlap.
-          outside: is outside of the grid.
-          end_before_start: end value needs to be larger than the start value.
       template:
         body: 'Verificaţi următoarele câmpuri:'
         header:
@@ -663,7 +679,7 @@ ro:
     models:
       attachment: Fișier
       attribute_help_text: Attribute help text
-      board: Forum
+      forum: Forum
       comment: Comentariu
       custom_action: Custom action
       custom_field: Câmp personalizat
@@ -1066,7 +1082,9 @@ ro:
   error_can_not_remove_role: Acest rol este utilizat și nu poate fi șters.
   error_can_not_reopen_work_package_on_closed_version: Un pachet de lucru atribuit
     la o versiune închisă nu poate fi redeschis
+  error_can_not_find_all_resources: Could not find all related resources to this request.
   error_check_user_and_role: Alegeți un utilizator și un rol.
+  error_code: Error %{code}
   error_cookie_missing: Cookie-ul OpenProject lipseşte. Vă rugăm să verificați setările
     referitoare la cookies, această aplicație nu va funcţiona corespunzător fără acestea.
   error_custom_option_not_found: Option does not exist.
@@ -1091,6 +1109,10 @@ ro:
   error_work_package_not_found_in_project: Pachetul de lucru nu a fost găsit sau nu
     aparține acestui proiect
   error_must_be_project_member: trebuie să fie membru al proiectului
+  error_migrations_are_pending: Your OpenProject installation has pending database
+    migrations. You have likely missed running the migrations on your last upgrade.
+    Please check the upgrade guide to properly upgrade your installation.
+  error_migrations_visit_upgrade_guides: Please visit our upgrade guide documentation
   error_no_default_work_package_status: Nu există un status implicit al pachetelor
     de lucru. Verificați configurația ("Administrare -> Stări pachete de lucru").
   error_no_type_in_project: Nu există un tip asociat cu proiectul. Verificați setările
@@ -1177,13 +1199,13 @@ ro:
           you substantially contribute to this Open-Source community effort.
     links:
       upgrade_enterprise_edition: Achiziționați versiunea Enterprise
+      postgres_migration: Migrating your installation to PostgreSQL
       user_guides: Ghiduri utilizator
       faq: Întrebări Frecvente
       glossary: Glosar
       shortcuts: Scurtături
-      forums: Forumuri
       blog: Blog-ul OpenProject
-      boards: Forum comunitate
+      forums: Forum comunitate
       newsletter: Security alerts / Newsletter
   links:
     configuration_guide: Ghid de configurare
@@ -1249,7 +1271,7 @@ ro:
   label_authentication: Autentificare
   label_available_project_work_package_categories: Categorii de pachete de lucru disponibile
   label_available_project_work_package_types: Available work package types
-  label_available_project_boards: Planșe disponibile
+  label_available_project_forums: Available forums
   label_available_project_versions: Versiuni disponibile
   label_available_project_repositories: Arhive disponibile
   label_api_documentation: Documentație API
@@ -1257,14 +1279,15 @@ ro:
   label_blocked_by: blocat de
   label_blocks: blochează
   label_blog: Blog
-  label_board_locked: Închis
-  label_board_new: Forum nou
-  label_board_plural: Forumuri
-  label_board_sticky: Lipicios
+  label_forums_locked: Închis
+  label_forum_new: Forum nou
+  label_forum_plural: Forumuri
+  label_forum_sticky: Lipicios
   label_boolean: Valoare logică
   label_branch: Ramură
   label_browse: Răsfoire
   label_bulk_edit_selected_work_packages: Editare în masă a pachetelor de lucru selectate
+  label_bundled: "(Bundled)"
   label_calendar: Calendar
   label_calendar_show: Afișare calendar
   label_category: Categorie
@@ -1364,6 +1387,7 @@ ro:
   label_equals: este
   label_everywhere: everywhere
   label_example: Exemplu
+  label_import: Import
   label_export_to: 'Disponibil și în:'
   label_expanded_click_to_collapse: Expanded. Click to collapse
   label_f_hour: "%{value} oră"
@@ -1401,6 +1425,7 @@ ro:
   label_hierarchy_leaf: Hierarchy leaf
   label_home: Pagina de start
   label_subject_or_id: Subject or ID
+  label_impressum: Legal notice
   label_in: în
   label_in_less_than: în mai puțin de
   label_in_more_than: în mai mult de
@@ -1526,6 +1551,7 @@ ro:
   label_planning: Planificare
   label_please_login: Vă rugăm să vă autentificați
   label_plugins: Module
+  label_modules_and_plugins: Modules and Plugins
   label_precedes: precede
   label_preferences: Preferinţe
   label_preview: Previzualizare
@@ -1533,6 +1559,7 @@ ro:
   label_previous_week: Săptămâna trecută
   label_principal_invite_via_email: " sau invită utilizatori folosind email"
   label_principal_search: Adăugare utilizatori sau grupuri existenți
+  label_privacy_policy: Data privacy and security policy
   label_product_version: Versiune produs
   label_professional_support: Suport profesional
   label_profile: Profil
@@ -1650,6 +1677,7 @@ ro:
   label_updated_time: Actualizat acum %{value}
   label_updated_time_at: "%{author} %{age}"
   label_updated_time_by: Actualizat de către %{author} acum %{age}
+  label_upgrade_guides: Upgrade guides
   label_used_by: Folosit de
   label_used_by_types: Folosit/ă/e de tipurile
   label_used_in_projects: Folosit/ă/e în proiectele
@@ -1864,6 +1892,8 @@ ro:
   notice_account_update_failed: Setările contului nu au putut fi salvate. Vă rugăm
     să verificați datele din cont.
   notice_account_updated: Contul a fost actualizat cu succes.
+  notice_account_other_session_expired: All other sessions tied to your account have
+    been invalidated.
   notice_account_wrong_password: Parolă greşită
   notice_account_registered_and_logged_in: Bun venit, contul a fost activat. Sunteți
     autentificat.
@@ -1991,7 +2021,7 @@ ro:
   permission_export_wiki_pages: Export pagini wiki
   permission_list_attachments: Listare atașamente
   permission_log_time: Înregistrare timp consumat
-  permission_manage_boards: Gestionare forumuri
+  permission_manage_forums: Gestionare forumuri
   permission_manage_categories: Gestionare categorii de pachete de lucru
   permission_manage_work_package_relations: Gestionare relații pachete de lucru
   permission_manage_members: Gestionare participanți
@@ -2039,7 +2069,7 @@ ro:
     archive:
       are_you_sure: Sunteţi sigur că doriţi să arhivaţi proiectul '%{name}'?
   project_module_activity: Activitate
-  project_module_boards: Forumuri
+  project_module_forums: Forumuri
   project_module_calendar: Calendar
   project_module_work_package_tracking: Urmărire pachete de lucru
   project_module_news: Noutăţi
@@ -2270,10 +2300,6 @@ ro:
     toate cererile
   setting_login_required: Autentificare obligatorie
   setting_mail_from: Adresa de e-mail a expeditorului
-  setting_mail_handler_api_enabled: Activare serviciu web e-mailuri primite
-  setting_mail_handler_api_description: Procesatorul web pentru e-mail permite OpenProject
-    să primească e-mail-uri care conțin anumite comenzi ca un mecanism de instrumentație
-    (de exemplu, pentru a crea și de a actualiza pachete de lucru).
   setting_mail_handler_api_key: Cheie API
   setting_mail_handler_body_delimiters: Trunchiere e-mail-uri după una dintre aceste
     linii
@@ -2543,7 +2569,6 @@ ro:
       color: Culoare
       colors: Culori
     associations: Dependenţe
-    board_could_not_be_saved: Forumul nu a putut fi salvat
     button_delete_all: Șterge tot
     change: Schimbare în planificare
     children: Elemente subordonate
@@ -2802,6 +2827,13 @@ ro:
 '
   menu_item: Element de meniu
   menu_item_setting: Vizibilitate
+  mysql_deprecation:
+    notice: 'Future versions of OpenProject will likely drop or reduce support for
+      MySQL and MariaDB databases. Your installation is still running on MySQL and
+      we suggest you migrate your installation to PostgreSQL. This process is easy
+      when following our migration guides:
+
+'
   wiki_menu_item_for: Meniu pentru pagina wiki "%{title}"
   wiki_menu_item_setting: Vizibilitate
   wiki_menu_item_new_main_item_explanation: 'Ștergeți doar meniul principal wiki.
@@ -2980,21 +3012,3 @@ ro:
     revoke_my_application_confirmation: Do you really want to remove this application?
       This will revoke %{token_count} active for it.
     my_registered_applications: Registered OAuth applications
-  ldap_auth_sources:
-    connection_encryption: Connection encryption
-    tls_mode:
-      plain: niciunul
-      simple_tls: simple_tls
-      start_tls: start_tls
-      plain_description: Plain unencrypted connection, no TLS negotiation.
-      simple_tls_description: Implicit TLS encryption, but no certificate validation.
-        Use with caution and implicit trust of the LDAP connection.
-      start_tls_description: Explicit TLS encryption with full validation. Use for
-        LDAP over TLS/SSL.
-      section_more_info_link_html: 'This section concerns the connection security
-        of this LDAP authentication source. For more information, visit <a href="%{link}">the
-        Net::LDAP documentation</a>.
-
-'
-  notice_account_other_session_expired: All other sessions tied to your account have
-    been invalidated.

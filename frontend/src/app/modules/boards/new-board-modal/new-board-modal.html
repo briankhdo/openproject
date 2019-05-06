@@ -1,0 +1,45 @@
+<div class="op-modal--portal confirm-form-submit--modal  ngdialog-theme-openproject">
+  <div class="op-modal--modal-container confirm-dialog--modal loading-indicator--location"
+       data-indicator-name="modal"
+       tabindex="0">
+    <div class="op-modal--modal-header">
+      <a class="op-modal--modal-close-button" *ngIf="showClose">
+        <i
+            class="icon-close"
+            (click)="closeMe($event)"
+            [attr.title]="text.close_popup">
+        </i>
+      </a>
+    </div>
+
+    <div class="ngdialog-body op-modal--modal-body">
+      <section class="new-board--section">
+        <h3 [textContent]="text.free_board"></h3>
+        <p [textContent]="text.free_board_text"></p>
+
+        <button class="button"
+                [disabled]="inFlight"
+                (accessibleClick)="createFree()">
+          <op-icon icon-classes="icon4 icon-add"></op-icon>
+          <span [textContent]="text.free_board"></span>
+        </button>
+      </section>
+      <section class="new-board--section">
+        <h3 [textContent]="text.action_board"></h3>
+        <p [textContent]="text.action_board_text"></p>
+
+        <p>
+          {{text.select_attribute}}:
+          <b> {{available[0].text}} </b>
+        </p>
+
+        <button class="button"
+                [disabled]="inFlight"
+                (accessibleClick)="createAction()">
+          <op-icon icon-classes="icon4 icon-add"></op-icon>
+          <span [textContent]="text.action_board"></span>
+        </button>
+      </section>
+    </div>
+  </div>
+</div>

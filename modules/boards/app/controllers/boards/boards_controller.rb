@@ -27,9 +27,6 @@ module ::Boards
 
     def pass_gon
       gon.settings = client_preferences
-      gon.permission_flags = {
-        manage_board_views: current_user.allowed_to_in_project?(:manage_board_views, @project)
-      }
     end
 
     def authorize_work_package_permission

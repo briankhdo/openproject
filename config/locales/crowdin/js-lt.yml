@@ -18,11 +18,24 @@ lt:
     close_popup_title: Užverti iškylantį langą
     close_filter_title: Užverti filtrą
     close_form_title: Užverti formą
+    boards:
+      upsale:
+        boards: Need to freely structure your work in a board view?
+        check_out_link: Patikrinkite Enterprise Edition.
+      lists:
+        delete: Delete list
+    card:
+      add_new: Add new card
+      highlighting:
+        inline: 'Highlight inline:'
+        entire_card_by: Entire card by
+      remove_from_list: Remove card from list
     clipboard:
       browser_error: Jūsų naršyklė nepalaiko kopijavimo į mainų sritį. Prašome rankiniu
         būdu nukopijuoti pažymėtą tekstą.
       copied_successful: Sėkmingai nukopijuotas į mainų sritį!
     button_add_watcher: Pridėti stebėtojų
+    button_back: Atgal
     button_back_to_list_view: Atgal į sąrašo peržiūrą
     button_cancel: Atšaukti
     button_close: Uždaryti
@@ -148,6 +161,32 @@ lt:
     general_text_yes: taip
     general_text_No: Ne
     general_text_Yes: Taip
+    grid:
+      add_modal:
+        choose_widget: Choose widget
+      widgets:
+        documents:
+          title: Dokumentai
+          no_results: No documents yet.
+        news:
+          title: Naujienos
+          at: at
+          no_results: Nėra jokių ataskaitų.
+        time_entries_current_user:
+          title: Spent time (last 7 days)
+          no_results: No time entries for the last 7 days.
+        work_packages_accountable:
+          title: Work packages I am accountable for
+        work_packages_assigned:
+          title: Man priskirti darbų paketai
+        work_packages_created:
+          title: Work packages created by me
+        work_packages_watched:
+          title: Work packages watched by me
+        work_packages_table:
+          title: Darbų paketai
+        work_packages_calendar:
+          title: Kalendorius
     label_activate: Aktyvuoti
     label_activity_no: Veiklos įrašo numeris %{activityNo}
     label_activity_with_comment_no: Veiklos įrašo numeris %{activityNo}. Turintis
@@ -220,6 +259,7 @@ lt:
     label_more_than_ago: daugiau nei prieš dieną
     label_my_page: Mano puslapis
     label_next: Kitas
+    label_no_color: Be spalvų
     label_no_data: Nėra rodytinų duomenų
     label_no_due_date: nėra pabaigos datos
     label_no_start_date: nėra pradžios datos
@@ -309,43 +349,51 @@ lt:
         next: Kitas
         got_it: Supratau
       steps:
-        welcome: Paskirkite tris minutes įvadinei kelionei ir išmokite daugumą <b>svarbių
-          sistemos galimybių</b>. <br>Rekomenduojame atlikti visus veiksmus iki pabaigos.
-          Ekskursiją galite paleisti iš naujo bet kuriuo metu.
+        help_menu: Meniu <b>Žinynas</b> rasite vartotojo vadovą ir papildomos pagalbos
+          šaltinius. <br>Mėgaukitės darbu su OpenProject!
+        members: Pakvieskite naujus <b>Narius</b> prisijungti prie projekto.
         project_selection: Prašome pasirinkti vieną iš projektų su įdėtais naudingais
           demonstraciniais duomenimis. <br> <b>Demo project</b> geriausiai tinka klasikiniam
           projektų valdymui, o <b>Scrum project</b> labiau tinka Agile projektų valdymui.
         sidebar_arrow: Rodykle galite pereiti atgal į projekto <b>Pagrindinį meniu</b>.
-        members: Pakvieskite naujus <b>Narius</b> prisijungti prie projekto.
+        welcome: Paskirkite tris minutes įvadinei kelionei ir išmokite daugumą <b>svarbių
+          sistemos galimybių</b>. <br>Rekomenduojame atlikti visus veiksmus iki pabaigos.
+          Ekskursiją galite paleisti iš naujo bet kuriuo metu.
         wiki: "<b>Wiki</b>'yje galite dokumentuoti ir dalintis žiniomis su savo komandos
           nariais."
-        backlogs_overview: Manage your work in the <b>Backlogs</b> view. <br> On the
-          right you have the Product Backlog or a Bug Backlog, on the left you will
-          have the respective sprints. Here you can create <b>epics, user stories,
-          and bugs</b>, prioritize via drag'n'drop and add them to a sprint.
-        backlogs_task_board_arrow: To see your <b>Task board</b>, open the Sprint
-          drop-down...
-        backlogs_task_board_select: "... ir pasirinkite <b>Task board</b> elementą."
-        backlogs_task_board: "<b>Darbo lenta</b> rodo pažangą šiame sprinte. Pridėkite
-          naujas užduotis ar kliūtis spausdami + piktogramą šalia vartotojo istorija.
-          Naudodami drag'n'drop, jūs galite pakeisti būseną."
-        wp_toggler: Dabar žvilgtelėkime į <b>Darbų paketų</b> skyrių, kuris suteikia
-          išsamesnį vaizdą apie jūsų darbus.
-        wp_list: 'Tai <b>Darbų paketų</b> sąrašas su svarbiomis jūsų projektui veiksmais:
-          tasks, features, milestones, bugs, ir pan. <br> Jūs galite kurti ir redaguoti
-          darbų paketus tiesiai šiame sąraše. Norėdami pamatyti detaliau, du kart
-          spustelkite pele ant pasirinktos eilutės.'
-        wp_full_view: "<b>Darbo paketo detalių</b> lange rasite visą reikalingą informaciją,
-          pvz., aprašymą, būseną ir prioritetą, veiklą, priklausomybes ar komentarus."
-        wp_back_button: Su rodykle galite pereiti atgal į darbo paketų sąrašą.
-        wp_create_button: Mygtukas <b>Sukurti</b> pridės naują darbą į jūsų projektą.
-        wp_timeline_button: Jūs galite aktyvuoti <b>Gantto diagramą</b> norėdami matyti
-          savo projekto laiko planavimo juostą.
-        wp_timeline: Čia jūs galite redaguoti savo projekto planą. Kurti naujus etapus,
-          etapai, ir pridėti priklausomybių. Visi komandos nariai gali peržiūrėti
-          ir keisti naujausią planą bet kuriuo metu.
-        help_menu: Meniu <b>Žinynas</b> rasite vartotojo vadovą ir papildomos pagalbos
-          šaltinius. <br>Mėgaukitės darbu su OpenProject!
+        backlogs:
+          overview: Manage your work in the <b>Backlogs</b> view. <br> On the right
+            you have the Product Backlog or a Bug Backlog, on the left you will have
+            the respective sprints. Here you can create <b>epics, user stories, and
+            bugs</b>, prioritize via drag'n'drop and add them to a sprint.
+          task_board_arrow: To see your <b>Task board</b>, open the Sprint drop-down...
+          task_board_select: "... ir pasirinkite <b>Task board</b> elementą."
+          task_board: "<b>Darbo lenta</b> rodo pažangą šiame sprinte. Pridėkite naujas
+            užduotis ar kliūtis spausdami + piktogramą šalia vartotojo istorija. Naudodami
+            drag'n'drop, jūs galite pakeisti būseną."
+        boards:
+          overview: Manage your work within an intuitive <b>Boards</b> view.
+          lists: You can create multiple lists (columns) within one Board view, e.g.
+            to create a KANBAN board.
+          add: Click the + will <b>add a new card</b> to the list within a Board.
+          drag: Drag & Drop your cards within a list to re-order, or to drag to another
+            list. A double click will open the details view.
+        wp:
+          toggler: Dabar žvilgtelėkime į <b>Darbų paketų</b> skyrių, kuris suteikia
+            išsamesnį vaizdą apie jūsų darbus.
+          list: 'Tai <b>Darbų paketų</b> sąrašas su svarbiomis jūsų projektui veiksmais:
+            tasks, features, milestones, bugs, ir pan. <br> Jūs galite kurti ir redaguoti
+            darbų paketus tiesiai šiame sąraše. Norėdami pamatyti detaliau, du kart
+            spustelkite pele ant pasirinktos eilutės.'
+          full_view: "<b>Darbo paketo detalių</b> lange rasite visą reikalingą informaciją,
+            pvz., aprašymą, būseną ir prioritetą, veiklą, priklausomybes ar komentarus."
+          back_button: Su rodykle galite pereiti atgal į darbo paketų sąrašą.
+          create_button: Mygtukas <b>Sukurti</b> pridės naują darbą į jūsų projektą.
+          timeline_button: Jūs galite aktyvuoti <b>Gantto diagramą</b> norėdami matyti
+            savo projekto laiko planavimo juostą.
+          timeline: Čia jūs galite redaguoti savo projekto planą. Kurti naujus etapus,
+            etapai, ir pridėti priklausomybių. Visi komandos nariai gali peržiūrėti
+            ir keisti naujausią planą bet kuriuo metu.
     password_confirmation:
       field_description: Norėdami patvirtinti šį pakeitimą turite įvesti savo paskyros
         slaptažodį.
@@ -489,6 +537,7 @@ lt:
     text_query_destroy_confirmation: Ar tikrai norite panaikinti pasirinktą vaizdą?
     text_attachment_destroy_confirmation: Ar tikrai norite panaikinti priedą?
     timelines:
+      quarter_label: Q%{quarter_number}
       gantt_chart: Ganto grafikas
       labels:
         title: Žymės konfigūracija
@@ -554,7 +603,6 @@ lt:
           automatinis pritraukimas negalimas.
 
 '
-      quarter_label: Q%{quarter_number}
     tl_toolbar:
       zooms: Didinimo lygis
       outlines: Hierarchinis lygmuo
@@ -870,27 +918,3 @@ lt:
         all_projects: all projects
         project_and_subprojects: and all subprojects
         search_for: Search for
-    grid:
-      add_modal:
-        choose_widget: Choose widget
-      widgets:
-        documents:
-          title: Documents
-          no_results: No documents yet.
-        news:
-          title: Naujienos
-          at: at
-          no_results: Nėra jokių ataskaitų.
-        time_entries_current_user:
-          title: Spent time (last 7 days)
-          no_results: No time entries for the last 7 days.
-        work_packages_accountable:
-          title: Work packages I am accountable for
-        work_packages_assigned:
-          title: Man priskirti darbų paketai
-        work_packages_created:
-          title: Work packages created by me
-        work_packages_watched:
-          title: Work packages watched by me
-        work_packages_calendar:
-          title: Kalendorius
