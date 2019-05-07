@@ -45,6 +45,7 @@ OpenProject::Application.routes.draw do
     # User API
     get '/users', to: 'users#index', as: :appota_workspace_users
     post '/users', to: 'users#create', as: :appota_workspace_create_user
+    put '/users/:id', to: 'users#update', as: :appota_workspace_update_user
   end
 
   rails_relative_url_root = OpenProject::Configuration['rails_relative_url_root'] || ''

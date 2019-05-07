@@ -1,4 +1,6 @@
 class AppotaApi::UsersController < AppotaApiController
+  before_action :check_admin, only: [:create, :destroy]
+
   def index
     puts "Listing users from '#{@workspace.name}'"
     @users = @workspace.members.map(&:user)
@@ -7,30 +9,42 @@ class AppotaApi::UsersController < AppotaApiController
 
   def create
     user_params = parse_params
+    role_id = user_params[:role_id] || 4
 
-    @user = User.create(user_params)
+    user_params.delete :role_id
 
-    key_pair = {
-      user_id: @user.id
-      role_id: user_params[:role_id]
-    }
-    # add user to members
-    project_members = []
-    members.each do |key_pair|
-      if key_pair[:user_id].present?
-        member = Member.create(user_id: key_pair[:user_id], project_id: @workspace.id)
-        member.add_and_save_role(key_pair[:role_id])
-        project_members << member
-      end
+    User.transaction do 
+
+      @user = User.create(user_params)
+
+      key_pair = {
+        user_id: @user.id,
+        role_id: role_id
+      }
+      # add user to members
+      member = Member.create(user_id: key_pair[:user_id], project_id: @workspace.id)
+      member.add_and_save_role(key_pair[:role_id])
+      @workspace.members << member
     end
-
-    @workspace.members << project_members
 
     render json: render_user(@user)
   end
 
   def update
-    
+    user_params = parse_params
+    user_params.delete :role_id
+
+    user_id = params[:id]
+    if user_id == 'current'
+      user_id = @current_user_id
+    else
+      user_id = user_id.to_i
+      @user = User.find(user_id)
+    end
+
+    @user.update(user_params)
+
+    render json: render_user(@user)
   end
 
   def destroy
@@ -68,5 +82,14 @@ class AppotaApi::UsersController < AppotaApiController
       "_workspace": @workspace.identifier,
       "items": items
     }
+  end
+
+  def check_admin
+    unless @current_user.admin
+      render status: 403, json: {
+        _type: "Error",
+        "message": "Unauthorized. Permissions required."
+      }
+    end
   end
 end

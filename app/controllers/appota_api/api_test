@@ -1,0 +1,23 @@
+curl -XPOST http://localhost:3000/appop/api/v1/users -H "Content-Type: application/json" -H 'Authorization: Basic YXBpa2V5Ojk0NGE2OTQ0ZjgxMzNiZDVmYWJjOGRiYmVkMTQ4Zjc2NjA2NzY4NTNmMmU5YjA0YzJiNzQ3NzQ4MGE0MTI2M2U=' -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "firstname": "Brian",
+  "lastname": "Doan",
+  "login": "bangnl",
+  "mail": "bangnl@appota.com",
+  "role_id": 6
+}'
+
+curl -XPOST http://localhost:3000/appop/api/v1/users -H "Content-Type: application/json" -u apikey:f89b6d2d83441cde9cc6c81d92b106b7647c42fc17ab0ac3ab5823198501f7d8 -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "firstname": "Brian",
+  "lastname": "Doan",
+  "login": "bangnl",
+  "mail": "bangnl@appota.com",
+  "role_id": 6
+}'
+
+curl -XPUT http://localhost:3000/appop/api/v1/users/8 -H "Content-Type: application/json" -u apikey:f89b6d2d83441cde9cc6c81d92b106b7647c42fc17ab0ac3ab5823198501f7d8 -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "firstname": "Bang",
+  "lastname": "Nguyen",
+  "login": "bangnl",
+  "mail": "bangnl@appota.com",
+  "role_id": 6
+}'
