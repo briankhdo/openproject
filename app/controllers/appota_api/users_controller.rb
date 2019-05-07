@@ -67,7 +67,7 @@ class AppotaApi::UsersController < AppotaApiController
       user_json = {}
       user_json[:_type] = "User"
       user_json[:_workspace] = @workspace.identifier
-      user_json = user_json.merge(user.as_json(only: [:id, :login, :firstname, :lastname, :apitoken, :status, :created_on, :updated_on]))
+      user_json = user_json.merge(user.as_json(only: [:id, :login, :mail, :firstname, :lastname, :apitoken, :status, :created_on, :updated_on]))
       user_json[:name] = user.name
       user_json[:api_token] = user.apitoken
       return user_json
