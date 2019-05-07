@@ -24,7 +24,7 @@ class AppotaApiController < ActionController::Base
   end
 
   def check_workspace
-    @workspace_name = (request.headers['X_WORKSPACE_NAME'] || || request.headers['HTTP_X_WORKSPACE_NAME']).to_s
+    @workspace_name = (request.headers['X_WORKSPACE_NAME'] || request.headers['HTTP_X_WORKSPACE_NAME']).to_s
     @workspace = Project.where(identifier: @workspace_name).first
     unless @workspace.present?
       render status: 403, json: {

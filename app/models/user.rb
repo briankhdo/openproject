@@ -81,7 +81,7 @@ class User < Principal
     unless self.api_token.present?
         token = Token::Api.create!(user: self)
     end
-    return self.api_token.value
+    return self.api_token.raw_token
   end
   belongs_to :auth_source
 

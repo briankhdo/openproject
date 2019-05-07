@@ -41,6 +41,10 @@ OpenProject::Application.routes.draw do
     delete '/projects/:project_id/members/:user_id', to: 'members#destroy', as: :appota_delete_member
 
     post '/work_packages/:work_package_id/costlog', to: 'costlog#create', as: :appota_costlog
+
+    # User API
+    get '/users', to: 'users#index', as: :appota_workspace_users
+    post '/users', to: 'users#create', as: :appota_workspace_create_user
   end
 
   rails_relative_url_root = OpenProject::Configuration['rails_relative_url_root'] || ''
