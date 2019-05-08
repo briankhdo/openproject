@@ -1,5 +1,5 @@
 class AppotaApi::UsersController < AppotaApiController
-  before_action :check_admin, only: [:create, :destroy]
+  before_action :check_admin, only: [:create, :destroy, :update]
 
   def index
     puts "Listing users from '#{@workspace.name}'"
@@ -48,7 +48,19 @@ class AppotaApi::UsersController < AppotaApiController
   end
 
   def destroy
-
+    # leave workspace
+    user_id = params[:id]
+    member = Member.where(user_id: user_id, project_id: @workspace.id).first
+    if member.present?
+      render json: {
+        success: member.destroy.present?
+      }
+    else
+      render json: {
+        "_type": "Error",
+        message: "Member not found"
+      }
+    end
   end
 
   def parse_params
