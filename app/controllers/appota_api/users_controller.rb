@@ -1,5 +1,5 @@
 class AppotaApi::UsersController < AppotaApiController
-  before_action :check_admin, only: [:create, :destroy, :update]
+  before_action :check_admin, only: [:index, :create, :destroy]
 
   def index
     puts "Listing users from '#{@workspace.name}'"
@@ -37,14 +37,22 @@ class AppotaApi::UsersController < AppotaApiController
     user_id = params[:id]
     if user_id == 'current'
       user_id = @current_user_id
-    else
+      @user = @current_user
+    elsif @current_user.admin
       user_id = user_id.to_i
       @user = User.find(user_id)
     end
 
-    @user.update(user_params)
+    if @user.present?
+      @user.update(user_params)
 
-    render json: render_user(@user)
+      render json: render_user(@user)
+    else
+      render status: 403, json: {
+        _type: "Error",
+        "message": "Unauthorized. Permissions required."
+      }
+    end
   end
 
   def destroy
