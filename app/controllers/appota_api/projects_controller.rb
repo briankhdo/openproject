@@ -18,6 +18,11 @@ class AppotaApi::ProjectsController < AppotaApiController
       @project = Project.where(id: @project_id).first
     end
     if @project.present?
+      # check parent is workspace
+      if @project.parent_id == @workspace.id
+        # prevent changing parent_id
+        allowed_params -= [:parent_id]
+      end
       update_params = parse_params.select { |k, v| allowed_params.include? k }
       @project.update(update_params)
       render json: render_project(@project)
