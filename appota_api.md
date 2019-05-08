@@ -1,3 +1,23 @@
+# Workspace idenfitication
+
+Please use `X-Workspace-Name` to input project identifier as a workspace.
+Workspace will affect all the API bellow
+
+Sample CURL request
+```
+curl -XPOST http://localhost:3000/appop/api/v1/users
+  -H "Content-Type: application/json"
+  -H 'Authorization: Basic YXBpa2V5Ojk0NGE2OTQ0ZjgxMzNiZDVmYWJjOGRiYmVkMTQ4Zjc2NjA2NzY4NTNmMmU5YjA0YzJiNzQ3NzQ4MGE0MTI2M2U='
+  -H 'X-Workspace-Name: your-scrum-project'
+  -d '{
+  "firstname": "Bang",
+  "lastname": "Nguyen",
+  "login": "bangnl",
+  "mail": "bangnl@appota.com",
+  "role_id": 4
+}'
+```
+
 # Projects
 
 ## Create a project
@@ -15,7 +35,7 @@ Param           | Data Type   | Required  | Description
 `name`          | string      | TRUE      | Project name
 `description`   | string      | TRUE      | Project description
 `is_public`     | boolean     | FALSE     | Set project public or private
-`parent_id`     | integer     | FALSE     | If project has parent
+`parent_id`     | integer     | FALSE     | If project has parent. Default parent will be workspace
 `identifier`    | string      | TRUE      | Project slug will be on url
 
 ### Response
@@ -48,7 +68,7 @@ Param           | Data Type   | Required  | Description
 `name`          | string      | TRUE      | Project name
 `description`   | string      | TRUE      | Project description
 `is_public`     | boolean     | FALSE     | Set project public or private
-`parent_id`     | integer     | FALSE     | If project has parent
+`parent_id`     | integer     | FALSE     | Updating parent_id is prohibited for direct-children of a workspace
 `identifier`    | string      | TRUE      | Project slug will be on url
 `status`        | integer     | FALSE     | Update project status
 
@@ -241,5 +261,99 @@ An information object that tells the log is success
 {
   "_type":"Info",
   "message":"Log completed"
+}
+```
+
+# Users
+## Create a user
+
+API for creating a new user in the workspace defined in header
+
+### Request method: `POST`
+
+### Endpoint: '/appop/api/v1/users'
+
+### Request body
+
+Param           | Data Type   | Required  | Description
+--------------- | ----------- | --------- | -----------
+`mail`          | string      | TRUE      | User's email
+`login`         | string      | TRUE      | Username to login
+`firstname`     | string      | TRUE      | User's first name
+`lastname`      | string      | TRUE      | User's last name
+`password`      | string      | FALSE     | Password
+`role_id`       | integer     | FALSE     | Default role_id: 4 (member)
+
+### Response
+
+A user object
+```javascript
+{
+  "_type": "User",
+  "_workspace": "your-scrum-project",
+  "id": 8,
+  "firstname": "Bang",
+  "lastname": "Nguyen",
+  "login": "bangnl",
+  "mail": "bangnl@appota.com",
+  "status": 1,
+  "created_on": "05/07/2019/ 04:41 AM",
+  "updated_on": "05/08/2019/ 03:41 AM",
+  "name": "Bang Nguyen",
+  "api_token": "1f882277097d3727f9950b599529268dd8fbf0712fa5b0e157de76704c8d9a3e"
+}
+```
+## Update user
+
+API for updating a user. Only admin can modify any users, normal user (member) will only be able to update her/himself, using id=current
+
+### Request method: `PUT`
+
+### Endpoint: '/appop/api/v1/users/:id'
+
+### Request body
+
+Param           | Data Type   | Required  | Description
+--------------- | ----------- | --------- | -----------
+`mail`          | string      | TRUE      | User's email
+`login`         | string      | TRUE      | Username to login
+`firstname`     | string      | TRUE      | User's first name
+`lastname`      | string      | TRUE      | User's last name
+`password`      | string      | FALSE     | Password
+
+### Response
+
+A user object
+```javascript
+{
+  "_type": "User",
+  "_workspace": "your-scrum-project",
+  "id": 8,
+  "firstname": "Bang",
+  "lastname": "Nguyen",
+  "login": "bangnl",
+  "mail": "bangnl@appota.com",
+  "status": 1,
+  "created_on": "05/07/2019/ 04:41 AM",
+  "updated_on": "05/08/2019/ 03:41 AM",
+  "name": "Bang Nguyen",
+  "api_token": "1f882277097d3727f9950b599529268dd8fbf0712fa5b0e157de76704c8d9a3e"
+}
+```
+
+## Remove user from workspace
+
+API for removing a user from workspace. Only admin!
+
+### Request method: `DELETE`
+
+### Endpoint: '/appop/api/v1/users/:id'
+
+### Response
+
+A user object
+```javascript
+{
+  "success": true
 }
 ```
