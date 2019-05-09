@@ -172,6 +172,88 @@ An active project object
 }
 ```
 
+## Project roadmap
+
+API for getting project roadmap (versions)
+
+### Request method: `GET`
+
+### Endpoint: '/appop/api/v1/projects/:project_id/roadmap'
+
+### Response
+
+An array of versions and related issues, wiki content
+```javascript
+{
+  "_type": "Collection",
+  "items": [
+    {
+      "id": 3,
+      "project_id": 1,
+      "name": "Sprint 1",
+      "description": "",
+      "effective_date": null,
+      "created_on": "03/11/2019/ 09:29 AM",
+      "updated_on": "03/11/2019/ 09:29 AM",
+      "wiki_page_title": "Sprint 1",
+      "status": "open",
+      "sharing": "none",
+      "start_date": "2019-04-01",
+      "issues": [
+        {
+          "id": 7,
+          "type_id": 1,
+          "project_id": 1,
+          "subject": "Create wireframes for new landing page",
+          "description": null,
+          "due_date": "2019-04-06",
+          "category_id": null,
+          "status_id": 7,
+          "assigned_to_id": 1,
+          "priority_id": 8,
+          "fixed_version_id": 3,
+          "author_id": 1,
+          "lock_version": 1,
+          "done_ratio": 0,
+          "estimated_hours": null,
+          "created_at": "03/11/2019/ 09:29 AM",
+          "updated_at": "03/11/2019/ 09:29 AM",
+          "start_date": "2019-04-06",
+          "responsible_id": null,
+          "cost_object_id": null,
+          "position": 1,
+          "story_points": null,
+          "remaining_hours": null,
+          "parent_id": 6
+        }
+      ],
+      "wiki_content": {
+        "id": 1,
+        "page_id": 1,
+        "author_id": 1,
+        "text": "### Sprint planning meeting\n\n_Please document here topics to the Sprint planning meeting_\n\n* Time boxed (8 h)\n* Input: Product Backlog\n* Output: Sprint Backlog\n\n* Divided into two additional time boxes of 4 h:\n\n    * The Product Owner presents the team the [Product Backlog](/projects/your-scrum-project/backlogs) and the priorities and explanes the Sprint Goal, to which the team must agree. Together, they prioritize the topics from the Product Backlog which the team will take care of in the next sprint. The team committs to the discussed delivery.\n    * The team plans autonomously (without the Product Owner) in detail and breaks down the tasks from the discussed requirements to consolidate a [Sprint Backlog](/projects/your-scrum-project/backlogs).\n\n\n### Daily Scrum meeting\n\n_Please document here topics to the Daily Scrum meeting_\n\n* Short, daily status meeting of the team.\n* Time boxed (max. 15 min).\n* Stand-up meeting to discuss the following topics from the [Task board](/projects/your-scrum-project/sprints/3/taskboard).\n    * What do I plan to do until the next Daily Scrum?\n    * What has blocked my work (Impediments)?\n* Scrum Master moderates and notes down [Sprint Impediments](/projects/your-scrum-project/sprints/3/taskboard).\n* Product Owner may participate may participate in order to stay informed.\n\n### Sprint Review meeting\n\n_Please document here topcis to the Sprint Review meeting_\n\n* Time boxed (4 h).\n* A maximum of one hour of preparation time per person.\n* The team shows the product owner and other interested persons what has been achieved in this sprint.\n* Important: no dummies and no PowerPoint! Just finished product functionality (Increments) should be demonstrated.\n* Feedback from Product Owner, stakeholders and others is desired and will be included in further work.\n* Based on the demonstrated functionalities, the Product Owner decides to go live with this increment or to develop it further. This possibility allows an early ROI.\n\n\n### Sprint Retrospective\n\n_Please document here topcis to the Sprint Retrospective meeting_\n\n* Time boxed (3 h).\n* After Sprint Review, will be moderated by Scrum Master.\n* The team discusses the sprint: what went well, what needs to be improved to be more productive for the next sprint or even have more fun.\n",
+        "updated_on": "03/11/2019/ 09:29 AM",
+        "lock_version": 0
+      }
+    },
+    {
+      "id": 4,
+      "project_id": 1,
+      "name": "Sprint 2",
+      "description": "",
+      "effective_date": null,
+      "created_on": "03/11/2019/ 09:29 AM",
+      "updated_on": "03/11/2019/ 09:29 AM",
+      "wiki_page_title": null,
+      "status": "open",
+      "sharing": "none",
+      "start_date": null,
+      "issues": []
+    }
+  ]
+}
+```
+
 # Members
 
 ## List members

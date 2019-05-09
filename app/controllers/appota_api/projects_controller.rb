@@ -165,7 +165,10 @@ class AppotaApi::ProjectsController < AppotaApiController
       version_json[:wiki_content] = version.wiki_page.content if version.wiki_page
       response_json << version_json
     end
-    return response_json
+    return {
+      "_type": "Collection",
+      "items": response_json
+    }
   end
 
 private
