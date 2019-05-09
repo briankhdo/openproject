@@ -18,6 +18,163 @@ curl -XPOST http://localhost:3000/appop/api/v1/users
 }'
 ```
 
+# Workspace
+## List workspaces
+
+API for listing workspaces
+
+### Request method: `GET`
+
+### Endpoint: '/appop/api/v1/workspaces'
+Listing active workspaces
+`GET` `/appop/api/v1/workspaces/active`
+Listing archived workspaces
+`GET` `/appop/api/v1/workspaces/archived`
+
+### Response
+
+An array of project objects
+
+```javascript
+{
+  "_type": "Collection",
+  "_workspace": "your-scrum-project",
+  "items": [
+    // array of workspaces
+  ]
+}
+```
+
+A workspace object
+```javascript
+{
+  "_type": "Workspace",
+  "id": 1,
+  "name": "Scrum project",
+  "description": "*This is a Scrum demo project.*\nYou can edit the project description in the [Project settings -> Description](/projects/your-scrum-project/settings).\n",
+  "created_on": "03/11/2019/ 09:29 AM",
+  "updated_on": "04/02/2019/ 07:31 AM",
+  "identifier": "your-scrum-project",
+   "status": 1
+}
+```
+
+
+## Create a workspace
+
+API for creating a new workspace
+
+### Request method: `POST`
+
+### Endpoint: '/appop/api/v1/workspaces'
+
+### Request body
+
+Param           | Data Type   | Required  | Description
+--------------- | ----------- | --------- | -----------
+`name`          | string      | TRUE      | Project name
+`description`   | string      | TRUE      | Project description
+`is_public`     | boolean     | FALSE     | Set project public or private
+`identifier`    | string      | TRUE      | Project slug will be on url
+
+### Response
+
+A workspace object
+```javascript
+{
+  "_type": "Workspace",
+  "id": 1,
+  "name": "Scrum project",
+  "description": "*This is a Scrum demo project.*\nYou can edit the project description in the [Project settings -> Description](/projects/your-scrum-project/settings).\n",
+  "created_on": "03/11/2019/ 09:29 AM",
+  "updated_on": "04/02/2019/ 07:31 AM",
+  "identifier": "your-scrum-project",
+   "status": 1
+}
+```
+
+## Update a workspace
+
+API for updating an existing workspace
+
+### Request method: `PUT`
+
+### Endpoint: '/appop/api/v1/workspaces/:workspace_id'
+
+### Request body
+
+Param           | Data Type   | Required  | Description
+--------------- | ----------- | --------- | -----------
+`name`          | string      | TRUE      | Project name
+`description`   | string      | TRUE      | Project description
+`is_public`     | boolean     | FALSE     | Set project public or private
+`identifier`    | string      | TRUE      | Project slug will be on url
+`status`        | integer     | FALSE     | Update project status
+
+### Response
+
+A workspace object
+```javascript
+{
+  "_type": "Workspace",
+  "id": 1,
+  "name": "Scrum project",
+  "description": "*This is a Scrum demo project.*\nYou can edit the project description in the [Project settings -> Description](/projects/your-scrum-project/settings).\n",
+  "created_on": "03/11/2019/ 09:29 AM",
+  "updated_on": "04/02/2019/ 07:31 AM",
+  "identifier": "your-scrum-project",
+   "status": 1
+}
+```
+
+## Archive a workspace
+
+API for archiving an existing workspace
+
+### Request method: `POST`
+
+### Endpoint: '/appop/api/v1/workspaces/:workspace_id/archive'
+
+### Response
+
+An archived workspace object
+```javascript
+{
+  "_type": "Workspace",
+  "id": 1,
+  "name": "Scrum project",
+  "description": "*This is a Scrum demo project.*\nYou can edit the project description in the [Project settings -> Description](/projects/your-scrum-project/settings).\n",
+  "created_on": "03/11/2019/ 09:29 AM",
+  "updated_on": "04/02/2019/ 07:31 AM",
+  "identifier": "your-scrum-project",
+   "status": 9
+}
+``` 
+
+## Unarchive a workspace
+
+API for unarchiving an archived workspace
+
+### Request method: `POST`
+
+### Endpoint: '/appop/api/v1/workspaces/:workspace_id/unarchive'
+
+### Response
+
+An active workspace object
+```javascript
+{
+  "_type": "Workspace",
+  "id": 1,
+  "name": "Scrum project",
+  "description": "*This is a Scrum demo project.*\nYou can edit the project description in the [Project settings -> Description](/projects/your-scrum-project/settings).\n",
+  "created_on": "03/11/2019/ 09:29 AM",
+  "updated_on": "04/02/2019/ 07:31 AM",
+  "identifier": "your-scrum-project",
+   "status": 1
+}
+```
+
 # Projects
 
 ## List workspace's projects
