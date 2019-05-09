@@ -36,6 +36,10 @@ OpenProject::Application.routes.draw do
     get '/projects/archived', to: 'projects#index', as: :appota_workspace_archived_projects, defaults: { status: 9 }
     post '/projects', to: 'projects#create', as: :appota_create_project
     put '/projects/:id', to: 'projects#update', as: :appota_update_project
+
+    # roadmap
+    get '/projects/:id/roadmap', to: 'projects#roadmap', as: :appota_project_roadmap
+
     post '/projects/:id/archive', to: 'projects#destroy', as: :appota_archive_project
     post '/projects/:id/unarchive', to: 'projects#unarchive', as: :appota_unarchive_project
 

@@ -7,7 +7,7 @@ class AppotaApi::ProjectsController < AppotaApiController
     if status.present?
       @projects = @projects.where(status: status)
     end
-    render json: render_projects(@projects)
+    render json: render_projects(@projects.visible(@current_user))
   end
 
   def create
@@ -84,6 +84,49 @@ class AppotaApi::ProjectsController < AppotaApiController
     end
   end
 
+  def roadmap
+
+    @project_id = params[:id]
+    if @project_id.to_i.to_s != @project_id
+      @project = Project.where(identifier: @project_id).first
+    else
+      @project = Project.where(id: @project_id).first
+    end
+
+    if @project.present?
+
+      @types = @project.types.order(Arel.sql('position'))
+      retrieve_selected_type_ids(@types, @types.select(&:is_in_roadmap?))
+      @with_subprojects = params[:with_subprojects].nil? ? Setting.display_subprojects_work_packages? : (params[:with_subprojects].to_i == 1)
+
+      project_ids = @with_subprojects ? @project.self_and_descendants.map(&:id) : [@project.id]
+
+      @versions = @project.shared_versions || []
+      @versions += @project.rolled_up_versions.visible(@current_user) if @with_subprojects
+      @versions = @versions.uniq.sort
+      @versions.reject! { |version| version.closed? || version.completed? } unless params[:completed]
+
+      @issues_by_version = {}
+      unless @selected_type_ids.empty?
+        @versions.each do |version|
+          issues = version.fixed_issues.visible(@current_user).includes(:project, :status, :type, :priority)
+                   .where(type_id: @selected_type_ids, project_id: project_ids)
+                   .order("#{Project.table_name}.lft, #{::Type.table_name}.position, #{WorkPackage.table_name}.id")
+          @issues_by_version[version] = issues
+        end
+      end
+      @versions.reject! { |version| !project_ids.include?(version.project_id) && @issues_by_version[version].blank? }
+
+      render json: render_versions(@versions, @issues_by_version)
+
+    else
+      render status: 404, json: {
+        _type: "Error",
+        message: "Project ID: #{@project_id} was not found"
+      }
+    end
+  end
+
   def parse_params
     allowed_params = [:id, :name, :description, :is_public, :parent_id, :identifier, :status]
     request_params = params.permit!.to_h.deep_symbolize_keys
@@ -112,5 +155,25 @@ class AppotaApi::ProjectsController < AppotaApiController
       "_workspace": @workspace.identifier,
       "items": projects
     }
+  end
+
+  def render_versions versions, issues_by_version
+    response_json = []
+    versions.each do |version|
+      version_json = version.as_json
+      version_json[:issues] = issues_by_version[version].as_json
+      version_json[:wiki_content] = version.wiki_page.content if version.wiki_page
+      response_json << version_json
+    end
+    return response_json
+  end
+
+private
+  def retrieve_selected_type_ids(selectable_types, default_types = nil)
+    if ids = params[:type_ids]
+      @selected_type_ids = (ids.is_a? Array) ? ids.map { |id| id.to_i.to_s } : ids.split('/').map { |id| id.to_i.to_s }
+    else
+      @selected_type_ids = (default_types || selectable_types).map { |t| t.id.to_s }
+    end
   end
 end
