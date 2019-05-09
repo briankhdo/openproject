@@ -51,6 +51,16 @@ OpenProject::Application.routes.draw do
     post '/users', to: 'users#create', as: :appota_workspace_create_user
     put '/users/:id', to: 'users#update', as: :appota_workspace_update_user
     delete '/users/:id', to: 'users#destroy', as: :appota_workspace_remove_user
+
+    # Workspace CURD
+    get '/workspaces', to: 'workspaces#index', as: :appota_workspaces
+    get '/workspaces/active', to: 'workspaces#index', as: :appota_active_workspaces, defaults: { status: 1 }
+    get '/workspaces/archived', to: 'workspaces#index', as: :appota_archived_workspaces, defaults: { status: 9 }
+
+    post '/workspaces', to: 'workspaces#create', as: :appota_create_workspace
+    put '/workspaces/:id', to: 'workspaces#update', as: :appota_update_workspace
+    post '/workspaces/:id/archive', to: 'workspaces#destroy', as: :appota_archive_workspace
+    post '/workspaces/:id/unarchive', to: 'workspaces#unarchive', as: :appota_unarchive_workspace
   end
 
   rails_relative_url_root = OpenProject::Configuration['rails_relative_url_root'] || ''
