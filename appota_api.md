@@ -20,6 +20,45 @@ curl -XPOST http://localhost:3000/appop/api/v1/users
 
 # Projects
 
+## List workspace's projects
+
+API for listing workspace's projects
+
+### Request method: `GET`
+
+### Endpoint: '/appop/api/v1/projects'
+Listing active projects
+`GET` `/appop/api/v1/projects/active`
+Listing archived projects
+`GET` `/appop/api/v1/projects/archived`
+
+### Response
+
+An array of project objects
+
+```javascript
+{
+  "_type": "Collection",
+  "_workspace": "your-scrum-project",
+  "items": [
+    // array of projects
+  ]
+}
+```
+
+A project object
+```javascript
+{
+  "id": 6,
+  "name": "Dev-custom-fields",
+  "description": null,
+  "identifier": "dev-custom-fields",
+  "status": 1,
+  "created_on": "03/11/2019 09:29 AM",
+  "updated_on": "04/02/2019 07:06 AM"
+}
+```
+
 ## Create a project
 
 API for creating a new project which has reporting and costs modules enabled
@@ -105,6 +144,29 @@ An archived project object
   "description": null,
   "identifier": "dev-custom-fields",
   "status": 9,
+  "created_on": "03/11/2019 09:29 AM",
+  "updated_on": "04/02/2019 07:06 AM"
+}
+```
+
+## Unarchive a project
+
+API for unarchiving an archived project
+
+### Request method: `POST`
+
+### Endpoint: '/appop/api/v1/projects/:project_id/unarchive'
+
+### Response
+
+An active project object
+```javascript
+{
+  "id": 6,
+  "name": "Dev-custom-fields",
+  "description": null,
+  "identifier": "dev-custom-fields",
+  "status": 1,
   "created_on": "03/11/2019 09:29 AM",
   "updated_on": "04/02/2019 07:06 AM"
 }

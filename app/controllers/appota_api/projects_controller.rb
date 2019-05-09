@@ -1,10 +1,23 @@
 class AppotaApi::ProjectsController < AppotaApiController
+
+  def index
+    # list project by current workspace
+    status = params[:status]
+    @projects = @workspace.children
+    if status.present?
+      @projects = @projects.where(status: status)
+    end
+    render json: render_projects(@projects)
+  end
+
   def create
     # assign workspace automatically
-    unless parse_params[:parent_id].present?
-      parse_params[:parent_id] = @workspace.id
+    project_params = parse_params.to_h
+    unless project_params[:parent_id].present?
+      project_params[:parent_id] = @workspace.id
     end
-    new_project = Project.create(parse_params)
+    ap project_params
+    new_project = Project.create(project_params)
     new_project.enabled_module_names += ["reporting_module", "costs_module"]
     render json: render_project(new_project)
   end
@@ -13,9 +26,9 @@ class AppotaApi::ProjectsController < AppotaApiController
     allowed_params = [:name, :description, :identifier, :is_public, :parent_id, :status]
     @project_id = params[:id]
     if @project_id.to_i.to_s != @project_id
-      @project = Project.where(identifier: @project_id).first
+      @project = @workspace.children.where(identifier: @project_id).first
     else
-      @project = Project.where(id: @project_id).first
+      @project = @workspace.children.where(id: @project_id).first
     end
     if @project.present?
       # check parent is workspace
@@ -37,12 +50,31 @@ class AppotaApi::ProjectsController < AppotaApiController
   def destroy
     @project_id = params[:id]
     if @project_id.to_i.to_s != @project_id
-      @project = Project.where(identifier: @project_id).first
+      @project = @workspace.children.where(identifier: @project_id).first
     else
-      @project = Project.where(id: @project_id).first
+      @project = @workspace.children.where(id: @project_id).first
     end
     if @project.present?
       @project.archive
+      render json: render_project(@project)
+    else
+      render status: 404, json: {
+        _type: "Error",
+        message: "Project ID: #{@project_id} was not found"
+      }
+    end
+  end
+
+  def unarchive
+    @project_id = params[:id]
+    if @project_id.to_i.to_s != @project_id
+      @project = @workspace.children.where(identifier: @project_id).first
+    else
+      @project = @workspace.children.where(id: @project_id).first
+    end
+
+    if @project.present?
+      @project.update(status: 1)
       render json: render_project(@project)
     else
       render status: 404, json: {
@@ -70,5 +102,15 @@ class AppotaApi::ProjectsController < AppotaApiController
       project_json = project_json.merge(project.as_json(only: [:id, :identifier, :name, :description, :status, :created_on, :updated_on]))
       return project_json
     end
+  end
+
+  def render_projects projects
+    projects = projects.map { |project| render_project(project) }
+
+    return {
+      "_type": "Collection",
+      "_workspace": @workspace.identifier,
+      "items": projects
+    }
   end
 end

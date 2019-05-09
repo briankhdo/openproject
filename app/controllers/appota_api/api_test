@@ -1,4 +1,12 @@
 curl -XPOST http://localhost:3000/appop/api/v1/users -H "Content-Type: application/json" -H 'Authorization: Basic YXBpa2V5Ojk0NGE2OTQ0ZjgxMzNiZDVmYWJjOGRiYmVkMTQ4Zjc2NjA2NzY4NTNmMmU5YjA0YzJiNzQ3NzQ4MGE0MTI2M2U=' -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "firstname": "Brian 2",
+  "lastname": "Doan",
+  "login": "khoidq2",
+  "mail": "khoidq2@appota.com",
+  "role_id": 6
+}'
+
+curl -XPOST http://localhost:3000/appop/api/v1/users -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project' -d '{
   "firstname": "Brian",
   "lastname": "Doan",
   "login": "bangnl",
@@ -6,18 +14,19 @@ curl -XPOST http://localhost:3000/appop/api/v1/users -H "Content-Type: applicati
   "role_id": 6
 }'
 
-curl -XPOST http://localhost:3000/appop/api/v1/users -H "Content-Type: application/json" -u apikey:f89b6d2d83441cde9cc6c81d92b106b7647c42fc17ab0ac3ab5823198501f7d8 -H 'X-Workspace-Name: your-scrum-project' -d '{
-  "firstname": "Brian",
-  "lastname": "Doan",
-  "login": "bangnl",
-  "mail": "bangnl@appota.com",
-  "role_id": 6
-}'
-
-curl -XPUT http://localhost:3000/appop/api/v1/users/8 -H "Content-Type: application/json" -u apikey:f89b6d2d83441cde9cc6c81d92b106b7647c42fc17ab0ac3ab5823198501f7d8 -H 'X-Workspace-Name: your-scrum-project' -d '{
+curl -XPUT http://localhost:3000/appop/api/v1/users/current -H "Content-Type: application/json" -u apikey:1f882277097d3727f9950b599529268dd8fbf0712fa5b0e157de76704c8d9a3e -H 'X-Workspace-Name: your-scrum-project' -d '{
   "firstname": "Bang",
   "lastname": "Nguyen",
-  "login": "bangnl",
-  "mail": "bangnl@appota.com",
+  "login": "bangnl100",
+  "mail": "bangnl100@appota.com",
   "role_id": 6
+}'
+
+curl -XDELETE http://localhost:3000/appop/api/v1/users/11 -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project'
+
+
+curl -XPOST http://localhost:3000/appop/api/v1/projects -H "Content-Type: application/json" -u apikey:1f882277097d3727f9950b599529268dd8fbf0712fa5b0e157de76704c8d9a3e -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "name": "Scrum child project 3",
+  "description": "This is a children project, created to test projects API",
+  "identifier": "scrum-child-project-3"
 }'

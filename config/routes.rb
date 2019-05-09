@@ -31,9 +31,13 @@ OpenProject::Application.routes.draw do
   root to: 'homescreen#index', as: 'home'
 
   scope '/appop/api/v1', module: 'appota_api' do
+    get '/projects', to: 'projects#index', as: :appota_workspace_projects
+    get '/projects/active', to: 'projects#index', as: :appota_workspace_active_projects, defaults: { status: 1 }
+    get '/projects/archived', to: 'projects#index', as: :appota_workspace_archived_projects, defaults: { status: 9 }
     post '/projects', to: 'projects#create', as: :appota_create_project
     put '/projects/:id', to: 'projects#update', as: :appota_update_project
     post '/projects/:id/archive', to: 'projects#destroy', as: :appota_archive_project
+    post '/projects/:id/unarchive', to: 'projects#unarchive', as: :appota_unarchive_project
 
     get '/projects/:project_id/members', to: 'members#index', as: :appota_list_members
     post '/projects/:project_id/members', to: 'members#create', as: :appota_create_member
