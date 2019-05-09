@@ -32,6 +32,7 @@ OpenProject::Application.routes.draw do
 
   scope '/appop/api/v1', module: 'appota_api' do
     get '/projects', to: 'projects#index', as: :appota_workspace_projects
+    get '/projects/:id', to: 'projects#show', as: :appota_workspace_project
     get '/projects/active', to: 'projects#index', as: :appota_workspace_active_projects, defaults: { status: 1 }
     get '/projects/archived', to: 'projects#index', as: :appota_workspace_archived_projects, defaults: { status: 9 }
     post '/projects', to: 'projects#create', as: :appota_create_project

@@ -59,6 +59,147 @@ A project object
 }
 ```
 
+Get project overview
+
+### Request method: `GET`
+
+### Endpoint: '/appop/api/v1/projects/:project-id'
+
+### Response
+
+```javascript
+{
+  "_type": "Project",
+  "id": 1,
+  "name": "Scrum project",
+  "description": "*This is a Scrum demo project.*\nYou can edit the project description in the [Project settings -> Description](/projects/your-scrum-project/settings).\n",
+  "created_on": "03/11/2019/ 09:29 AM",
+  "updated_on": "04/02/2019/ 07:31 AM",
+  "identifier": "your-scrum-project",
+  "status": 1,
+  "users_by_role": {},
+  "sub_projects": [
+    {
+      "_type": "Project",
+      "id": 12,
+      "name": "Scrum child project 3",
+      "description": "This is a children project, created to test projects API",
+      "created_on": "05/09/2019/ 02:25 AM",
+      "updated_on": "05/09/2019/ 02:25 AM",
+      "identifier": "scrum-child-project-3",
+      "status": 1
+    }
+  ],
+  "news": [
+    {
+      "id": 1,
+      "project_id": 1,
+      "title": "Welcome to your Scrum demo project",
+      "summary": "We are glad you joined. In this module you can communicate project news to your team members.\n",
+      "description": "This is the news content.",
+      "author_id": 0,
+      "created_on": "03/11/2019/ 09:29 AM",
+      "comments_count": 0
+    }
+  ],
+  "types": [
+    {
+      "name": "Task",
+      "position": 1,
+      "is_in_roadmap": true,
+      "is_milestone": false,
+      "is_default": true,
+      "color_id": 2,
+      "created_at": "03/11/2019/ 09:29 AM",
+      "updated_at": "03/11/2019/ 09:29 AM",
+      "is_standard": false
+    },
+    {
+      "name": "Milestone",
+      "position": 3,
+      "is_in_roadmap": false,
+      "is_milestone": true,
+      "is_default": true,
+      "color_id": 4,
+      "created_at": "03/11/2019/ 09:29 AM",
+      "updated_at": "03/11/2019/ 09:29 AM",
+      "is_standard": false
+    },
+    {
+      "name": "Phase",
+      "position": 4,
+      "is_in_roadmap": false,
+      "is_milestone": false,
+      "is_default": true,
+      "color_id": 1,
+      "created_at": "03/11/2019/ 09:29 AM",
+      "updated_at": "03/11/2019/ 09:29 AM",
+      "is_standard": false
+    },
+    {
+      "name": "Feature",
+      "position": 5,
+      "is_in_roadmap": true,
+      "is_milestone": false,
+      "is_default": true,
+      "color_id": 2,
+      "created_at": "03/11/2019/ 09:29 AM",
+      "updated_at": "03/11/2019/ 09:29 AM",
+      "is_standard": false
+    },
+    {
+      "name": "Epic",
+      "position": 6,
+      "is_in_roadmap": true,
+      "is_milestone": false,
+      "is_default": true,
+      "color_id": 7,
+      "created_at": "03/11/2019/ 09:29 AM",
+      "updated_at": "03/11/2019/ 09:29 AM",
+      "is_standard": false
+    },
+    {
+      "name": "User story",
+      "position": 7,
+      "is_in_roadmap": true,
+      "is_milestone": false,
+      "is_default": true,
+      "color_id": 13,
+      "created_at": "03/11/2019/ 09:29 AM",
+      "updated_at": "03/11/2019/ 09:29 AM",
+      "is_standard": false
+    },
+    {
+      "name": "Bug",
+      "position": 8,
+      "is_in_roadmap": true,
+      "is_milestone": false,
+      "is_default": true,
+      "color_id": 8,
+      "created_at": "03/11/2019/ 09:29 AM",
+      "updated_at": "03/11/2019/ 09:29 AM",
+      "is_standard": false
+    }
+  ],
+  "open_issues_by_type": {
+    "Task": 2,
+    "Milestone": 3,
+    "Phase": 3,
+    "Epic": 1,
+    "User story": 11,
+    "Bug": 2
+  },
+  "total_issues_by_type": {
+    "Task": 3,
+    "Milestone": 3,
+    "Phase": 3,
+    "Epic": 1,
+    "User story": 11,
+    "Bug": 2
+  }
+}
+```
+
 ## Create a project
 
 API for creating a new project which has reporting and costs modules enabled
@@ -147,7 +288,7 @@ An archived project object
   "created_on": "03/11/2019 09:29 AM",
   "updated_on": "04/02/2019 07:06 AM"
 }
-```
+``` 
 
 ## Unarchive a project
 

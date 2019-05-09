@@ -10,13 +10,58 @@ class AppotaApi::ProjectsController < AppotaApiController
     render json: render_projects(@projects.visible(@current_user))
   end
 
+  def show
+
+    @project_id = params[:id]
+    if @project_id.to_i.to_s != @project_id
+      @project = Project.where(identifier: @project_id).first
+    else
+      @project = Project.where(id: @project_id).first
+    end
+    if @project.present?
+      @users_by_role = @project.users_by_role
+      @subprojects = @project.children.visible(@current_user)
+      @news = @project.news.limit(5).includes(:author, :project).order("#{News.table_name}.created_on DESC")
+      @types = @project.rolled_up_types
+
+      cond = @project.project_condition(Setting.display_subprojects_work_packages?)
+
+      @open_issues_by_type = WorkPackage
+                             .visible(@current_user).group(:type)
+                             .includes(:project, :status, :type)
+                             .where(["(#{cond}) AND #{Status.table_name}.is_closed=?", false])
+                             .references(:projects, :statuses, :types)
+                             .count
+      @total_issues_by_type = WorkPackage
+                              .visible(@current_user).group(:type)
+                              .includes(:project, :status, :type)
+                              .where(cond)
+                              .references(:projects, :statuses, :types)
+                              .count
+
+      project_json = render_project(@project)
+      project_json[:users_by_role] = @users_by_role.as_json(only: [:id, :login, :mail, :firstname, :lastname, :apitoken, :status, :created_on, :updated_on])
+      project_json[:sub_projects] = render_projects(@subprojects, false)
+      project_json[:news] = @news.as_json
+      project_json[:types] = @types.as_json(only: [:name, :position, :is_in_roadmap, :is_milestone, :is_default, :color_id, :created_at, :updated_at, :is_standard])
+      project_json[:open_issues_by_type] = @open_issues_by_type.as_json
+      project_json[:total_issues_by_type] = @total_issues_by_type.as_json
+
+      render json: project_json
+    else
+      render status: 404, json: {
+        _type: "Error",
+        message: "Project ID: #{@project_id} was not found"
+      }
+    end
+  end
+
   def create
     # assign workspace automatically
     project_params = parse_params.to_h
     unless project_params[:parent_id].present?
       project_params[:parent_id] = @workspace.id
     end
-    ap project_params
     new_project = Project.create(project_params)
     new_project.enabled_module_names += ["reporting_module", "costs_module"]
     render json: render_project(new_project)
@@ -88,9 +133,9 @@ class AppotaApi::ProjectsController < AppotaApiController
 
     @project_id = params[:id]
     if @project_id.to_i.to_s != @project_id
-      @project = Project.where(identifier: @project_id).first
+      @project = @workspace.children.where(identifier: @project_id).first
     else
-      @project = Project.where(id: @project_id).first
+      @project = @workspace.children.where(id: @project_id).first
     end
 
     if @project.present?
@@ -147,14 +192,15 @@ class AppotaApi::ProjectsController < AppotaApiController
     end
   end
 
-  def render_projects projects
+  def render_projects projects, collection = true
+    ap projects
     projects = projects.map { |project| render_project(project) }
 
-    return {
+    return collection ? {
       "_type": "Collection",
       "_workspace": @workspace.identifier,
       "items": projects
-    }
+    } : projects
   end
 
   def render_versions versions, issues_by_version
