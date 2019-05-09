@@ -8,7 +8,7 @@ class AppotaApi::WorkspacesController < AppotaApiController
       @workspaces = @workspaces.where(status: status)
     end
 
-    render json: render_projects(@workspaces)
+    render json: render_projects(@workspaces.visible(@current_user))
   end
 
   def create
