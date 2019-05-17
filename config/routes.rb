@@ -73,7 +73,7 @@ OpenProject::Application.routes.draw do
     
     get '/versions/:id', to: 'versions#show', as: :appota_version
     put '/versions/:id', to: 'versions#update', as: :appota_update_version
-    delete '/versions/:delete', to: 'versions#destroy', as: :appota_destroy_version
+    delete '/versions/:id', to: 'versions#destroy', as: :appota_destroy_version
 
     post '/versions', to: 'versions#create', as: :appota_create_versions
     post '/projects/:project_id/versions', to: 'versions#create', as: :appota_create_project_versions
