@@ -66,6 +66,29 @@ OpenProject::Application.routes.draw do
     put '/workspaces/:id', to: 'workspaces#update', as: :appota_update_workspace
     post '/workspaces/:id/archive', to: 'workspaces#destroy', as: :appota_archive_workspace
     post '/workspaces/:id/unarchive', to: 'workspaces#unarchive', as: :appota_unarchive_workspace
+
+    # Version CURD
+    get '/versions', to: 'versions#index', as: :appota_versions
+    get '/projects/:project_id/versions', to: 'versions#index', as: :appota_project_versions
+    
+    get '/versions/:id', to: 'versions#show', as: :appota_version
+    put '/versions/:id', to: 'versions#update', as: :appota_update_version
+    delete '/versions/:delete', to: 'versions#destroy', as: :appota_destroy_version
+
+    post '/versions', to: 'versions#create', as: :appota_create_versions
+    post '/projects/:project_id/versions', to: 'versions#create', as: :appota_create_project_versions
+
+    # Wiki Page CURD
+    get '/wiki_pages', to: 'wiki_pages#index', as: :appota_workspace_wiki_pages
+    get '/projects/:project_id/wiki_pages', to: 'wikis#index', as: :appota_project_wiki_pages
+    get '/wiki_pages/:id', to: 'wiki_pages#show', as: :appota_show_wiki_page
+    get '/wiki_pages/:id/history', to: 'wiki_pages#history', as: :appota_show_wiki_page_history
+
+    post '/wiki_pages', to: 'wiki_pages#create', as: :appota_workspace_create_wiki_pages
+    post '/projects/:project_id/wiki_pages', to: 'wiki_pages#create', as: :appota_project_create_wiki_pages
+
+    put '/wiki_pages/:id', to: 'wiki_pages#update', as: :appota_update_wiki_page
+    delete '/wiki_pages/:id', to: 'wiki_pages#destroy', as: :appota_destroy_wiki_page
   end
 
   rails_relative_url_root = OpenProject::Configuration['rails_relative_url_root'] || ''
