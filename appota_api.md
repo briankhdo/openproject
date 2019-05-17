@@ -851,7 +851,7 @@ Listing project's versions
 
 ### Response
 
-An array `response["items"]` of user objects represent workspace's / project's versions
+An array `response["items"]` of version objects represent workspace's / project's versions
 
 ```javascript
 {
@@ -978,7 +978,7 @@ Listing project's wiki pages
 
 ### Response
 
-An array `response["items"]` of user objects represent workspace's / project's wiki pages
+An array `response["items"]` of wiki page objects represent workspace's / project's wiki pages
 
 ```javascript
 {
@@ -1115,7 +1115,7 @@ Get wiki page change history
 
 ### Response
 
-An array `response["items"]` of user objects represent wiki page change log
+An array `response["items"]` of history objects represent wiki page change log
 
 ```javascript
 {
