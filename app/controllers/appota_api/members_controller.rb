@@ -32,7 +32,27 @@ class AppotaApi::MembersController < AppotaApiController
 
   # update user's role
   def update
+    user_id = params[:user_id]
+    new_role_ids = params[:role_ids]
 
+    @member = @project.members.where(user_id: user_id).first
+
+    if @member.present?
+      begin
+        @member.roles = Role.where(id: new_role_ids)
+        render json: json_member(@member)
+      rescue
+        render status: 403, json: {
+        _type: "Error",
+        message: $!
+      }
+      end
+    else
+      render status: 404, json: {
+        _type: "Error",
+        message: "User ID: #{user_id} was not in project"
+      }
+    end
   end
 
   # remove project member
@@ -83,6 +103,22 @@ private
         message: "Project ID: #{@project_id} was not found"
       }
       return false
+    end
+  end
+
+  def json_member member
+    if member.errors.present?
+      render status: 403, json: {
+        _type: "Error",
+        message: member.errors
+      }
+    else
+      user = member.user
+      roles = member.roles
+      user_json = user.as_json(only: [:id, :firstname, :lastname, :mail])
+      user_json[:avatar] = avatar_url(user)
+      user_json[:roles] = roles.as_json(only: [:id, :name])
+      return user_json
     end
   end
 

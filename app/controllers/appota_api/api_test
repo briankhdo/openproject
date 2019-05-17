@@ -30,3 +30,49 @@ curl -XPOST http://localhost:3000/appop/api/v1/projects -H "Content-Type: applic
   "description": "This is a children project, created to test projects API",
   "identifier": "scrum-child-project-3"
 }'
+
+
+
+# create Version
+curl -XPOST http://localhost:3000/appop/api/v1/versions -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "name": "Sprint 10",
+  "description": "This is version 1",
+  "wiki_page_title": "Sprint 1 Wiki Title",
+  "sharing": "tree",
+  "position": 1
+}'
+
+# update Version
+curl -XPUT http://localhost:3000/appop/api/v1/versions/22 -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "name": "Sprint 11",
+  "description": "This is version 1",
+  "wiki_page_title": "Sprint 1 Wiki Title",
+  "sharing": "tree",
+  "position": 1
+}'
+
+
+# create WikiPage
+curl -XPOST http://localhost:3000/appop/api/v1/wiki_pages -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "title": "Sprint 2",
+  "slug": "sprint-2",
+  "content": "Sprint 2 Wiki Content"
+}'
+
+curl -XPUT http://localhost:3000/appop/api/v1/wiki_pages/9 -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "title": "Sprint 2",
+  "slug": "sprint-2",
+  "content": "Sprint 2 Wiki Content",
+  "notes": "Update wiki content"
+}'
+
+curl -XDELETE http://localhost:3000/appop/api/v1/wiki_pages/9 -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project'
+
+
+# Update member roles
+curl -XPUT http://localhost:3000/appop/api/v1/projects/2/members/11 -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project' -d '{
+  "title": "Sprint 2",
+  "slug": "sprint-2",
+  "content": "Sprint 2 Wiki Content",
+  "notes": "Update wiki content"
+}'

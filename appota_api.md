@@ -1,5 +1,6 @@
 
 
+
 # Workspace idenfitication
 
 Please use `X-Workspace-Name` to input project identifier as a workspace.
@@ -666,6 +667,37 @@ Please note getting roles using this endpoint
 ### Response
 
 An array `response["items"]` of user objects represent project's current members
+
+## Update member's roles
+
+API to update member's roles in a project
+
+### Request method: `PUT`
+
+### Endpoint: '/appop/api/v1/projects/:project_id/members/:user_id'
+
+Param           | Data Type   | Required  | Description
+--------------- | ----------- | --------- | -----------
+`role_ids`      | array       | TRUE      | Array of role IDs
+
+### Response
+
+A user object
+```javascript
+{
+  "id": 11,
+  "firstname": "Brian",
+  "lastname": "Doan",
+  "mail": "bangnl@appota.com",
+  "avatar": "http://gravatar.com/avatar/be0a8045021f5aac98206d6f9afe78fa?default=404&secure=false",
+  "roles": [
+    {
+      "id": 3,
+      "name": "Project admin"
+    }
+  ]
+}
+```
 
 ## Remove members from a project
 
