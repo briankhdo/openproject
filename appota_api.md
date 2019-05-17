@@ -835,7 +835,7 @@ A user object
 }
 ```
 
-# Versions
+# Versions
 
 ## List versions
 
@@ -962,7 +962,7 @@ A user object
 }
 ```
 
-# Wiki Pages
+# Wiki Pages
 
 ## List wiki pages
 
