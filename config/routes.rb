@@ -80,7 +80,7 @@ OpenProject::Application.routes.draw do
 
     # Wiki Page CURD
     get '/wiki_pages', to: 'wiki_pages#index', as: :appota_workspace_wiki_pages
-    get '/projects/:project_id/wiki_pages', to: 'wikis#index', as: :appota_project_wiki_pages
+    get '/projects/:project_id/wiki_pages', to: 'wiki_pages#index', as: :appota_project_wiki_pages
     get '/wiki_pages/:id', to: 'wiki_pages#show', as: :appota_show_wiki_page
     get '/wiki_pages/:id/history', to: 'wiki_pages#history', as: :appota_show_wiki_page_history
 
