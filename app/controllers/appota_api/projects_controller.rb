@@ -7,7 +7,16 @@ class AppotaApi::ProjectsController < AppotaApiController
     if status.present?
       @projects = @projects.where(status: status)
     end
-    render json: render_projects(@projects.visible(@current_user))
+
+    @projects = @projects.visible(@current_user)
+    total = @projects.count
+
+    # pagination
+    offset = params[:offset] || 0
+    limit = params[:limit] || 30
+    @projects = @projects.offset(offset).limit(limit)
+
+    render json: render_projects(@projects, total)
   end
 
   def show
@@ -192,15 +201,14 @@ class AppotaApi::ProjectsController < AppotaApiController
     end
   end
 
-  def render_projects projects, collection = true
-    ap projects
+  def render_projects projects, total = 0
     projects = projects.map { |project| render_project(project) }
-
-    return collection ? {
+    return {
       "_type": "Collection",
+      "total": total,
       "_workspace": @workspace.identifier,
       "items": projects
-    } : projects
+    }
   end
 
   def render_versions versions, issues_by_version

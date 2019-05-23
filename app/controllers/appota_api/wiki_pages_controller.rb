@@ -5,7 +5,14 @@ class AppotaApi::WikiPagesController < AppotaApiController
   def index
     wiki = @project.wiki
     pages = wiki.pages
-    render json: render_wiki_pages(pages)
+    total = pages.count
+    
+    # pagination
+    offset = params[:offset] || 0
+    limit = params[:limit] || 30
+    pages = pages.offset(offset).limit(limit)
+
+    render json: render_wiki_pages(pages, total)
   end
 
   def show
@@ -128,9 +135,10 @@ class AppotaApi::WikiPagesController < AppotaApiController
     end
   end
 
-  def render_wiki_pages wiki_pages
+  def render_wiki_pages wiki_pages, total = 0
     return {
       "_type": "Collection",
+      "total": total,
       "items": wiki_pages.map { |v| render_wiki_page(v) }
     }
   end
