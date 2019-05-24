@@ -71,8 +71,5 @@ curl -XDELETE http://localhost:3000/appop/api/v1/wiki_pages/9 -H "Content-Type: 
 
 # Update member roles
 curl -XPUT http://localhost:3000/appop/api/v1/projects/2/members/11 -H "Content-Type: application/json" -u apikey:944a6944f8133bd5fabc8dbbed148f7660676853f2e9b04c2b7477480a41263e -H 'X-Workspace-Name: your-scrum-project' -d '{
-  "title": "Sprint 2",
-  "slug": "sprint-2",
-  "content": "Sprint 2 Wiki Content",
-  "notes": "Update wiki content"
+  "role_ids": [2]
 }'

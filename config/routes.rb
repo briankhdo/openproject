@@ -89,6 +89,9 @@ OpenProject::Application.routes.draw do
 
     put '/wiki_pages/:id', to: 'wiki_pages#update', as: :appota_update_wiki_page
     delete '/wiki_pages/:id', to: 'wiki_pages#destroy', as: :appota_destroy_wiki_page
+
+    # get workpackages
+    get '/projects/:project_id/work_packages', to: 'work_packages#index', as: :appota_project_work_packages
   end
 
   rails_relative_url_root = OpenProject::Configuration['rails_relative_url_root'] || ''

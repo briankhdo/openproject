@@ -1158,3 +1158,104 @@ An array `response["items"]` of history objects represent wiki page change log
   "version": 1
 }
 ```
+
+# Work Packages
+
+## List work packages by project
+
+### Request method: `GET`
+
+### Endpoint: '/appop/api/v1/projects/:project_id/work_packages'
+
+### Reponse
+
+An array `response["items"]` of Work Package objects represent project's work packages
+```javascript
+{
+  "_type": "Collection",
+  "total": 17,
+  "items": [
+    {
+      "_type": "WorkPackage",
+      "materialCosts": "0.00 EUR",
+      "overallCosts": "0.00 EUR",
+      "id": 1,
+      "description": null,
+      "lockVersion": 0,
+      "subject": "New login screen",
+      "startDate": null,
+      "dueDate": null,
+      "estimatedTime": null,
+      "spentTime": "PT0S",
+      "percentageDone": 0,
+      "createdAt": "2019-03-11T09:29:39Z",
+      "updatedAt": "2019-03-11T09:29:40Z",
+      "position": 6,
+      "storyPoints": null,
+      "remainingTime": null,
+      "children": []
+    },
+    {
+      "_type": "WorkPackage",
+      "materialCosts": "0.00 EUR",
+      "overallCosts": "0.00 EUR",
+      "id": 3,
+      "description": null,
+      "lockVersion": 4,
+      "subject": "New website",
+      "startDate": "2019-04-06T00:00:00Z",
+      "dueDate": "2019-04-06T00:00:00Z",
+      "estimatedTime": "PT20H",
+      "spentTime": "PT0S",
+      "percentageDone": 5,
+      "createdAt": "2019-03-11T09:29:40Z",
+      "updatedAt": "2019-05-24T03:06:38Z",
+      "position": 1,
+      "storyPoints": null,
+      "remainingTime": "PT20H",
+      "children": [
+        {
+          "_type": "WorkPackage",
+          "materialCosts": "0.00 EUR",
+          "overallCosts": "0.00 EUR",
+          "id": 4,
+          "description": null,
+          "lockVersion": 1,
+          "subject": "Newsletter registration form",
+          "startDate": null,
+          "dueDate": null,
+          "estimatedTime": null,
+          "spentTime": "PT0S",
+          "percentageDone": 0,
+          "createdAt": "2019-03-11T09:29:40Z",
+          "updatedAt": "2019-03-11T09:29:40Z",
+          "position": 11,
+          "storyPoints": null,
+          "remainingTime": null,
+          "children": []
+        },
+        {
+          "_type": "WorkPackage",
+          "materialCosts": "0.00 EUR",
+          "overallCosts": "0.00 EUR",
+          "id": 5,
+          "description": null,
+          "lockVersion": 1,
+          "subject": "Implement product tour",
+          "startDate": null,
+          "dueDate": null,
+          "estimatedTime": null,
+          "spentTime": "PT0S",
+          "percentageDone": 0,
+          "createdAt": "2019-03-11T09:29:40Z",
+          "updatedAt": "2019-03-11T09:29:40Z",
+          "position": 7,
+          "storyPoints": null,
+          "remainingTime": null,
+          "children": []
+        }
+      ]
+    }
+  ]
+}
+```

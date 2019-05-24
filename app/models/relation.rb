@@ -49,6 +49,8 @@ class Relation < ActiveRecord::Base
     end
   end
 
+  belongs_to :work_package, foreign_key: 'from_id'
+
   TYPE_RELATES      = 'relates'.freeze
   TYPE_DUPLICATES   = 'duplicates'.freeze
   TYPE_DUPLICATED   = 'duplicated'.freeze
