@@ -32,6 +32,7 @@ require 'digest/md5'
 
 class Attachment < ActiveRecord::Base
   ALLOWED_IMAGE_TYPES = %w[image/gif image/jpeg image/png image/tiff image/bmp].freeze
+  ALLOWED_VIDEO_TYPES = %w[video/mp4 video/quicktime video/x-msvideo video/x-flv application/x-mpegURL].freeze
 
   belongs_to :container, polymorphic: true
   belongs_to :author, class_name: 'User', foreign_key: 'author_id'
@@ -97,11 +98,15 @@ class Attachment < ActiveRecord::Base
 
   # images are sent inline
   def inlineable?
-    is_image?
+    is_image? or is_video?
   end
 
   def is_image?
     ALLOWED_IMAGE_TYPES.include?(content_type)
+  end
+
+  def is_video?
+    ALLOWED_VIDEO_TYPES.include?(content_type)
   end
 
   # backwards compatibility for plugins
