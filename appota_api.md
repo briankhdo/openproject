@@ -503,6 +503,9 @@ An array of versions and related issues, wiki content
       "status": "open",
       "sharing": "none",
       "start_date": "2019-04-01",
+      "total_issues": 1,
+      "closed_issues": 0,
+      "open_issues": 1,
       "issues": [
         {
           "id": 7,
@@ -1193,7 +1196,25 @@ An array `response["items"]` of Work Package objects represent project's work pa
       "position": 6,
       "storyPoints": null,
       "remainingTime": null,
-      "children": []
+      "children": [],
+      "status": {
+        "id": 2,
+        "name": "In specification"
+      },
+      "type": {
+        "id": 6,
+        "name": "User story"
+      },
+      "author": {
+        "id": 1,
+        "login": "admin",
+        "firstname": "OpenProject",
+        "lastname": "Admin",
+        "mail": "admin@example.net",
+        "status": 1,
+        "created_on": "03/11/2019/ 09:29 AM",
+        "updated_on": "05/23/2019/ 08:16 AM"
+      }
     },
     {
       "_type": "WorkPackage",
@@ -1254,7 +1275,25 @@ An array `response["items"]` of Work Package objects represent project's work pa
           "remainingTime": null,
           "children": []
         }
-      ]
+      ],
+      "status": {
+        "id": 2,
+        "name": "In specification"
+      },
+      "type": {
+        "id": 6,
+        "name": "User story"
+      },
+      "author": {
+        "id": 1,
+        "login": "admin",
+        "firstname": "OpenProject",
+        "lastname": "Admin",
+        "mail": "admin@example.net",
+        "status": 1,
+        "created_on": "03/11/2019/ 09:29 AM",
+        "updated_on": "05/23/2019/ 08:16 AM"
+      }
     }
   ]
 }
