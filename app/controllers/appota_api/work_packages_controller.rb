@@ -12,7 +12,7 @@ class AppotaApi::WorkPackagesController < AppotaApiController
 
     relations = relations.offset(offset).limit(limit)
 
-    work_packages = WorkPackage.where(id: relations.pluck(:to_id)).order(created_at: :asc)
+    work_packages = WorkPackage.where(id: relations.pluck(:to_id)).includes(:status, :type, :author).order(created_at: :asc)
     render json: render_work_packages(work_packages, total)
   end
 
@@ -51,7 +51,10 @@ class AppotaApi::WorkPackagesController < AppotaApiController
       position: work_package.position,
       storyPoints: work_package.story_points,
       remainingTime: datetime_formatter.format_duration_from_hours(work_package.remaining_hours, allow_nil: true),
-      children: total_children > 0 ? render_work_packages(work_package.children.order(created_at: :asc), total_children, false) : []
+      children: total_children > 0 ? render_work_packages(work_package.children.order(created_at: :asc), total_children, false) : [],
+      status: work_package.status.as_json(only: [:id, :name]),
+      type: work_package.type.as_json(only: [:id, :name]),
+      author: work_package.author.as_json(only: [:id, :login, :mail, :firstname, :lastname, :apitoken, :status, :created_on, :updated_on])
     }
   end
 
