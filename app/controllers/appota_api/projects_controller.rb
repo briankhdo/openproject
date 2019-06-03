@@ -215,6 +215,9 @@ class AppotaApi::ProjectsController < AppotaApiController
     response_json = []
     versions.each do |version|
       version_json = version.as_json
+      version_json[:total_issues] = version.fixed_issues.count
+      version_json[:closed_issues] = version.closed_issues_count
+      version_json[:open_issues] = version.open_issues_count
       version_json[:issues] = issues_by_version[version].as_json
       version_json[:wiki_content] = version.wiki_page.content if version.wiki_page
       response_json << version_json
